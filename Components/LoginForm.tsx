@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, {useState} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
+
 export default function LoginForm(): React.JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -11,9 +13,18 @@ export default function LoginForm(): React.JSX.Element {
     'https://api.multiavatar.com/MKaDifference.png',
   );
 
-  const handleLogin = () => {
-    // Handle login logic here
+  const handleLogin = async () => {
     console.log(`Username: ${username}, Password: ${password}`);
+
+    // Handle login logic here
+    const name = username;
+    const userData = {name: name, password: password, passwordR, email};
+    const {data} = await axios.post('users/login', userData);
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      data.token = 'Bearer ' + data.token;
+    }
   };
 
   const handleJoinUs = () => {
@@ -44,6 +55,7 @@ export default function LoginForm(): React.JSX.Element {
           onChangeText={setUsername}
           onEndEditing={handleAvatarChange}
           value={username}
+          autoCapitalize="none"
         />
         {joinUs && (
           <Text style={styles.note}>Username will decide the avatar</Text>
