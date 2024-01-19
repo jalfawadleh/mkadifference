@@ -84,7 +84,7 @@ export default function LoginForm(probs: {
             <Text style={styles.note}>Username will decide the avatar</Text>
           </>
         )}
-        <Text style={styles.note}> {error}</Text>
+        {error && <Text style={styles.error}> {error}</Text>}
         <TextInput
           style={styles.input}
           autoComplete="username"
@@ -151,7 +151,7 @@ export default function LoginForm(probs: {
 
 const styles = StyleSheet.create({
   view: {
-    padding: 20,
+    padding: 10,
   },
   header: {
     color: 'black',
@@ -165,6 +165,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     alignSelf: 'center',
+  },
+  error: {
+    padding: 5,
+    color: 'red',
+    alignSelf: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   viewForm: {
     margin: 0,
@@ -183,7 +190,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    paddingTop: 20,
+    paddingTop: 10,
     margin: 0,
   },
   viewButton: {
