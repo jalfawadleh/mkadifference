@@ -4,18 +4,18 @@
  *
  * @format
  */
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import LoginForm from './Components/LoginForm';
 import axios from 'axios';
 
 export default function App(): React.JSX.Element {
-  // const [user, setUser] = useState({
-  //   _id: '',
-  //   name: '',
-  //   token: '',
-  //   logged: false,
-  // });
+  const [user, setUser] = useState({
+    _id: '',
+    name: '',
+    token: '',
+    logged: false,
+  });
 
   axios.defaults.baseURL = 'http://127.0.0.1:3001/api/';
   // axios.defaults.headers.common.Authorization = user.token;
@@ -24,7 +24,7 @@ export default function App(): React.JSX.Element {
 
   return (
     <SafeAreaView>
-      <LoginForm />
+      <LoginForm user={user} setUser={setUser} />
     </SafeAreaView>
   );
 }

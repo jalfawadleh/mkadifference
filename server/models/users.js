@@ -1,0 +1,63 @@
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+const userSchema = Schema(
+  {
+    name: {
+      type: String,
+      minlength: 4,
+      maxlength: 50,
+      trim: true,
+      required: [true, "Please add a name"],
+      unique: "already exist",
+    },
+    password: {
+      type: String,
+      required: [true, "Please add a password"],
+    },
+    email: {
+      type: String,
+      required: [true, "Please add an email"],
+      unique: true,
+    },
+    description: String,
+    hidden: { type: Boolean, default: false },
+    hobbies: [{ name: String }],
+    location: {
+      lng: { type: Number, default: -122.2683 },
+      lat: { type: Number, default: 37.8243 },
+    },
+    help: [{ name: String }],
+    type: { type: String, default: "members" },
+    contacts: [
+      {
+        id: { type: Schema.Types.ObjectId },
+        name: { type: String },
+        approved: { type: Boolean, default: false },
+      },
+    ],
+    communities: [
+      {
+        id: Schema.Types.ObjectId,
+        name: String,
+      },
+    ],
+    events: [
+      {
+        id: Schema.Types.ObjectId,
+        name: String,
+      },
+    ],
+    projects: [
+      {
+        id: Schema.Types.ObjectId,
+        name: String,
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
+
+module.exports = mongoose.model("User", userSchema);
