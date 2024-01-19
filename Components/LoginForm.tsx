@@ -22,24 +22,27 @@ export default function LoginForm(probs: {
 
   const [error, setError] = useState('');
 
-  const handleLogin = async () => {
-    const {data} = await axios.post('users/login', userData);
-    if (data.error) {
-      console.log(data.error);
-    } else {
-      data.token = 'Bearer ' + data.token;
-      probs.setUser(data);
-      console.log(data);
+  const onPress = async () => {
+    // checking username and password
+    if (username === '') {
+      setError('Enter Username');
+      return;
+    } else if (password === '') {
+      setError('Enter Password');
+      return;
     }
-  };
 
-  const handleJoinUs = async () => {
-    // New account
-    if (password !== rpassword) {
-      setError('Passwords do not match');
-    } else if (email === '') {
-      setError('Please Enter Email');
-    } else {
+    // if login or join
+    if (joinUs) {
+      if (password !== rpassword) {
+        setError('Passwords do not match');
+        return;
+      }
+      if (email === '') {
+        setError('Please Enter Email');
+        return;
+      }
+
       // Create a New account
       const {data} = await axios.post('users/', userData);
       if (data.error) {
@@ -48,9 +51,18 @@ export default function LoginForm(probs: {
         data.token = 'Bearer ' + data.token;
         probs.setUser(data);
       }
+    } else {
+      // login
+      const {data} = await axios.post('users/login', userData);
+      if (data.error) {
+        setError(data.error);
+        console.log(data.error);
+      } else {
+        data.token = 'Bearer ' + data.token;
+        probs.setUser(data);
+        console.log('Login Successful');
+      }
     }
-
-    setJoinUs(!joinUs);
   };
 
   const handleAvatarChange = () => {
@@ -60,58 +72,79 @@ export default function LoginForm(probs: {
   return (
     <View style={styles.view}>
       <Text style={styles.header}>MKaDifference</Text>
-      <Text> {error}</Text>
-      {joinUs && (
-        <Image
-          style={styles.avatar}
-          source={{
-            uri: avatarLink,
-          }}
+      <View style={styles.viewForm}>
+        {joinUs && (
+          <>
+            <Image
+              style={styles.avatar}
+              source={{
+                uri: avatarLink,
+              }}
+            />
+            <Text style={styles.note}>Username will decide the avatar</Text>
+          </>
+        )}
+        <Text style={styles.note}> {error}</Text>
+        <TextInput
+          style={styles.input}
+          autoComplete="username"
+          placeholder="Username"
+          onChangeText={setUsername}
+          onEndEditing={handleAvatarChange}
+          value={username}
+          autoCapitalize="none"
         />
-      )}
-      <TextInput
-        style={styles.input}
-        autoComplete="username"
-        placeholder="Username"
-        onChangeText={setUsername}
-        onEndEditing={handleAvatarChange}
-        value={username}
-        autoCapitalize="none"
-      />
-      {joinUs && (
-        <Text style={styles.note}>Username will decide the avatar</Text>
-      )}
-      <TextInput
-        style={styles.input}
-        onChangeText={setPassword}
-        value={password}
-        autoComplete="password"
-        placeholder="Password"
-        secureTextEntry
-      />
-      {joinUs && (
-        <>
-          <TextInput
-            style={styles.input}
-            onChangeText={setPasswordR}
-            value={rpassword}
-            placeholder="Confirm Password"
-            secureTextEntry
+
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          autoComplete="password"
+          placeholder="Password"
+          secureTextEntry
+        />
+        {joinUs && (
+          <>
+            <TextInput
+              style={styles.input}
+              onChangeText={setPasswordR}
+              value={rpassword}
+              placeholder="Confirm Password"
+              secureTextEntry
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={setEmail}
+              value={email}
+              placeholder="Email"
+              autoComplete="email"
+            />
+            <Text style={styles.note}>
+              Email will only be used to reset the password
+            </Text>
+          </>
+        )}
+
+        {/* <Button title={joinUs ? 'Join US' : 'Login'} onPress={onPress} />
+      <Button
+        title={joinUs ? 'Login' : 'Join US'}
+        onPress={() => setJoinUs(!joinUs)}
+      /> */}
+      </View>
+      <View style={styles.viewLogin}>
+        <View style={styles.viewButton}>
+          <Button title={joinUs ? 'Join US' : 'Login'} onPress={onPress} />
+        </View>
+        <View style={styles.viewButton}>
+          <Button color="black" title="Or" />
+        </View>
+        <View style={styles.viewButton}>
+          <Button
+            title={joinUs ? 'Login' : 'Join US'}
+            onPress={() => setJoinUs(!joinUs)}
           />
-          <TextInput
-            style={styles.input}
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Email"
-            autoComplete="email"
-          />
-          <Text style={styles.note}>
-            Email will only be used to reset the password
-          </Text>
-        </>
-      )}
-      {!joinUs && <Button title="Login" onPress={handleLogin} />}
-      <Button title="Join US" onPress={handleJoinUs} />
+        </View>
+      </View>
     </View>
   );
 }
@@ -133,6 +166,10 @@ const styles = StyleSheet.create({
     height: 100,
     alignSelf: 'center',
   },
+  viewForm: {
+    margin: 0,
+    padding: 0,
+  },
   input: {
     margin: 10,
     padding: 10,
@@ -140,6 +177,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 20,
     borderRadius: 45,
+  },
+  viewLogin: {
+    flex: 1,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingTop: 20,
+    margin: 0,
+  },
+  viewButton: {
+    height: 50,
   },
   loginB: {
     margin: 5,
