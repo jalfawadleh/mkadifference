@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const { protect } = require("../middleware/authMiddleware");
+const {protect} = require('../middleware/authMiddleware');
 
-const asyncHandler = require("express-async-handler");
+const asyncHandler = require('express-async-handler');
 
-const Messages = require("../models/messages");
+const Messages = require('../models/messages');
 
 // @desc    Get messages
 // @route   GET /api/messages/:id
@@ -15,8 +15,8 @@ const getMessages = asyncHandler(async (req, res) => {
   // const messages = await Messages.find({ user: req.user.id });
   const messages = await Messages.find({
     $or: [
-      { $and: [{ user: req.user.id }, { to: req.params.id }] },
-      { $and: [{ user: req.params.id }, { to: req.user.id }] },
+      {$and: [{user: req.user.id}, {to: req.params.id}]},
+      {$and: [{user: req.params.id}, {to: req.user.id}]},
     ],
   });
 
@@ -30,17 +30,17 @@ const getMessages = asyncHandler(async (req, res) => {
 const postMessage = asyncHandler(async (req, res) => {
   if (!req.body.content) {
     res.status(400);
-    throw new Error("Please add a message content");
+    throw new Error('Please add a message content');
   } else {
     const message = await Messages.create({
       user: req.user.id,
       to: req.body.to,
-      content: req.user.name + ": " + req.body.content,
+      content: req.user.name + ': ' + req.body.content,
     });
     res.status(200).json(message);
   }
 });
 
-router.get("/:id", protect, getMessages).post("/", protect, postMessage);
+router.get('/:id', protect, getMessages).post('/', protect, postMessage);
 
 module.exports = router;

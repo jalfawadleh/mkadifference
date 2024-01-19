@@ -1,39 +1,39 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const mongoose = require('mongoose');
+const {Schema} = mongoose;
 
 const userSchema = Schema(
   {
-    name: {
+    username: {
       type: String,
       minlength: 4,
       maxlength: 50,
       trim: true,
-      required: [true, "Please add a name"],
-      unique: "already exist",
+      required: [true, 'Please add a username'],
+      unique: 'already exist',
     },
     password: {
       type: String,
-      required: [true, "Please add a password"],
+      required: [true, 'Please add a password'],
     },
     email: {
       type: String,
-      required: [true, "Please add an email"],
+      required: [true, 'Please add an email'],
       unique: true,
     },
     description: String,
-    hidden: { type: Boolean, default: false },
-    hobbies: [{ name: String }],
+    hidden: {type: Boolean, default: false},
+    hobbies: [{name: String}],
     location: {
-      lng: { type: Number, default: -122.2683 },
-      lat: { type: Number, default: 37.8243 },
+      lng: {type: Number, default: -122.2683},
+      lat: {type: Number, default: 37.8243},
     },
-    help: [{ name: String }],
-    type: { type: String, default: "members" },
+    help: [{name: String}],
+    type: {type: String, default: 'members'},
     contacts: [
       {
-        id: { type: Schema.Types.ObjectId },
-        name: { type: String },
-        approved: { type: Boolean, default: false },
+        id: {type: Schema.Types.ObjectId},
+        name: {type: String},
+        approved: {type: Boolean, default: false},
       },
     ],
     communities: [
@@ -57,7 +57,7 @@ const userSchema = Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);

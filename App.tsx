@@ -12,7 +12,7 @@ import axios from 'axios';
 export default function App(): React.JSX.Element {
   const [user, setUser] = useState({
     _id: '',
-    name: '',
+    username: '',
     token: '',
     logged: false,
   });
@@ -24,7 +24,8 @@ export default function App(): React.JSX.Element {
 
   return (
     <SafeAreaView>
-      <LoginForm user={user} setUser={setUser} />
+      <LoginForm setUser={setUser} />
+      {user.logged}
     </SafeAreaView>
   );
 }
