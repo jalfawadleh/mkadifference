@@ -2,7 +2,10 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 
-export default function LoginForm(): React.JSX.Element {
+export default function LoginForm(probs: {
+  setUser: (arg0: any) => void;
+  user: (arg0: any) => void;
+}): React.JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [joinUs, setJoinUs] = useState(false);
@@ -24,6 +27,8 @@ export default function LoginForm(): React.JSX.Element {
       console.log(data.error);
     } else {
       data.token = 'Bearer ' + data.token;
+      probs.setUser(data);
+      console.log(probs.user);
     }
   };
 
