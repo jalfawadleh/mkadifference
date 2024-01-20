@@ -1,21 +1,37 @@
 // import axios from 'axios';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import MapboxGL from '@rnmapbox/maps';
+MapboxGL.setAccessToken(
+  'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
+);
 
-export default function Mapbox(probs: {user: any}): React.JSX.Element {
+export default function Mapbox(): React.JSX.Element {
   //const x = `https://api.multiavatar.com/${probs.user.username}.png`;
 
+  // MapboxGL.setTelemetryEnabled(false);
+
   return (
-    <View style={styles.view}>
-      <Text>Mapbox</Text>
-      <Text>{probs.user._id}</Text>
+    <View style={styles.page}>
+      <View style={styles.container}>
+        <MapboxGL.MapView style={styles.map} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  view: {
-    margin: 0,
-    padding: 0,
+  page: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    height: 600,
+    width: 400,
+    backgroundColor: 'tomato',
+  },
+  map: {
+    flex: 1,
   },
 });

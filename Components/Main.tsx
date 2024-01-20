@@ -20,13 +20,13 @@ export default function Home(probs: {
       {/* Main */}
       <View style={styles.main}>
         {nav === 'search' && <Search user={probs.user} />}
-        {nav === 'mapbox' && <Mapbox user={probs.user} />}
+        {nav === 'mapbox' && <Mapbox />}
         {nav === 'manage' && <Manage user={probs.user} />}
         {nav === 'messages' && <Messages user={probs.user} />}
       </View>
 
       {/* Footer */}
-      <View style={styles.footer}>
+      {/* <View style={styles.footer}>
         <Text style={styles.footerElement}>Sch</Text>
         <Text style={styles.footerElement} onPress={() => {}}>
           Map
@@ -34,7 +34,7 @@ export default function Home(probs: {
         <Text style={styles.footerElement}>MKaDifference</Text>
         <Text style={styles.footerElement}>Mng</Text>
         <Text style={styles.footerElement}>Msg</Text>
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   main: {
-    flex: 10,
+    flex: 13,
     flexDirection: 'row',
     padding: 0,
     margin: 0,

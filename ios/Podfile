@@ -25,6 +25,11 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+pre_install do |installer|
+  $RNMapboxMaps.pre_install(installer)
+end
+
+
 target 'mkadifference' do
   config = use_native_modules!
 
@@ -44,7 +49,9 @@ target 'mkadifference' do
     # Pods for testing
   end
 
+  $RNMapboxMapsVersion = '= 11.0.0'
   post_install do |installer|
+    $RNMapboxMaps.post_install(installer)
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
@@ -54,11 +61,5 @@ target 'mkadifference' do
   end
 end
 
-pre_install do |installer|
-  $RNMapboxMaps.pre_install(installer)
-end
 
-post_install do |installer|
-  $RNMapboxMaps.post_install(installer)
-  # ... other post install hooks
-end
+
