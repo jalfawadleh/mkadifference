@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Header from './Header';
+import Messages from './Messages';
+import Search from './Search';
+import Manage from './Manage';
+import Mapbox from './Mapbox';
 
 export default function Home(probs: {
   user: {username: string; _id: any};
@@ -15,8 +19,10 @@ export default function Home(probs: {
 
       {/* Main */}
       <View style={styles.main}>
-        <Text>{nav}</Text>
-        <Text>{probs.user.username}</Text>
+        {nav === 'search' && <Search user={probs.user} />}
+        {nav === 'mapbox' && <Mapbox user={probs.user} />}
+        {nav === 'manage' && <Manage user={probs.user} />}
+        {nav === 'messages' && <Messages user={probs.user} />}
       </View>
 
       {/* Footer */}

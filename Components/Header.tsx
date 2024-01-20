@@ -13,18 +13,21 @@ export default function Header(probs: {setNav: any}): React.JSX.Element {
           />
         </View>
       </Pressable>
-      <Pressable onPress={() => setNav('map')}>
+      <Pressable onPress={() => setNav('mapbox')}>
         <View style={styles.headerElement}>
-          <Image style={styles.headerIcon} source={require('./img/map.png')} />
+          <Image
+            style={styles.headerIcon}
+            source={require('./img/mapbox.png')}
+          />
         </View>
       </Pressable>
       <Text style={styles.headerLogo}>MKaDifference</Text>
 
-      <Pressable onPress={() => setNav('settings')}>
+      <Pressable onPress={() => setNav('manage')}>
         <View style={styles.headerElement}>
           <Image
             style={styles.headerIcon}
-            source={require('./img/settings.png')}
+            source={require('./img/manage.png')}
           />
         </View>
       </Pressable>
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     margin: 0,
-    paddingTop: 25,
+    paddingTop: 20,
     backgroundColor: '#3c2f2f',
   },
   headerElement: {

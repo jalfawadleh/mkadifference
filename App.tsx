@@ -6,7 +6,7 @@
  */
 import React, {useState} from 'react';
 import LoginForm from './Components/Login';
-import Home from './Components/Home';
+import Home from './Components/Main';
 import axios from 'axios';
 
 export default function App(): React.JSX.Element {
