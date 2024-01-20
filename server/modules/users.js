@@ -52,7 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       _id: user._id,
-      name: user.username,
+      username: user.username,
       location: user.location,
       token: generateToken(user._id),
     });
@@ -76,11 +76,11 @@ const loginUser = asyncHandler(async (req, res) => {
 
     res.status(200).json({
       _id: user._id,
-      name: user.username,
+      username: user.username,
       location: user.location,
       token: generateToken(user._id),
     });
-    console.log('Done');
+    console.log(user.username + ' - Logged in');
     return;
   } else {
     res.status(200).json({error: 'Invalid Login Credentials'});

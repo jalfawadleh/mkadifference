@@ -4,6 +4,7 @@ import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 
 export default function LoginForm(probs: {
   setUser: (arg0: any) => void;
+  setToken: (arg0: any) => void;
 }): React.JSX.Element {
   const [joinUs, setJoinUs] = useState(false);
 
@@ -18,17 +19,30 @@ export default function LoginForm(probs: {
     'https://api.multiavatar.com/MKaDifference.png',
   );
 
-  const userData = {username, password, rpassword, email};
+  const credentials = {username, password, rpassword, email};
 
   const [error, setError] = useState('');
 
   const onPress = async () => {
+    setError('');
+
     // checking username and password
-    if (username === '') {
+    if (!username) {
       setError('Enter Username');
       return;
-    } else if (password === '') {
+    }
+    if (username.length < 8) {
+      setError('Username must be at least 8 characters');
+      return;
+    }
+
+    if (!password) {
       setError('Enter Password');
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters');
       return;
     }
 
@@ -38,13 +52,13 @@ export default function LoginForm(probs: {
         setError('Passwords do not match');
         return;
       }
-      if (email === '') {
+      if (!email) {
         setError('Please Enter Email');
         return;
       }
 
       // Create a New account
-      const {data} = await axios.post('users/', userData);
+      const {data} = await axios.post('users/', credentials);
       if (data.error) {
         setError(data.error);
       } else {
@@ -53,14 +67,14 @@ export default function LoginForm(probs: {
       }
     } else {
       // login
-      const {data} = await axios.post('users/login', userData);
+      const {data} = await axios.post('users/login', credentials);
       if (data.error) {
         setError(data.error);
         console.log(data.error);
       } else {
-        data.token = 'Bearer ' + data.token;
         probs.setUser(data);
-        console.log('Login Successful');
+        probs.setToken(data.token);
+        console.log(data.username + ' - Login Successful');
       }
     }
   };
@@ -71,20 +85,15 @@ export default function LoginForm(probs: {
 
   return (
     <View style={styles.view}>
-      <Text style={styles.header}>MKaDifference</Text>
+      <Text style={styles.logo}>MKaDifference</Text>
       <View style={styles.viewForm}>
         {joinUs && (
           <>
-            <Image
-              style={styles.avatar}
-              source={{
-                uri: avatarLink,
-              }}
-            />
-            <Text style={styles.note}>Username will decide the avatar</Text>
+            <Image style={styles.avatar} source={{uri: avatarLink}} />
+            <Text style={styles.note}>Username determin the avatar</Text>
           </>
         )}
-        {error && <Text style={styles.error}> {error}</Text>}
+
         <TextInput
           style={styles.input}
           autoComplete="username"
@@ -124,19 +133,14 @@ export default function LoginForm(probs: {
             </Text>
           </>
         )}
-
-        {/* <Button title={joinUs ? 'Join US' : 'Login'} onPress={onPress} />
-      <Button
-        title={joinUs ? 'Login' : 'Join US'}
-        onPress={() => setJoinUs(!joinUs)}
-      /> */}
       </View>
+      {error && <Text style={styles.error}> {error}</Text>}
       <View style={styles.viewLogin}>
         <View style={styles.viewButton}>
           <Button title={joinUs ? 'Join US' : 'Login'} onPress={onPress} />
         </View>
         <View style={styles.viewButton}>
-          <Button color="black" title="Or" />
+          <Button color="black" title="OR" />
         </View>
         <View style={styles.viewButton}>
           <Button
@@ -151,9 +155,9 @@ export default function LoginForm(probs: {
 
 const styles = StyleSheet.create({
   view: {
-    padding: 10,
+    padding: 20,
   },
-  header: {
+  logo: {
     color: 'black',
     fontSize: 40,
     textAlign: 'center',
@@ -170,7 +174,7 @@ const styles = StyleSheet.create({
     padding: 5,
     color: 'red',
     alignSelf: 'center',
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   viewForm: {
