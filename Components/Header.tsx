@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default function Header(probs: {setNav}): React.JSX.Element {
+export default function Header(probs: {setNav: any}): React.JSX.Element {
   const setNav = probs.setNav;
   return (
     <View style={styles.header}>
