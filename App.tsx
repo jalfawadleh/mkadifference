@@ -29,7 +29,7 @@ export default function App(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Header setNav={setNav} user={user} />
+      <Header setNav={setNav} user={user} nav={nav} />
       <View style={styles.main}>
         {token ? (
           <>

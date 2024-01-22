@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default function Header({setNav, user}) {
+export default function Header({setNav, user, nav}) {
   return (
     <View style={styles.header}>
       <Pressable onPress={() => setNav('search')}>
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
 
     borderColor: '#fff4e6',
     borderWidth: 2,
+    borderRadius: 10,
   },
   headerIcon: {
     height: 30,
