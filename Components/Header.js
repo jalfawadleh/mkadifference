@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default function Header({setNav}) {
+export default function Header({setNav, user}) {
   return (
     <View style={styles.header}>
       <Pressable onPress={() => setNav('search')}>

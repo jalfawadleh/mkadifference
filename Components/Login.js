@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import Header from './Header';
 
 export default function LoginForm({setUser, setToken}) {
   const [joinUs, setJoinUs] = useState(false);
@@ -82,55 +81,50 @@ export default function LoginForm({setUser, setToken}) {
   };
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.main}>
-        <Image style={styles.avatar} source={{uri: avatarLink}} />
+    <>
+      <Image style={styles.avatar} source={{uri: avatarLink}} />
 
-        {joinUs && (
-          <Text style={styles.note}>Username determin the avatar</Text>
-        )}
+      {joinUs && <Text style={styles.note}>Username determin the avatar</Text>}
 
-        <TextInput
-          style={styles.input}
-          autoComplete="username"
-          placeholder="Username"
-          onChangeText={setUsername}
-          onEndEditing={handleAvatarChange}
-          value={username}
-          autoCapitalize="none"
-        />
+      <TextInput
+        style={styles.input}
+        autoComplete="username"
+        placeholder="Username"
+        onChangeText={setUsername}
+        onEndEditing={handleAvatarChange}
+        value={username}
+        autoCapitalize="none"
+      />
 
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          autoComplete="password"
-          placeholder="Password"
-          secureTextEntry
-        />
-        {joinUs && (
-          <>
-            <TextInput
-              style={styles.input}
-              onChangeText={setPasswordR}
-              value={rpassword}
-              placeholder="Confirm Password"
-              secureTextEntry
-            />
-            <TextInput
-              style={styles.input}
-              onChangeText={setEmail}
-              value={email}
-              placeholder="Email"
-              autoComplete="email"
-            />
-            <Text style={styles.note}>
-              Email will only be used to reset the password
-            </Text>
-          </>
-        )}
-      </View>
+      <TextInput
+        style={styles.input}
+        onChangeText={setPassword}
+        value={password}
+        autoComplete="password"
+        placeholder="Password"
+        secureTextEntry
+      />
+      {joinUs && (
+        <>
+          <TextInput
+            style={styles.input}
+            onChangeText={setPasswordR}
+            value={rpassword}
+            placeholder="Confirm Password"
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Email"
+            autoComplete="email"
+          />
+          <Text style={styles.note}>
+            Email will only be used to reset the password
+          </Text>
+        </>
+      )}
       {error && <Text style={styles.error}> {error}</Text>}
       <View style={styles.viewLogin}>
         <View style={styles.viewButton}>
@@ -146,23 +140,11 @@ export default function LoginForm({setUser, setToken}) {
           />
         </View>
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    padding: 0,
-    margin: 0,
-  },
-  main: {
-    flex: 13,
-    padding: 0,
-    margin: 0,
-    backgroundColor: '#be9b7b',
-  },
   avatar: {
     marginTop: 20,
     marginBottom: 10,
