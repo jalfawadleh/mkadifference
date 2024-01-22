@@ -20,11 +20,11 @@ export default function Search({user}) {
         <Image style={styles.searchIcon} source={require('./img/search.png')} />
       </View>
 
-      <View style={styles.searchResults}>
-        <Text style={styles.searchResult}>{user._id}</Text>
-        <Text style={styles.searchResult}>{user._id}</Text>
-        <Text style={styles.searchResult}>{user._id}</Text>
-        <Text style={styles.searchResult}>{user._id}</Text>
+      <View style={styles.items}>
+        <Text style={styles.item}>{user._id}</Text>
+        <Text style={styles.item}>{user._id}</Text>
+        <Text style={styles.item}>{user._id}</Text>
+        <Text style={styles.item}>{user._id}</Text>
       </View>
     </>
   );
@@ -53,12 +53,12 @@ const styles = StyleSheet.create({
     margin: 0,
   },
 
-  searchResults: {
-    flex: 10,
+  items: {
+    flex: 16,
     margin: 0,
     padding: 0,
   },
-  searchResult: {
+  item: {
     margin: 10,
     padding: 10,
 
