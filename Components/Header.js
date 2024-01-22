@@ -3,7 +3,7 @@ import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
 export default function Header({setNav, user, nav}) {
   return (
-    <View style={styles.header}>
+    <>
       <Pressable onPress={() => setNav('search')}>
         <View style={styles.headerElement}>
           <Image
@@ -38,22 +38,15 @@ export default function Header({setNav, user, nav}) {
           />
         </View>
       </Pressable>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    margin: 0,
-    paddingTop: 20,
-    backgroundColor: '#3c2f2f',
-  },
   headerElement: {
     flex: 1,
-    margin: 4,
+    margin: 5,
+    padding: 0,
     height: 40,
     width: 40,
     color: 'white',

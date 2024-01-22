@@ -8,70 +8,53 @@ export default function Search({user}) {
 
   return (
     <>
-      <View style={styles.search}>
-        <View style={styles.searchBox}>
-          <Image
-            style={styles.searchIcon}
-            source={require('./img/search.png')}
-          />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Type here"
-            onChangeText={setSearch}
-            // onEndEditing={setSearch}
-            value={search}
-            autoCapitalize="none"
-          />
-        </View>
-        <View style={styles.searchResults}>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-          <Text style={styles.searchResult}>{user._id}</Text>
-        </View>
+      <View style={styles.menu}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Type here"
+          onChangeText={setSearch}
+          // onEndEditing={setSearch}
+          value={search}
+          autoCapitalize="none"
+        />
+        <Image style={styles.searchIcon} source={require('./img/search.png')} />
+      </View>
+
+      <View style={styles.searchResults}>
+        <Text style={styles.searchResult}>{user._id}</Text>
+        <Text style={styles.searchResult}>{user._id}</Text>
+        <Text style={styles.searchResult}>{user._id}</Text>
+        <Text style={styles.searchResult}>{user._id}</Text>
       </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  search: {
-    flex: 1,
-    flexDirection: 'column',
-    margin: 0,
-    padding: 0,
-    height: 100,
-  },
-  searchBox: {
+  menu: {
     flex: 1,
     flexDirection: 'row',
     margin: 10,
     padding: 5,
 
-    borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
+  },
+
+  searchInput: {
+    flex: 7,
+    fontSize: 25,
   },
   searchIcon: {
     flex: 1,
     height: 35,
     width: 35,
-    color: 'white',
+    padding: 0,
+    margin: 0,
   },
-  searchInput: {
-    flex: 7,
-    fontSize: 25,
-    margin: 5,
-  },
+
   searchResults: {
-    flex: 15,
+    flex: 10,
     margin: 0,
     padding: 0,
   },

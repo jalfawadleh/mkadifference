@@ -29,7 +29,9 @@ export default function App(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Header setNav={setNav} user={user} nav={nav} />
+      <View style={styles.header}>
+        <Header setNav={setNav} user={user} nav={nav} />
+      </View>
       <View style={styles.main}>
         {token ? (
           <>
@@ -49,13 +51,22 @@ export default function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 0,
+    flexDirection: 'column',
     margin: 0,
+    padding: 0,
+  },
+  header: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    margin: 0,
+    paddingTop: 15,
+    backgroundColor: '#3c2f2f',
   },
   main: {
-    flex: 13,
-    padding: 0,
+    flex: 11,
     margin: 0,
+    padding: 0,
     backgroundColor: '#be9b7b',
   },
 });

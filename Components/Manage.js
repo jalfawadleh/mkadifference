@@ -1,21 +1,57 @@
 // import axios from 'axios';
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-
+import React, {useState} from 'react';
+import {StyleSheet, Text, TextInput, Image, View} from 'react-native';
 export default function Manage({user}) {
   //const x = `https://api.multiavatar.com/${probs.user.username}.png`;
 
   return (
-    <View style={styles.view}>
-      <Text>Manage</Text>
-      <Text>{user._id}</Text>
-    </View>
+    <>
+      <View style={styles.menu}>
+        <Text style={styles.menuItem}>Events</Text>
+        <Text style={styles.menuItem}>Projects</Text>
+      </View>
+      <View style={styles.searchResults}>
+        <Text style={styles.searchResult}>{user._id}</Text>
+        <Text style={styles.searchResult}>{user._id}</Text>
+        <Text style={styles.searchResult}>{user._id}</Text>
+        <Text style={styles.searchResult}>{user._id}</Text>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  view: {
+  menu: {
+    flex: 1,
+    flexDirection: 'row',
+    margin: 0,
+    padding: 5,
+  },
+  menuItem: {
+    flex: 1,
+
+    margin: 5,
+    padding: 5,
+
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 10,
+
+    textAlign: 'center',
+    fontSize: 25,
+  },
+
+  searchResults: {
+    flex: 10,
     margin: 0,
     padding: 0,
+  },
+  searchResult: {
+    margin: 10,
+    padding: 10,
+
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 10,
   },
 });
