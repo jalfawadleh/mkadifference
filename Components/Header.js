@@ -1,8 +1,7 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default function Header(probs: {setNav: any}): React.JSX.Element {
-  const setNav = probs.setNav;
+export default function Header({setNav}) {
   return (
     <View style={styles.header}>
       <Pressable onPress={() => setNav('search')}>
@@ -61,8 +60,6 @@ const styles = StyleSheet.create({
 
     borderColor: '#fff4e6',
     borderWidth: 2,
-
-    // backgroundColor: '#be9b7b',
   },
   headerIcon: {
     height: 30,

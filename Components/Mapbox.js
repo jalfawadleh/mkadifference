@@ -6,9 +6,8 @@ MapboxGL.setAccessToken(
   'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
 );
 
-export default function Mapbox(): React.JSX.Element {
+export default function Mapbox() {
   //const x = `https://api.multiavatar.com/${probs.user.username}.png`;
-
   // MapboxGL.setTelemetryEnabled(false);
 
   return (

@@ -1,11 +1,9 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import Header from './Header';
 
-export default function LoginForm(probs: {
-  setUser: (arg0: any) => void;
-  setToken: (arg0: any) => void;
-}): React.JSX.Element {
+export default function LoginForm({setUser, setToken}) {
   const [joinUs, setJoinUs] = useState(false);
 
   // login
@@ -63,7 +61,7 @@ export default function LoginForm(probs: {
         setError(data.error);
       } else {
         data.token = 'Bearer ' + data.token;
-        probs.setUser(data);
+        setUser(data);
       }
     } else {
       // login
@@ -72,8 +70,8 @@ export default function LoginForm(probs: {
         setError(data.error);
         console.log(data.error);
       } else {
-        probs.setUser(data);
-        probs.setToken(data.token);
+        setUser(data);
+        setToken(data.token);
         console.log(data.username + ' - Login Successful');
       }
     }
@@ -84,14 +82,13 @@ export default function LoginForm(probs: {
   };
 
   return (
-    <View style={styles.view}>
-      <Text style={styles.logo}>MKaDifference</Text>
-      <View style={styles.viewForm}>
+    <View style={styles.container}>
+      <Header />
+      <View style={styles.main}>
+        <Image style={styles.avatar} source={{uri: avatarLink}} />
+
         {joinUs && (
-          <>
-            <Image style={styles.avatar} source={{uri: avatarLink}} />
-            <Text style={styles.note}>Username determin the avatar</Text>
-          </>
+          <Text style={styles.note}>Username determin the avatar</Text>
         )}
 
         <TextInput
@@ -154,14 +151,17 @@ export default function LoginForm(probs: {
 }
 
 const styles = StyleSheet.create({
-  view: {
-    padding: 20,
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    padding: 0,
+    margin: 0,
   },
-  logo: {
-    color: 'black',
-    fontSize: 40,
-    textAlign: 'center',
-    marginTop: 20,
+  main: {
+    flex: 13,
+    padding: 0,
+    margin: 0,
+    backgroundColor: '#be9b7b',
   },
   avatar: {
     marginTop: 20,
@@ -191,11 +191,10 @@ const styles = StyleSheet.create({
   },
   viewLogin: {
     flex: 1,
-    flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    paddingTop: 10,
     margin: 0,
+    paddingTop: 5,
   },
   viewButton: {
     height: 50,

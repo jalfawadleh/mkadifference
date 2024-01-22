@@ -2,13 +2,13 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-export default function Search(probs: {user: any}): React.JSX.Element {
+export default function Manage({user}) {
   //const x = `https://api.multiavatar.com/${probs.user.username}.png`;
 
   return (
     <View style={styles.view}>
-      <Text>Search</Text>
-      <Text>{probs.user._id}</Text>
+      <Text>Manage</Text>
+      <Text>{user._id}</Text>
     </View>
   );
 }
