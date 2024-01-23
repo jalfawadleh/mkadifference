@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
     padding: 5,
     justifyContent: 'center',
     alignItems: 'flex-start',
+
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
   },
   menuItem: {
     margin: 5,

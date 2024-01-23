@@ -7,7 +7,7 @@ export default function Communication({user}) {
   return (
     <>
       <View style={styles.menu}>
-        <Text style={styles.menuItem}>Notifications</Text>
+        <Text style={styles.menuItem}>Updates</Text>
         <Text style={styles.menuItem}>Messages</Text>
         <Text style={styles.menuItem}>Contacts</Text>
       </View>
@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
     padding: 5,
     justifyContent: 'center',
     alignItems: 'flex-start',
+
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
   },
   menuItem: {
     padding: 5,
