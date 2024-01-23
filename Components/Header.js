@@ -54,6 +54,9 @@ const styles = StyleSheet.create({
   headerIcon: {
     height: 35,
     width: 35,
+
+    padding: 5,
+
     alignSelf: 'center',
   },
   headerLogo: {
