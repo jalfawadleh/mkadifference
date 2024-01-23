@@ -8,7 +8,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import axios from 'axios';
 import Login from './Components/Login';
-import Messages from './Components/Messages';
+import Messages from './Components/Communication';
 import Search from './Components/Search';
 import Manage from './Components/Manage';
 import Mapbox from './Components/Mapbox';
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3c2f2f',
   },
   main: {
-    flex: 11,
+    flex: 12,
     margin: 0,
     padding: 0,
     backgroundColor: '#be9b7b',

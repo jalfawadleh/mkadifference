@@ -9,6 +9,8 @@ export default function Manage({user}) {
       <View style={styles.menu}>
         <Text style={styles.menuItem}>Events</Text>
         <Text style={styles.menuItem}>Projects</Text>
+        <Text style={styles.menuItem}>Communities</Text>
+        <Text style={styles.menuItem}>Profile</Text>
       </View>
       <View style={styles.items}>
         <Text style={styles.item}>{user._id}</Text>
@@ -22,14 +24,13 @@ export default function Manage({user}) {
 
 const styles = StyleSheet.create({
   menu: {
-    flex: 1,
     flexDirection: 'row',
     margin: 0,
     padding: 5,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   menuItem: {
-    flex: 1,
-
     margin: 5,
     padding: 5,
 
@@ -38,7 +39,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
 
     textAlign: 'center',
-    fontSize: 25,
+    alignSelf: 'center',
+    fontSize: 18,
   },
 
   items: {

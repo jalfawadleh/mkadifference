@@ -1,25 +1,16 @@
 // import axios from 'axios';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, Image, View} from 'react-native';
-export default function Search({user}) {
+export default function Communication({user}) {
   //const x = `https://api.multiavatar.com/${probs.user.username}.png`;
-
-  const [search, setSearch] = useState('');
 
   return (
     <>
       <View style={styles.menu}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Type here"
-          onChangeText={setSearch}
-          // onEndEditing={setSearch}
-          value={search}
-          autoCapitalize="none"
-        />
-        <Image style={styles.searchIcon} source={require('./img/search.png')} />
+        <Text style={styles.menuItem}>Notifications</Text>
+        <Text style={styles.menuItem}>Messages</Text>
+        <Text style={styles.menuItem}>Contacts</Text>
       </View>
-
       <View style={styles.items}>
         <Text style={styles.item}>{user._id}</Text>
         <Text style={styles.item}>{user._id}</Text>
@@ -32,29 +23,26 @@ export default function Search({user}) {
 
 const styles = StyleSheet.create({
   menu: {
-    flex: 1,
     flexDirection: 'row',
-    margin: 10,
+    margin: 0,
     padding: 5,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  menuItem: {
+    padding: 5,
+    margin: 5,
 
+    borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-  },
 
-  searchInput: {
-    flex: 7,
-    fontSize: 20,
-  },
-  searchIcon: {
-    flex: 1,
-    height: 35,
-    width: 35,
-    margin: 0,
-    padding: 0,
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontSize: 18,
   },
 
   items: {
-    flex: 16,
     margin: 0,
     padding: 0,
   },
