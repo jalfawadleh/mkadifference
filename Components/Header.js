@@ -30,7 +30,7 @@ export default function Header({setNav, user, nav}) {
           />
         </View>
       </Pressable>
-      <Pressable onPress={() => setNav('messages')}>
+      <Pressable onPress={() => setNav('communication')}>
         <View style={styles.headerElement}>
           <Image
             style={styles.headerIcon}

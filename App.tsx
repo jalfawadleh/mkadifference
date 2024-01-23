@@ -5,10 +5,10 @@
  * @format
  */
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import axios from 'axios';
 import Login from './Components/Login';
-import Messages from './Components/Communication';
+import Communication from './Components/Communication';
 import Search from './Components/Search';
 import Manage from './Components/Manage';
 import Mapbox from './Components/Mapbox';
@@ -38,7 +38,8 @@ export default function App(): React.JSX.Element {
             {nav === 'search' && <Search user={user} />}
             {nav === 'mapbox' && <Mapbox />}
             {nav === 'manage' && <Manage user={user} />}
-            {nav === 'messages' && <Messages user={user} />}
+            {nav === 'communication' && <Communication user={user} />}
+            {nav === '' && <Text>Home Page</Text>}
           </>
         ) : (
           <Login setUser={setUser} setToken={setToken} />
