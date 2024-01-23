@@ -13,6 +13,7 @@ export default function Main() {
     username: '',
   });
   const [token, setToken] = useState('');
+
   const [nav, setNav] = useState('');
 
   axios.defaults.baseURL = 'http://127.0.0.1:3001/api/';
