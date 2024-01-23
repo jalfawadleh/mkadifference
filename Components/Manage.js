@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text} from 'react-native';
 import {MenuItems} from '.';
 export default function Manage({user}) {
   const [nav, setNav] = useState('');
@@ -13,27 +13,9 @@ export default function Manage({user}) {
         setNav={setNav}
       />
 
-      <View style={styles.items}>
-        <Text style={styles.item}>{nav}</Text>
-        <Text style={styles.item}>{user._id}</Text>
-        <Text style={styles.item}>{user._id}</Text>
-        <Text style={styles.item}>{user._id}</Text>
-      </View>
+      {nav === 'Projects' && <Text>Projects</Text>}
+      {nav === 'Events' && <Text>Events</Text>}
+      {nav === 'Communities' && <Text>Communities</Text>}
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  items: {
-    marginTop: 5,
-    padding: 0,
-  },
-  item: {
-    margin: 10,
-    padding: 10,
-
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 10,
-  },
-});

@@ -5,7 +5,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import axios from 'axios';
-import {Login, Header, Communication, Search, Manage, Mapbox} from '.';
+import {Login, Header, Communicate, Search, Manage, Mapbox} from '.';
 
 export default function Main() {
   const [user, setUser] = useState({
@@ -31,7 +31,7 @@ export default function Main() {
           {nav === 'search' && <Search user={user} />}
           {nav === 'mapbox' && <Mapbox />}
           {nav === 'manage' && <Manage user={user} />}
-          {nav === 'communication' && <Communication user={user} />}
+          {nav === 'communicate' && <Communicate user={user} />}
           {nav === '' && <Text>Home Page</Text>}
         </>
       ) : (

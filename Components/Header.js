@@ -54,10 +54,10 @@ export default function Header({setNav, user, nav}) {
               />
             </View>
           </Pressable>
-          <Pressable onPress={() => setNav('communication')}>
+          <Pressable onPress={() => setNav('communicate')}>
             <View
               style={
-                nav === 'communication'
+                nav === 'communicate'
                   ? styles.headerElementActive
                   : styles.headerElement
               }>
