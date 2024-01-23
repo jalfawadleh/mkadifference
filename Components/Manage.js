@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 5,
 
-    borderColor: 'black',
+    borderColor: '#fff4e6',
     borderWidth: 1,
     borderRadius: 10,
 
     textAlign: 'center',
     alignSelf: 'center',
     fontSize: 18,
-    backgroundColor: '#fff4e6',
+    color: '#fff4e6',
   },
 
   items: {
