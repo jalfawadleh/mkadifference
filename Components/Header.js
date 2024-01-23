@@ -34,7 +34,7 @@ export default function Header({setNav, user, nav}) {
         <View style={styles.headerElement}>
           <Image
             style={styles.headerIcon}
-            source={require('./img/message.png')}
+            source={{uri: `https://api.multiavatar.com/${user.username}.png`}}
           />
         </View>
       </Pressable>
@@ -50,18 +50,13 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     color: 'white',
-
-    borderColor: '#fff4e6',
-    borderWidth: 2,
-    borderRadius: 10,
   },
   headerIcon: {
-    height: 30,
-    width: 30,
-    margin: 4,
+    height: 35,
+    width: 35,
+    alignSelf: 'center',
   },
   headerLogo: {
-    flex: 4,
     padding: 4,
     height: 40,
     fontSize: 25,
