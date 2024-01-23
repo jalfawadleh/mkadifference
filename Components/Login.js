@@ -90,6 +90,7 @@ export default function LoginForm({setUser, setToken}) {
         style={styles.input}
         autoComplete="username"
         placeholder="Username"
+        placeholderTextColor="#fff4e6"
         onChangeText={setUsername}
         onEndEditing={handleAvatarChange}
         value={username}
@@ -102,6 +103,7 @@ export default function LoginForm({setUser, setToken}) {
         value={password}
         autoComplete="password"
         placeholder="Password"
+        placeholderTextColor="#fff4e6"
         secureTextEntry
       />
       {joinUs && (
@@ -111,6 +113,7 @@ export default function LoginForm({setUser, setToken}) {
             onChangeText={setPasswordR}
             value={rpassword}
             placeholder="Confirm Password"
+            placeholderTextColor="#fff4e6"
             secureTextEntry
           />
           <TextInput
@@ -118,6 +121,7 @@ export default function LoginForm({setUser, setToken}) {
             onChangeText={setEmail}
             value={email}
             placeholder="Email"
+            placeholderTextColor="#fff4e6"
             autoComplete="email"
           />
           <Text style={styles.note}>
@@ -169,6 +173,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     fontSize: 20,
+    fontWeight: 'bold',
     borderRadius: 45,
   },
   viewLogin: {

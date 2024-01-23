@@ -100,11 +100,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   headerLogo: {
-    margin: 0,
-    padding: 0,
-
     height: 40,
     fontSize: 25,
+    fontWeight: 'bold',
     color: '#fff4e6',
     textAlign: 'center',
     alignSelf: 'center',
