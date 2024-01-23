@@ -19,3 +19,5 @@ Note: Don't put < braces in password >
     Now write :q to quit from file.
     You successfully save the file.
     Run Pod install
+
+# https://reactnative.dev/docs/flexbox?language=typescript

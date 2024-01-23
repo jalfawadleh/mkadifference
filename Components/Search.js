@@ -19,7 +19,7 @@ export default function Search({user}) {
         />
         <Image style={styles.searchIcon} source={require('./img/search.png')} />
       </View>
-
+      <View style={styles.searchLine} />
       <View style={styles.items}>
         <Text style={styles.item}>{user._id}</Text>
         <Text style={styles.item}>{user._id}</Text>
@@ -32,28 +32,30 @@ export default function Search({user}) {
 
 const styles = StyleSheet.create({
   menu: {
-    flex: 1,
     flexDirection: 'row',
     margin: 10,
-    padding: 5,
+    padding: 3,
     borderWidth: 1,
     borderRadius: 10,
   },
 
   searchInput: {
     flex: 7,
-    fontSize: 20,
-    padding: 5,
+    fontSize: 18,
+    margin: 0,
+    paddingLeft: 5,
   },
   searchIcon: {
-    height: 35,
-    width: 35,
+    height: 30,
+    width: 30,
     margin: 0,
     padding: 0,
   },
-
+  searchLine: {
+    height: 1,
+    backgroundColor: 'black',
+  },
   items: {
-    flex: 16,
     margin: 0,
     padding: 0,
   },

@@ -1,16 +1,34 @@
 // import axios from 'axios';
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 export default function Manage({user}) {
-  //const x = `https://api.multiavatar.com/${probs.user.username}.png`;
+  const [nav, setNav] = useState('');
 
   return (
     <>
       <View style={styles.menu}>
-        <Text style={styles.menuItem}>Events</Text>
-        <Text style={styles.menuItem}>Projects</Text>
-        <Text style={styles.menuItem}>Communities</Text>
-        <Text style={styles.menuItem}>Profile</Text>
+        <Text
+          style={nav === 'events' ? styles.menuItemActive : styles.menuItem}
+          onPress={() => setNav('events')}>
+          Events
+        </Text>
+        <Text
+          style={nav === 'projects' ? styles.menuItemActive : styles.menuItem}
+          onPress={() => setNav('projects')}>
+          Projects
+        </Text>
+        <Text
+          style={
+            nav === 'communities' ? styles.menuItemActive : styles.menuItem
+          }
+          onPress={() => setNav('communities')}>
+          Communities
+        </Text>
+        <Text
+          style={nav === 'profile' ? styles.menuItemActive : styles.menuItem}
+          onPress={() => setNav('profile')}>
+          Profile
+        </Text>
       </View>
       <View style={styles.items}>
         <Text style={styles.item}>{user._id}</Text>
@@ -27,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 0,
     padding: 5,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'flex-start',
 
     borderBottomColor: 'black',
@@ -46,9 +64,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
+  menuItemActive: {
+    margin: 5,
+    padding: 5,
+
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 10,
+
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontSize: 18,
+    backgroundColor: '#fff4e6',
+  },
+
   items: {
-    flex: 10,
-    margin: 0,
+    marginTop: 5,
     padding: 0,
   },
   item: {
