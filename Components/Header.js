@@ -4,40 +4,51 @@ import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 export default function Header({setNav, user, nav}) {
   return (
     <>
-      <Pressable onPress={() => setNav('search')}>
-        <View style={styles.headerElement}>
-          <Image
-            style={styles.headerIcon}
-            source={require('./img/search.png')}
-          />
-        </View>
-      </Pressable>
-      <Pressable onPress={() => setNav('mapbox')}>
-        <View style={styles.headerElement}>
-          <Image
-            style={styles.headerIcon}
-            source={require('./img/mapbox.png')}
-          />
-        </View>
-      </Pressable>
+      {user._id && (
+        <>
+          <Pressable onPress={() => setNav('search')}>
+            <View style={styles.headerElement}>
+              <Image
+                style={styles.headerIcon}
+                source={require('./img/search.png')}
+              />
+            </View>
+          </Pressable>
+          <Pressable onPress={() => setNav('mapbox')}>
+            <View style={styles.headerElement}>
+              <Image
+                style={styles.headerIcon}
+                source={require('./img/mapbox.png')}
+              />
+            </View>
+          </Pressable>
+        </>
+      )}
+
       <Text style={styles.headerLogo}>MKaDifference</Text>
 
-      <Pressable onPress={() => setNav('manage')}>
-        <View style={styles.headerElement}>
-          <Image
-            style={styles.headerIcon}
-            source={require('./img/manage.png')}
-          />
-        </View>
-      </Pressable>
-      <Pressable onPress={() => setNav('communication')}>
-        <View style={styles.headerElement}>
-          <Image
-            style={styles.headerIcon}
-            source={{uri: `https://api.multiavatar.com/${user.username}.png`}}
-          />
-        </View>
-      </Pressable>
+      {user._id && (
+        <>
+          <Pressable onPress={() => setNav('manage')}>
+            <View style={styles.headerElement}>
+              <Image
+                style={styles.headerIcon}
+                source={require('./img/manage.png')}
+              />
+            </View>
+          </Pressable>
+          <Pressable onPress={() => setNav('communication')}>
+            <View style={styles.headerElement}>
+              <Image
+                style={styles.headerIcon}
+                source={{
+                  uri: `https://api.multiavatar.com/${user.username}.png`,
+                }}
+              />
+            </View>
+          </Pressable>
+        </>
+      )}
     </>
   );
 }

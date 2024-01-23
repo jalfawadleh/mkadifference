@@ -1,20 +1,20 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
+ * MKaDifference
  * @format
  */
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import axios from 'axios';
-import Login from './Components/Login';
-import Communication from './Components/Communication';
-import Search from './Components/Search';
-import Manage from './Components/Manage';
-import Mapbox from './Components/Mapbox';
-import Header from './Components/Header';
+import {
+  Login,
+  Header,
+  Communication,
+  Search,
+  Manage,
+  Mapbox,
+} from './Components';
 
-export default function App(): React.JSX.Element {
+export default function App() {
   const [user, setUser] = useState({
     _id: '',
     username: '',
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     margin: 0,
-    paddingTop: 15,
+    paddingTop: 20,
     backgroundColor: '#3c2f2f',
   },
   main: {
