@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
   headerElement: {
     height: 40,
     width: 40,
-    // backgroundColor: '#be9b7b',
   },
   headerElementActive: {
     height: 40,
@@ -97,9 +96,6 @@ const styles = StyleSheet.create({
   headerIcon: {
     height: 35,
     width: 35,
-
-    padding: 5,
-    margin: 0,
 
     alignSelf: 'center',
   },

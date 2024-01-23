@@ -12,6 +12,7 @@ export default function Search({user}) {
         <TextInput
           style={styles.searchInput}
           placeholder="Type here"
+          placeholderTextColor="#fff4e6"
           onChangeText={setSearch}
           // onEndEditing={setSearch}
           value={search}
@@ -40,9 +41,10 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 7,
     fontSize: 18,
+    fontWeight: 'bold',
     margin: 5,
     paddingLeft: 5,
-    color: '#fff4e6',
+    color: '#3c2f2f',
   },
   searchIcon: {
     height: 30,
