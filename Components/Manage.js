@@ -44,37 +44,20 @@ const styles = StyleSheet.create({
   menu: {
     flexDirection: 'row',
     margin: 0,
-    padding: 5,
-    justifyContent: 'space-evenly',
-    alignItems: 'flex-start',
+    padding: 0,
+
+    justifyContent: 'space-around',
 
     borderBottomColor: 'black',
     borderBottomWidth: 1,
   },
   menuItem: {
-    margin: 5,
-    padding: 5,
-
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 10,
-
-    textAlign: 'center',
-    alignSelf: 'center',
     fontSize: 18,
+    padding: 10,
   },
-
   menuItemActive: {
-    margin: 5,
-    padding: 5,
-
-    borderColor: '#fff4e6',
-    borderWidth: 1,
-    borderRadius: 10,
-
-    textAlign: 'center',
-    alignSelf: 'center',
     fontSize: 18,
+    padding: 10,
     color: '#fff4e6',
   },
 

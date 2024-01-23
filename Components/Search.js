@@ -33,17 +33,16 @@ export default function Search({user}) {
 const styles = StyleSheet.create({
   menu: {
     flexDirection: 'row',
-    margin: 10,
-    padding: 3,
-    borderWidth: 1,
-    borderRadius: 10,
+    margin: 0,
+    padding: 5,
   },
 
   searchInput: {
     flex: 7,
     fontSize: 18,
-    margin: 0,
+    margin: 5,
     paddingLeft: 5,
+    color: '#fff4e6',
   },
   searchIcon: {
     height: 30,
@@ -54,6 +53,8 @@ const styles = StyleSheet.create({
   searchLine: {
     height: 1,
     backgroundColor: 'black',
+    padding: 0,
+    marginBottom: 5,
   },
   items: {
     margin: 0,
