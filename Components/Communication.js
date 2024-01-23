@@ -1,6 +1,6 @@
 // import axios from 'axios';
-import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, Image, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 export default function Communication({user}) {
   //const x = `https://api.multiavatar.com/${probs.user.username}.png`;
 
