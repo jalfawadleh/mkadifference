@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 10,
     padding: 5,
-
     borderWidth: 1,
     borderRadius: 10,
   },
@@ -44,9 +43,9 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 7,
     fontSize: 20,
+    padding: 5,
   },
   searchIcon: {
-    flex: 1,
     height: 35,
     width: 35,
     margin: 0,
