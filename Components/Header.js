@@ -3,11 +3,16 @@ import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
 export default function Header({setNav, user, nav}) {
   return (
-    <>
+    <View style={styles.header}>
       {user._id && (
         <>
           <Pressable onPress={() => setNav('search')}>
-            <View style={styles.headerElement}>
+            <View
+              style={
+                nav === 'search'
+                  ? styles.headerElementActive
+                  : styles.headerElement
+              }>
               <Image
                 style={styles.headerIcon}
                 source={require('./img/search.png')}
@@ -15,7 +20,12 @@ export default function Header({setNav, user, nav}) {
             </View>
           </Pressable>
           <Pressable onPress={() => setNav('mapbox')}>
-            <View style={styles.headerElement}>
+            <View
+              style={
+                nav === 'mapbox'
+                  ? styles.headerElementActive
+                  : styles.headerElement
+              }>
               <Image
                 style={styles.headerIcon}
                 source={require('./img/mapbox.png')}
@@ -25,12 +35,19 @@ export default function Header({setNav, user, nav}) {
         </>
       )}
 
-      <Text style={styles.headerLogo}>MKaDifference</Text>
+      <Text onPress={() => setNav('')} style={styles.headerLogo}>
+        MKaDifference
+      </Text>
 
       {user._id && (
         <>
           <Pressable onPress={() => setNav('manage')}>
-            <View style={styles.headerElement}>
+            <View
+              style={
+                nav === 'manage'
+                  ? styles.headerElementActive
+                  : styles.headerElement
+              }>
               <Image
                 style={styles.headerIcon}
                 source={require('./img/manage.png')}
@@ -38,7 +55,12 @@ export default function Header({setNav, user, nav}) {
             </View>
           </Pressable>
           <Pressable onPress={() => setNav('communication')}>
-            <View style={styles.headerElement}>
+            <View
+              style={
+                nav === 'communication'
+                  ? styles.headerElementActive
+                  : styles.headerElement
+              }>
               <Image
                 style={styles.headerIcon}
                 source={{
@@ -49,32 +71,45 @@ export default function Header({setNav, user, nav}) {
           </Pressable>
         </>
       )}
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    margin: 0,
+    paddingTop: 10,
+    backgroundColor: '#3c2f2f',
+  },
   headerElement: {
-    flex: 1,
-    margin: 5,
-    padding: 0,
     height: 40,
     width: 40,
-    color: 'white',
+    // backgroundColor: '#be9b7b',
   },
+  headerElementActive: {
+    height: 40,
+    width: 40,
+    backgroundColor: '#be9b7b',
+  },
+
   headerIcon: {
     height: 35,
     width: 35,
 
     padding: 5,
+    margin: 0,
 
     alignSelf: 'center',
   },
   headerLogo: {
-    padding: 4,
+    margin: 0,
+    padding: 0,
+
     height: 40,
     fontSize: 25,
-    color: 'white',
+    color: '#fff4e6',
     textAlign: 'center',
     alignSelf: 'center',
   },
