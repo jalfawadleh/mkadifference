@@ -12,21 +12,20 @@ export default function Main() {
     _id: '',
     username: '',
   });
-  const [token, setToken] = useState('');
 
   const [nav, setNav] = useState('');
 
   axios.defaults.baseURL = 'http://127.0.0.1:3001/api/';
-  axios.defaults.headers.common.Authorization = token;
+  axios.defaults.headers.common.Authorization = user.token;
   axios.defaults.headers.post['Content-Type'] =
     'application/x-www-form-urlencoded';
 
   return (
     <View style={styles.container}>
       <View style={styles.status} />
-      <Header setNav={setNav} user={user} nav={nav} />
+      <Header user={user} nav={nav} setNav={setNav} />
 
-      {token ? (
+      {user.token ? (
         <>
           {nav === 'search' && <Search user={user} />}
           {nav === 'mapbox' && <Mapbox />}
@@ -35,7 +34,7 @@ export default function Main() {
           {nav === '' && <Text>Home Page</Text>}
         </>
       ) : (
-        <Login setUser={setUser} setToken={setToken} />
+        <Login setUser={setUser} />
       )}
     </View>
   );

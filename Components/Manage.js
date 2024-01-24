@@ -4,14 +4,14 @@ import {Text} from 'react-native';
 import {MenuItems} from '.';
 export default function Manage({user}) {
   const [nav, setNav] = useState('');
-
+  const items = [
+    {id: 20, name: 'Projects'},
+    {id: 21, name: 'Events'},
+    {id: 22, name: 'Communities'},
+  ];
   return (
     <>
-      <MenuItems
-        items={['Projects', 'Events', 'Communities']}
-        nav={nav}
-        setNav={setNav}
-      />
+      <MenuItems items={items} nav={nav} setNav={setNav} />
 
       {nav === 'Projects' && <Text>Projects</Text>}
       {nav === 'Events' && <Text>Events</Text>}

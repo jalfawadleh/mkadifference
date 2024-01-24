@@ -6,9 +6,10 @@ export default function MenuItems({items, nav, setNav}) {
     <View style={styles.menu}>
       {items.map(item => (
         <Text
-          style={nav === item ? styles.menuItemActive : styles.menuItem}
-          onPress={() => setNav(item)}>
-          {item}
+          key={item.id}
+          style={nav === item.name ? styles.menuItemActive : styles.menuItem}
+          onPress={() => setNav(item.name)}>
+          {item.name}
         </Text>
       ))}
     </View>
