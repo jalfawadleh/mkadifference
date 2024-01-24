@@ -6,28 +6,11 @@ import uuid from 'react-native-uuid';
 import axios from 'axios';
 
 export default function Profile({user}) {
-  const [member, setMember] = useState([]);
-  const [about, setAbout] = useState('');
-  const [hobby, setHobby] = useState('');
-  const [help, setHelp] = useState('');
-
   const [error, setError] = useState('');
 
-  const getMember = async () => {
-    const {data} = await axios.get('members/' + user._id);
-    setMember(data);
-    setAbout(data.about);
-  };
-
-  const putMember = async () => {
-    const {data} = await axios.put('members/' + member._id, member);
-    setMember(data);
-  };
-
-  useEffect(() => {
-    getMember();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user._id]);
+  const [member, setMember] = useState([]);
+  const [hobby, setHobby] = useState('');
+  const [help, setHelp] = useState('');
 
   const insertHobby = () => {
     if (hobby === '') {
@@ -77,21 +60,42 @@ export default function Profile({user}) {
     }
   };
 
-  const updateMember = () => {
-    member.about = about;
-    putMember();
+  const updateDescription = text => {
+    setMember(prevState => ({
+      ...prevState,
+      description: text,
+    }));
   };
+
+  const getMember = async () => {
+    const {data} = await axios.get('members/' + user._id);
+    setMember(data);
+  };
+
+  const putMember = async () => {
+    const {data} = await axios.put('members/' + member._id, member);
+    setMember(data);
+  };
+
+  useEffect(() => {
+    getMember();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user._id]);
 
   return (
     <>
       <Text>About Me</Text>
       <TextInput
+        onChangeText={text => updateDescription(text)}
+        value={member.description}
+        editable
+        multiline
+        numberOfLines={4}
+        maxLength={40}
         style={styles.insertText}
-        onChangeText={setAbout}
-        value={about}
       />
 
-      <Text>Interests and Hobbies</Text>
+      <Text>Tags: Interests and Hobbies</Text>
       {member.hobbies &&
         member.hobbies.map(h => (
           <Text key={h.id ? h.id : uuid.v4()}>{h.name}</Text>
@@ -134,7 +138,8 @@ export default function Profile({user}) {
 
       {error && <Text style={styles.error}> {error}</Text>}
 
-      <Button title="Update" onPress={() => updateMember()} />
+      <Button title="Update" onPress={() => putMember()} />
+      <Text>{JSON.stringify(member.description)}</Text>
     </>
   );
 }
