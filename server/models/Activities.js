@@ -11,13 +11,16 @@ const Activities = Schema(
       required: true,
     },
     description: {type: String, default: ''},
-    tags: [{id: Number, name: String}],
     notes: [],
 
     createdBy: {id: Schema.Types.ObjectId, name: String},
     managedBy: [{id: Schema.Types.ObjectId, name: String}],
-    members: [{_id: Schema.Types.ObjectId, name: String}],
+    lastLogin: Date,
     hidden: {type: Boolean, default: false},
+
+    members: [{_id: Schema.Types.ObjectId, name: String}],
+
+    tags: [{name: String}],
 
     stages: [
       {

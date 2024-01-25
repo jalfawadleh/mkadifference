@@ -1,0 +1,50 @@
+import React, {useState} from 'react';
+import {Button, Text, TextInput, View} from 'react-native';
+import uuid from 'react-native-uuid';
+import {Styles} from './Styles';
+
+export default function Tags({type, title, items = [], setItem}) {
+  const [tag, setTag] = useState([]);
+  const addTag = () => {
+    items.push({name: tag});
+
+    setItem(prevState => ({
+      ...prevState,
+      [type]: items,
+    }));
+  };
+  const delTag = () => {};
+  return (
+    <View style={Styles.box}>
+      <Text style={Styles.title}>{title}</Text>
+      <View style={Styles.row}>
+        {items ? (
+          items.map(t => (
+            <View style={Styles.row}>
+              <Text style={Styles.tagName} key={uuid.v4()}>
+                {t.name}
+              </Text>
+              <Button title="X" onPress={() => delTag(t.name)} />
+            </View>
+          ))
+        ) : (
+          <Text style={Styles.note}>No {type} added</Text>
+        )}
+      </View>
+      <View style={Styles.rowInput}>
+        <TextInput
+          style={Styles.rowInputText}
+          value={tag}
+          placeholder="Enter Tag"
+          onChangeText={setTag}
+          placeholderTextColor="#dddddd"
+        />
+        <Button
+          style={Styles.rowInputButton}
+          title="+"
+          onPress={() => addTag()}
+        />
+      </View>
+    </View>
+  );
+}

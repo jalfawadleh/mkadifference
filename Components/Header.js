@@ -41,10 +41,10 @@ export default function Header({setNav, user, nav}) {
 
       {user._id && (
         <>
-          <Pressable onPress={() => setNav('manage')}>
+          <Pressable onPress={() => setNav('activities')}>
             <View
               style={
-                nav === 'manage'
+                nav === 'activities'
                   ? styles.headerElementActive
                   : styles.headerElement
               }>

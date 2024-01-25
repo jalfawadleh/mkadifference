@@ -29,7 +29,7 @@ export default function Main() {
         <>
           {nav === 'search' && <Search user={user} />}
           {nav === 'mapbox' && <Mapbox />}
-          {nav === 'manage' && <Activities user={user} />}
+          {nav === 'activities' && <Activities user={user} />}
           {nav === 'communicate' && <Communicate user={user} />}
           {nav === '' && <Text>Home Page</Text>}
         </>

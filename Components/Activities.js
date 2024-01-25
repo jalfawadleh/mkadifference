@@ -3,6 +3,8 @@ import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 
 import axios from 'axios';
 
+import {Styles} from './Common/Styles';
+
 export default function Activities({user}) {
   const [activities, setActivities] = useState([]);
   const [activity, setActivity] = useState('');
@@ -57,10 +59,10 @@ export default function Activities({user}) {
   return (
     <>
       {status === 'editing' || status === 'creating' ? (
-        <View style={styles.activity}>
+        <View style={Styles.box}>
           {error && <Text style={styles.error}> {error}</Text>}
           <TextInput
-            style={styles.input}
+            style={Styles.textInput}
             placeholder="Name"
             placeholderTextColor="#aaa4e6"
             onChangeText={text =>
@@ -74,7 +76,7 @@ export default function Activities({user}) {
             maxLength={50}
           />
           <TextInput
-            style={styles.input}
+            style={Styles.textInput}
             placeholder="Description"
             placeholderTextColor="#aaa4e6"
             onChangeText={text =>
@@ -89,16 +91,16 @@ export default function Activities({user}) {
             numberOfLines={4}
             maxLength={40}
           />
-          <View style={styles.buttons}>
+          <View style={Styles.rowButtons}>
             <Button
-              style={styles.button}
+              style={Styles.button}
               title={
                 status === 'creating' ? 'Create Activity' : 'Update Activity'
               }
               onPress={() => onPress()}
             />
             <Button
-              style={styles.button}
+              style={Styles.button}
               title="Cancel"
               onPress={() => setStatus('')}
             />
@@ -107,11 +109,11 @@ export default function Activities({user}) {
       ) : (
         <>
           {activities.map(a => (
-            <View style={styles.activity} key={a._id}>
-              <Text style={styles.activityName}>{a.name}</Text>
-              <View style={styles.buttons}>
+            <View style={Styles.box} key={a._id}>
+              <Text style={Styles.title}>{a.name}</Text>
+              <View style={Styles.rowButtons}>
                 <Button
-                  style={styles.button}
+                  style={Styles.button}
                   title="Edit"
                   onPress={() => {
                     setActivity(a);
@@ -119,7 +121,7 @@ export default function Activities({user}) {
                   }}
                 />
                 <Button
-                  style={styles.button}
+                  style={Styles.button}
                   title="Delete"
                   onPress={() => delActivity(a._id)}
                 />
@@ -127,7 +129,7 @@ export default function Activities({user}) {
             </View>
           ))}
           <Button
-            style={styles.button}
+            style={Styles.button}
             title="Create Activity"
             onPress={() => setStatus('creating')}
           />
@@ -136,38 +138,3 @@ export default function Activities({user}) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  error: {
-    padding: 5,
-    color: 'red',
-    alignSelf: 'center',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  activity: {
-    backgroundColor: '#3c2f2f',
-    margin: 5,
-  },
-  activityName: {
-    marginTop: 5,
-    color: '#fff4e6',
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  input: {
-    color: '#fff4e6',
-    margin: 10,
-    fontSize: 18,
-  },
-  buttons: {
-    margin: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  button: {
-    margin: 5,
-    fontSize: 20,
-    backgroundColor: '#fff4e6',
-  },
-});
