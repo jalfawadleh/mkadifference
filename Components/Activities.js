@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, StyleSheet, Text} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 
 import EditActivity from './Activities/EditActivity';
 // import uuid from 'react-native-uuid';
@@ -8,11 +8,21 @@ import axios from 'axios';
 
 export default function Activities({user}) {
   const [activities, setActivities] = useState([]);
+  const [activity, setActivity] = useState('');
+  const [createNew, setCreateNew] = useState(false);
 
-  const [activityId, setActivityId] = useState(-1);
+  const [error, setError] = useState('');
 
   const getActivities = async () => {
     const {data} = await axios.get('activities/');
+    setActivities(data);
+  };
+
+  const delActivity = async id => {
+    const {data} = await axios.delete('activities/' + id);
+    if (data.error) {
+      setError(data.error);
+    }
     setActivities(data);
   };
 
@@ -24,19 +34,26 @@ export default function Activities({user}) {
     <>
       <Text>Activities</Text>
 
-      {activityId > -1 ? (
-        <EditActivity
-          activityId={activityId}
-          setActivityId={setActivityId}
-          activities={activities}
-        />
+      {createNew ? (
+        <EditActivity setCreateNew={setCreateNew} activities={activities} />
+      ) : activity ? (
+        <EditActivity a={activity} activities={activities} />
       ) : (
         <>
-          <Text>Activities: {JSON.stringify(activities)}</Text>
+          {error && <Text style={styles.error}> {error}</Text>}
+
+          {activities.map(a => (
+            <View key={a._id}>
+              <Text>Name: {a.name}</Text>
+              <Text>Description: {a.description}</Text>
+              <Button title="Edit" onPress={() => setActivity(a)} />
+              <Button title="Delete" onPress={() => delActivity(a._id)} />
+            </View>
+          ))}
           <Button
             style={styles.button}
             title="Create Activity"
-            onPress={() => setActivityId(0)}
+            onPress={() => setCreateNew(true)}
           />
         </>
       )}

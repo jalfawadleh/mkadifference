@@ -4,37 +4,32 @@ import {Button, StyleSheet, Text, TextInput} from 'react-native';
 
 // import uuid from 'react-native-uuid';
 
-export default function EditActivity({activityId, setActivityId, activities}) {
+export default function EditActivity({a = [], setCreateNew, activities}) {
   const [error, setError] = useState('');
 
-  const [activity, setActivity] = useState([]);
+  const [activity, setActivity] = useState(a);
 
   const postActivity = async () => {
     const {data} = await axios.post('activities/', activity);
     if (data.error) {
       setError(data.error);
     } else {
-      setActivity(data);
-      activities.push(activity);
-      setActivityId(-1);
+      activities.push(data);
     }
+    setCreateNew(false);
   };
+
   const putActivity = async () => {
     const {data} = await axios.post('activities/', activity);
     if (data.error) {
       setError(data.error);
     } else {
-      setActivities(prevState => ({
-        ...prevState,
-        data,
-      }));
-      setActivityId(-1);
+      setActivities(data);
     }
   };
+
   return (
     <>
-      <Text>Activity ID: {activityId}</Text>
-
       <TextInput
         onChangeText={text =>
           setActivity(prevState => ({
@@ -67,11 +62,9 @@ export default function EditActivity({activityId, setActivityId, activities}) {
 
       <Button
         style={styles.button}
-        title="Create Activity"
-        onPress={() => postActivity()}
+        title={(activity._id ? 'Update' : 'Create') + ' Activity'}
+        onPress={() => (activity._id ? putActivity() : postActivity())}
       />
-
-      <Text>{JSON.stringify(activity)}</Text>
     </>
   );
 }

@@ -9,7 +9,7 @@ const Activities = require('../models/Activities');
 // @access  Private
 const getActivities = asyncHandler(async (req, res) => {
   const activities = await Activities.find();
-  console.log('Getting all activities ' + activities);
+  console.log('Activities Send All');
   res.status(200).json(activities);
 });
 
@@ -18,6 +18,7 @@ const getActivities = asyncHandler(async (req, res) => {
 // @access  Private
 const getActivity = asyncHandler(async (req, res) => {
   const activity = await Activities.findById(req.params.id);
+  console.log('Getting one activitiy');
   res.status(200).json(activity);
 });
 
@@ -30,10 +31,16 @@ const postActivity = asyncHandler(async (req, res) => {
     return;
   }
 
+  if (req.body.name.length < 4) {
+    res.status(200).json({error: 'Name minumum 4 characters'});
+    return;
+  }
+
   const activity = await Activities.create({
     name: req.body.name,
+    description: req.body.description,
   });
-
+  console.log('Activity Created');
   res.status(200).json(activity);
 });
 
@@ -65,7 +72,7 @@ const putActivity = asyncHandler(async (req, res) => {
       new: true,
     },
   );
-
+  console.log('Activity Updated');
   res.status(200).json(updatedActivity);
 });
 
@@ -76,14 +83,12 @@ const delActivity = asyncHandler(async (req, res) => {
   const activity = await Activities.findById(req.params.id);
 
   if (!activity) {
-    res.status(400);
-    throw new Error('activity not found');
+    res.status(200).json('Activity not found');
   }
 
   // Check for user
   if (!req.user) {
-    res.status(401);
-    throw new Error('User not found');
+    res.status(200).json('User not found');
   }
 
   // Make sure the logged in user matches the member user
@@ -92,9 +97,11 @@ const delActivity = asyncHandler(async (req, res) => {
   //   throw new Error('User not authorized');
   // }
 
-  await activity.remove();
-
-  res.status(200).json({id: req.params.id});
+  await Activities.findOneAndDelete(req.params.id);
+  console.log('Activity deleted ');
+  const activities = await Activities.find();
+  console.log('Activities Send All');
+  res.status(200).json(activities);
 });
 
 router

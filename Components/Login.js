@@ -67,12 +67,10 @@ export default function LoginForm({setUser, setToken}) {
       const {data} = await axios.post('users/login', credentials);
       if (data.error) {
         setError(data.error);
-        console.log(data.error);
       } else {
         data.token = 'Bearer ' + data.token;
         setUser(data);
         console.log(' Login Successful : ' + data.username);
-        console.log(' Token : ' + data.token);
       }
     }
   };
