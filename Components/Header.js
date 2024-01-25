@@ -50,7 +50,7 @@ export default function Header({setNav, user, nav}) {
               }>
               <Image
                 style={styles.headerIcon}
-                source={require('./img/manage.png')}
+                source={require('./img/events.png')}
               />
             </View>
           </Pressable>

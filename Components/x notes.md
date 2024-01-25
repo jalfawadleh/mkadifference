@@ -1,5 +1,10 @@
 # https://www.color-hex.com/color-palette/389
 
+Color
+#3c2f2f
+#be9b7b
+#fff4e6
+
 # https://www.svgrepo.com/
 
     Go to Terminal and write cd ~
