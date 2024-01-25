@@ -40,6 +40,7 @@ app
 
   .use('/api/users', require('./modules/users'))
   .use('/api/members', require('./modules/members'))
+  .use('/api/activities', require('./modules/activities'))
   .use('/api/messages', require('./modules/messages'))
   .use('/api/comments', require('./modules/comments'))
   .use('/api/items', require('./modules/items'))

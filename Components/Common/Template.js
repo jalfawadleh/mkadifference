@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, StyleSheet, Text, TextInput} from 'react-native';
 
-import uuid from 'react-native-uuid';
+// import uuid from 'react-native-uuid';
 
 import axios from 'axios';
 
@@ -42,6 +42,7 @@ export default function Projects({user}) {
       {error && <Text style={styles.error}> {error}</Text>}
 
       <Button title="Update" onPress={() => getMember()} />
+      <Button title="Update" onPress={() => setError('')} />
       <Text>{JSON.stringify(member.description)}</Text>
     </>
   );
