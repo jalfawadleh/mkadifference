@@ -54,7 +54,7 @@ const putActivity = asyncHandler(async (req, res) => {
   }
 
   // find if activity exists
-  const activity = await Activities.findById(req.params.id);
+  const activity = await Activities.findById(req.body._id);
 
   if (!activity) {
     res.status(200).json({error: 'activity not found'});
@@ -66,7 +66,7 @@ const putActivity = asyncHandler(async (req, res) => {
   // }
 
   const updatedActivity = await Activities.findByIdAndUpdate(
-    req.params.id,
+    req.body._id,
     req.body,
     {
       new: true,

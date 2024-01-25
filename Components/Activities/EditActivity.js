@@ -1,32 +1,7 @@
-import React, {useState} from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, TextInput} from 'react-native';
 
-import axios from 'axios';
-
-export default function EditActivity({a = [], setA, setCreateNew, activities}) {
-  const [error, setError] = useState('');
-
-  const [activity, setActivity] = useState(a);
-
-  const postActivity = async () => {
-    const {data} = await axios.post('activities/', activity);
-    if (data.error) {
-      setError(data.error);
-    } else {
-      activities.push(data);
-    }
-    setCreateNew(false);
-  };
-
-  const putActivity = async () => {
-    const {data} = await axios.post('activities/', activity);
-    if (data.error) {
-      setError(data.error);
-    } else {
-      //setActivities(data);
-    }
-  };
-
+export default function EditActivity({activity, setActivity}) {
   return (
     <>
       <TextInput
@@ -56,28 +31,6 @@ export default function EditActivity({a = [], setA, setCreateNew, activities}) {
         maxLength={40}
         style={styles.insertText}
       />
-
-      {error && <Text style={styles.error}> {error}</Text>}
-      <View style={styles.buttons}>
-        <Button
-          style={styles.button}
-          title={(activity._id ? 'Update' : 'Create') + ' Activity'}
-          onPress={() => {
-            if (activity._id) {
-              putActivity();
-            } else {
-              postActivity();
-            }
-          }}
-        />
-        <Button
-          title="Cancel"
-          onPress={() => {
-            setA('');
-            setCreateNew(false);
-          }}
-        />
-      </View>
     </>
   );
 }
