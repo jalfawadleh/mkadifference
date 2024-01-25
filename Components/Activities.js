@@ -113,26 +113,22 @@ export default function Activities({user}) {
               <Text style={Styles.title}>{a.name}</Text>
               <View style={Styles.rowButtons}>
                 <Button
-                  style={Styles.button}
                   title="Edit"
                   onPress={() => {
                     setActivity(a);
                     setStatus('editing');
                   }}
                 />
-                <Button
-                  style={Styles.button}
-                  title="Delete"
-                  onPress={() => delActivity(a._id)}
-                />
+                <Button title="Delete" onPress={() => delActivity(a._id)} />
               </View>
             </View>
           ))}
-          <Button
-            style={Styles.button}
-            title="Create Activity"
-            onPress={() => setStatus('creating')}
-          />
+          <View style={Styles.submit}>
+            <Button
+              title="Create Activity"
+              onPress={() => setStatus('creating')}
+            />
+          </View>
         </>
       )}
     </>

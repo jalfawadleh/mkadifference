@@ -73,4 +73,11 @@ export const Styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff4e6',
   },
+  submit: {
+    margin: 5,
+    padding: 5,
+    fontSize: 20,
+    backgroundColor: '#fff4e6',
+    borderColor: 'black',
+  },
 });

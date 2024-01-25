@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, Text, TextInput, View} from 'react-native';
 
 import uuid from 'react-native-uuid';
 
@@ -62,8 +62,9 @@ export default function Profile({user}) {
         items={member.help}
         setItem={setMember}
       />
-
-      <Button title="Update" onPress={() => putMember()} />
+      <View style={Styles.submit}>
+        <Button title="Update" onPress={() => putMember()} />
+      </View>
     </>
   );
 }
