@@ -7,8 +7,7 @@ import {Styles} from './Common/Styles';
 
 export default function Activities({user}) {
   const [activities, setActivities] = useState([]);
-  const [activity, setActivity] = useState('');
-  const [status, setStatus] = useState('');
+  const [activity, setActivity] = useState([{_id: 0, name: ''}]);
 
   const [error, setError] = useState('');
 
@@ -30,7 +29,8 @@ export default function Activities({user}) {
     if (data.error) {
       setError(data.error);
     } else {
-      activities.push(data);
+      setActivity([{_id: 0, name: ''}]);
+      getActivities();
     }
   };
 
@@ -39,17 +39,9 @@ export default function Activities({user}) {
     if (data.error) {
       setError(data.error);
     } else {
+      setActivity([{_id: 0, name: ''}]);
       getActivities();
     }
-  };
-
-  const onPress = () => {
-    if (status === 'creating') {
-      postActivity();
-    } else {
-      putActivity();
-    }
-    setStatus('');
   };
 
   useEffect(() => {
@@ -57,8 +49,9 @@ export default function Activities({user}) {
   }, [user._id]);
 
   return (
+    // edit activity
     <>
-      {status === 'editing' || status === 'creating' ? (
+      {activity._id ? (
         <View style={Styles.box}>
           {error && <Text style={Styles.error}> {error}</Text>}
           <TextInput
@@ -94,19 +87,18 @@ export default function Activities({user}) {
           <View style={Styles.rowButtons}>
             <Button
               style={Styles.button}
-              title={
-                status === 'creating' ? 'Create Activity' : 'Update Activity'
-              }
-              onPress={() => onPress()}
+              title="Update Activity"
+              onPress={() => putActivity()}
             />
             <Button
               style={Styles.button}
               title="Cancel"
-              onPress={() => setStatus('')}
+              onPress={() => setActivity([{_id: 0, name: ''}])}
             />
           </View>
         </View>
       ) : (
+        // show activities
         <>
           {activities.map(a => (
             <View style={Styles.box} key={a._id}>
@@ -116,18 +108,32 @@ export default function Activities({user}) {
                   title="Edit"
                   onPress={() => {
                     setActivity(a);
-                    setStatus('editing');
                   }}
                 />
                 <Button title="Delete" onPress={() => delActivity(a._id)} />
               </View>
             </View>
           ))}
-          <View style={Styles.submit}>
-            <Button
-              title="Create Activity"
-              onPress={() => setStatus('creating')}
-            />
+          <View style={Styles.box}>
+            <View style={Styles.rowInput}>
+              <TextInput
+                style={Styles.rowInputText}
+                value={activity.name}
+                placeholder="Activity Name"
+                onChangeText={text =>
+                  setActivity(prevState => ({
+                    ...prevState,
+                    name: text,
+                  }))
+                }
+                placeholderTextColor="#dddddd"
+              />
+              <Button
+                style={Styles.rowInputButton}
+                title="+"
+                onPress={() => postActivity()}
+              />
+            </View>
           </View>
         </>
       )}
