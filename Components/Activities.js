@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, Text, TextInput, View} from 'react-native';
 
 import axios from 'axios';
 
@@ -60,7 +60,7 @@ export default function Activities({user}) {
     <>
       {status === 'editing' || status === 'creating' ? (
         <View style={Styles.box}>
-          {error && <Text style={styles.error}> {error}</Text>}
+          {error && <Text style={Styles.error}> {error}</Text>}
           <TextInput
             style={Styles.textInput}
             placeholder="Name"

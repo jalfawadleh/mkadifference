@@ -22,12 +22,12 @@ const userSchema = Schema(
     },
     description: String,
     hidden: {type: Boolean, default: false},
-    hobbies: [{name: String}],
     location: {
       lng: {type: Number, default: -122.2683},
       lat: {type: Number, default: 37.8243},
     },
     help: [{name: String}],
+    tags: [{name: String}],
     type: {type: String, default: 'members'},
     contacts: [
       {
