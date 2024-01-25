@@ -65,6 +65,7 @@ export default function EditActivity({a = [], setCreateNew, activities}) {
         title={(activity._id ? 'Update' : 'Create') + ' Activity'}
         onPress={() => (activity._id ? putActivity() : postActivity())}
       />
+      <Button title="Cancel" onPress={() => setCreateNew(false)} />
     </>
   );
 }
@@ -76,14 +77,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 15,
     fontWeight: 'bold',
-  },
-  button: {
-    margin: 5,
-    padding: 5,
-    borderColor: 'black',
-    borderWidth: 1,
-    fontSize: 20,
-    borderRadius: 45,
   },
 
   insertText: {

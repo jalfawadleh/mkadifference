@@ -5,6 +5,7 @@ import EditActivity from './Activities/EditActivity';
 // import uuid from 'react-native-uuid';
 
 import axios from 'axios';
+import ListActivities from './Activities/ListActivities';
 
 export default function Activities({user}) {
   const [activities, setActivities] = useState([]);
@@ -32,8 +33,6 @@ export default function Activities({user}) {
 
   return (
     <>
-      <Text>Activities</Text>
-
       {createNew ? (
         <EditActivity setCreateNew={setCreateNew} activities={activities} />
       ) : activity ? (
@@ -42,14 +41,11 @@ export default function Activities({user}) {
         <>
           {error && <Text style={styles.error}> {error}</Text>}
 
-          {activities.map(a => (
-            <View key={a._id}>
-              <Text>Name: {a.name}</Text>
-              <Text>Description: {a.description}</Text>
-              <Button title="Edit" onPress={() => setActivity(a)} />
-              <Button title="Delete" onPress={() => delActivity(a._id)} />
-            </View>
-          ))}
+          <ListActivities
+            activities={activities}
+            setActivity={setActivity}
+            delActivity={delActivity}
+          />
           <Button
             style={styles.button}
             title="Create Activity"
