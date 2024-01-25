@@ -1,10 +1,9 @@
-import axios from 'axios';
 import React, {useState} from 'react';
-import {Button, StyleSheet, Text, TextInput} from 'react-native';
+import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 
-// import uuid from 'react-native-uuid';
+import axios from 'axios';
 
-export default function EditActivity({a = [], setCreateNew, activities}) {
+export default function EditActivity({a = [], setA, setCreateNew, activities}) {
   const [error, setError] = useState('');
 
   const [activity, setActivity] = useState(a);
@@ -24,7 +23,7 @@ export default function EditActivity({a = [], setCreateNew, activities}) {
     if (data.error) {
       setError(data.error);
     } else {
-      setActivities(data);
+      //setActivities(data);
     }
   };
 
@@ -59,13 +58,26 @@ export default function EditActivity({a = [], setCreateNew, activities}) {
       />
 
       {error && <Text style={styles.error}> {error}</Text>}
-
-      <Button
-        style={styles.button}
-        title={(activity._id ? 'Update' : 'Create') + ' Activity'}
-        onPress={() => (activity._id ? putActivity() : postActivity())}
-      />
-      <Button title="Cancel" onPress={() => setCreateNew(false)} />
+      <View style={styles.buttons}>
+        <Button
+          style={styles.button}
+          title={(activity._id ? 'Update' : 'Create') + ' Activity'}
+          onPress={() => {
+            if (activity._id) {
+              putActivity();
+            } else {
+              postActivity();
+            }
+          }}
+        />
+        <Button
+          title="Cancel"
+          onPress={() => {
+            setA('');
+            setCreateNew(false);
+          }}
+        />
+      </View>
     </>
   );
 }
@@ -78,7 +90,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   },
-
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 0,
+    margin: 0,
+  },
+  button: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
   insertText: {
     margin: 10,
     padding: 10,

@@ -35,8 +35,13 @@ export default function Activities({user}) {
     <>
       {createNew ? (
         <EditActivity setCreateNew={setCreateNew} activities={activities} />
-      ) : activity ? (
-        <EditActivity a={activity} activities={activities} />
+      ) : activity !== '' ? (
+        <EditActivity
+          setCreateNew={setCreateNew}
+          a={activity}
+          setA={setActivity}
+          activities={activities}
+        />
       ) : (
         <>
           {error && <Text style={styles.error}> {error}</Text>}
