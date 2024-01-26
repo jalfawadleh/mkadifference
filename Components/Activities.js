@@ -32,18 +32,20 @@ export default function Activities({user}) {
     if (data.error) {
       setError(data.error);
     } else {
-      setActivity([{_id: 0, name: '', stages: []}]);
       getActivities();
+      setActivity([{_id: 0, name: '', stages: []}]);
     }
   };
 
-  const putActivity = async () => {
+  const putActivity = async (closeActivity = 1) => {
     const {data} = await axios.put('activities/' + activity._id, activity);
     if (data.error) {
       setError(data.error);
     } else {
-      setActivity([{_id: 0, name: '', stages: []}]);
       getActivities();
+      if (closeActivity) {
+        setActivity([{_id: 0, name: '', stages: []}]);
+      }
     }
   };
 

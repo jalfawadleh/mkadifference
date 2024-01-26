@@ -2,9 +2,8 @@ import React from 'react';
 import {Button, TextInput, View} from 'react-native';
 
 import {Styles} from '../Common/Styles';
-import Stages from './Stages';
 
-export default function EditActivity({activity, setActivity, putActivity}) {
+export default function EditStage({stage, setStage}) {
   return (
     <>
       <View style={Styles.box}>
@@ -13,12 +12,12 @@ export default function EditActivity({activity, setActivity, putActivity}) {
           placeholder="Name"
           placeholderTextColor="#aaa4e6"
           onChangeText={text =>
-            setActivity(prevState => ({
+            setStage(prevState => ({
               ...prevState,
               name: text,
             }))
           }
-          value={activity.name}
+          value={stage.name}
           editable
           maxLength={50}
         />
@@ -27,22 +26,16 @@ export default function EditActivity({activity, setActivity, putActivity}) {
           placeholder="Description"
           placeholderTextColor="#aaa4e6"
           onChangeText={text =>
-            setActivity(prevState => ({
+            setStage(prevState => ({
               ...prevState,
               description: text,
             }))
           }
-          value={activity.description}
+          value={stage.description}
           editable
           multiline
           numberOfLines={4}
           maxLength={40}
-        />
-
-        <Stages
-          activity={activity}
-          setActivity={setActivity}
-          putActivity={putActivity}
         />
 
         <View style={Styles.rowButtons}>
@@ -54,7 +47,7 @@ export default function EditActivity({activity, setActivity, putActivity}) {
           <Button
             style={Styles.button}
             title="Cancel"
-            onPress={() => setActivity([{_id: 0, name: ''}])}
+            onPress={() => setStage([{name: ''}])}
           />
         </View>
       </View>
