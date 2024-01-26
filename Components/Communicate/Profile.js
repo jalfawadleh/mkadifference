@@ -1,18 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Text, TextInput, View} from 'react-native';
 
-import uuid from 'react-native-uuid';
-
 import axios from 'axios';
+
 import {Styles} from '../Common/Styles';
-import Tags from '../Common/Tags';
+import StackText from '../Common/StackText';
 
 export default function Profile({user}) {
-  const [error, setError] = useState('');
-
   const [member, setMember] = useState([]);
-  const [hobby, setHobby] = useState('');
-  const [help, setHelp] = useState('');
 
   const updateDescription = text => {
     setMember(prevState => ({
@@ -50,13 +45,13 @@ export default function Profile({user}) {
           style={Styles.textInput}
         />
       </View>
-      <Tags
+      <StackText
         type="tags"
         title="Interests"
         items={member.tags}
         setItem={setMember}
       />
-      <Tags
+      <StackText
         type="help"
         title="Help offered or needed"
         items={member.help}

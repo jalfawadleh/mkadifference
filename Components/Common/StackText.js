@@ -3,7 +3,7 @@ import {Button, Text, TextInput, View} from 'react-native';
 import uuid from 'react-native-uuid';
 import {Styles} from './Styles';
 
-export default function Tags({type, title, items = [], setItem}) {
+export default function StackText({type, title, items = [], setItem}) {
   const [tag, setTag] = useState([]);
   const addTag = () => {
     items.push({name: tag});
