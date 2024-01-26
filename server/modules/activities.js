@@ -97,7 +97,7 @@ const delActivity = asyncHandler(async (req, res) => {
   //   throw new Error('User not authorized');
   // }
 
-  await Activities.findOneAndDelete(req.params.id);
+  await Activities.findByIdAndDelete(req.params.id);
   console.log('Activity deleted ');
   const activities = await Activities.find();
   console.log('Activities Send All');
