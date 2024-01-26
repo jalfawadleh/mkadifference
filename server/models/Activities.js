@@ -24,10 +24,11 @@ const Activities = Schema(
 
     stages: [
       {
-        id: Number,
+        id: {type: Number, required: true, default: 0},
         name: String,
         description: {type: Boolean, default: ''},
-        period: {start: Date, end: Date},
+        start: Date,
+        end: Date,
         location: {
           lng: {type: Number, default: 0},
           lat: {type: Number, default: 0},

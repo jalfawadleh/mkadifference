@@ -1,65 +1,59 @@
 import React from 'react';
-import {StyleSheet, TextInput} from 'react-native';
+import {Button, TextInput, View} from 'react-native';
 
-export default function EditActivity({activity, setActivity}) {
+import {Styles} from '../Common/Styles';
+import Stages from './Stages';
+
+export default function EditActivity({activity, setActivity, putActivity}) {
   return (
     <>
-      <TextInput
-        onChangeText={text =>
-          setActivity(prevState => ({
-            ...prevState,
-            name: text,
-          }))
-        }
-        value={activity.name}
-        editable
-        maxLength={50}
-        style={styles.insertText}
-      />
+      <View style={Styles.box}>
+        <TextInput
+          style={Styles.textInput}
+          placeholder="Name"
+          placeholderTextColor="#aaa4e6"
+          onChangeText={text =>
+            setActivity(prevState => ({
+              ...prevState,
+              name: text,
+            }))
+          }
+          value={activity.name}
+          editable
+          maxLength={50}
+        />
+        <TextInput
+          style={Styles.textInput}
+          placeholder="Description"
+          placeholderTextColor="#aaa4e6"
+          onChangeText={text =>
+            setActivity(prevState => ({
+              ...prevState,
+              description: text,
+            }))
+          }
+          value={activity.description}
+          editable
+          multiline
+          numberOfLines={4}
+          maxLength={40}
+        />
 
-      <TextInput
-        onChangeText={text =>
-          setActivity(prevState => ({
-            ...prevState,
-            description: text,
-          }))
-        }
-        value={activity.description}
-        editable
-        multiline
-        numberOfLines={4}
-        maxLength={40}
-        style={styles.insertText}
-      />
+        <Stages activity={activity} setActivity={setActivity} />
+
+        <View style={Styles.rowButtons}>
+          <Button
+            style={Styles.button}
+            title="Update Activity"
+            onPress={() => putActivity()}
+          />
+          <Button
+            style={Styles.button}
+            title="Cancel"
+            onPress={() => setActivity([{_id: 0, name: ''}])}
+          />
+        </View>
+      </View>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  error: {
-    padding: 5,
-    color: 'red',
-    alignSelf: 'center',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 0,
-    margin: 0,
-  },
-  button: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  insertText: {
-    margin: 10,
-    padding: 10,
-    borderColor: 'black',
-    borderWidth: 1,
-    fontSize: 20,
-    fontWeight: 'bold',
-    borderRadius: 45,
-  },
-});

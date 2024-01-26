@@ -80,4 +80,5 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#fff4e6',
     borderColor: 'black',
   },
+  placeholderTextColor: '#dddddd',
 });

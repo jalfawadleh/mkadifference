@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Text} from 'react-native';
 
 import axios from 'axios';
 
 import {Styles} from './Common/Styles';
+import ListActivities from './Activities/ListActivities';
+import CreateActivity from './Activities/CreateActivity';
+import EditActivity from './Activities/EditActivity';
 
 export default function Activities({user}) {
   const [activities, setActivities] = useState([]);
-  const [activity, setActivity] = useState([{_id: 0, name: ''}]);
+  const [activity, setActivity] = useState([{_id: 0, name: '', stages: []}]);
 
   const [error, setError] = useState('');
 
@@ -29,7 +32,7 @@ export default function Activities({user}) {
     if (data.error) {
       setError(data.error);
     } else {
-      setActivity([{_id: 0, name: ''}]);
+      setActivity([{_id: 0, name: '', stages: []}]);
       getActivities();
     }
   };
@@ -39,7 +42,7 @@ export default function Activities({user}) {
     if (data.error) {
       setError(data.error);
     } else {
-      setActivity([{_id: 0, name: ''}]);
+      setActivity([{_id: 0, name: '', stages: []}]);
       getActivities();
     }
   };
@@ -51,90 +54,26 @@ export default function Activities({user}) {
   return (
     // edit activity
     <>
+      {error && <Text style={Styles.error}> {error}</Text>}
+
       {activity._id ? (
-        <View style={Styles.box}>
-          {error && <Text style={Styles.error}> {error}</Text>}
-          <TextInput
-            style={Styles.textInput}
-            placeholder="Name"
-            placeholderTextColor="#aaa4e6"
-            onChangeText={text =>
-              setActivity(prevState => ({
-                ...prevState,
-                name: text,
-              }))
-            }
-            value={activity.name}
-            editable
-            maxLength={50}
-          />
-          <TextInput
-            style={Styles.textInput}
-            placeholder="Description"
-            placeholderTextColor="#aaa4e6"
-            onChangeText={text =>
-              setActivity(prevState => ({
-                ...prevState,
-                description: text,
-              }))
-            }
-            value={activity.description}
-            editable
-            multiline
-            numberOfLines={4}
-            maxLength={40}
-          />
-          <View style={Styles.rowButtons}>
-            <Button
-              style={Styles.button}
-              title="Update Activity"
-              onPress={() => putActivity()}
-            />
-            <Button
-              style={Styles.button}
-              title="Cancel"
-              onPress={() => setActivity([{_id: 0, name: ''}])}
-            />
-          </View>
-        </View>
+        <EditActivity
+          activity={activity}
+          setActivity={setActivity}
+          putActivity={putActivity}
+        />
       ) : (
-        // show activities
         <>
-          {activities.map(a => (
-            <View style={Styles.box} key={a._id}>
-              <Text style={Styles.title}>{a.name}</Text>
-              <View style={Styles.rowButtons}>
-                <Button
-                  title="Edit"
-                  onPress={() => {
-                    setActivity(a);
-                  }}
-                />
-                <Button title="Delete" onPress={() => delActivity(a._id)} />
-              </View>
-            </View>
-          ))}
-          <View style={Styles.box}>
-            <View style={Styles.rowInput}>
-              <TextInput
-                style={Styles.rowInputText}
-                value={activity.name}
-                placeholder="Activity Name"
-                onChangeText={text =>
-                  setActivity(prevState => ({
-                    ...prevState,
-                    name: text,
-                  }))
-                }
-                placeholderTextColor="#dddddd"
-              />
-              <Button
-                style={Styles.rowInputButton}
-                title="+"
-                onPress={() => postActivity()}
-              />
-            </View>
-          </View>
+          <ListActivities
+            activities={activities}
+            setActivity={setActivity}
+            delActivity={delActivity}
+          />
+          <CreateActivity
+            activity={activity}
+            setActivity={setActivity}
+            postActivity={postActivity}
+          />
         </>
       )}
     </>
