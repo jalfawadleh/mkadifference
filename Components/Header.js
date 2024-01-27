@@ -1,76 +1,46 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default function Header({setNav, user, nav}) {
+export default function Header({user, navigation}) {
   return (
     <View style={styles.header}>
-      {user._id && (
-        <>
-          <Pressable onPress={() => setNav('search')}>
-            <View
-              style={
-                nav === 'search'
-                  ? styles.headerElementActive
-                  : styles.headerElement
-              }>
-              <Image
-                style={styles.headerIcon}
-                source={require('./img/search.png')}
-              />
-            </View>
-          </Pressable>
-          <Pressable onPress={() => setNav('mapbox')}>
-            <View
-              style={
-                nav === 'mapbox'
-                  ? styles.headerElementActive
-                  : styles.headerElement
-              }>
-              <Image
-                style={styles.headerIcon}
-                source={require('./img/mapbox.png')}
-              />
-            </View>
-          </Pressable>
-        </>
-      )}
+      <Pressable onPress={() => navigation.navigate('Search')}>
+        <View style={styles.headerElement}>
+          <Image
+            style={styles.headerIcon}
+            source={require('./img/search.png')}
+          />
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Mapbox')}>
+        <View style={styles.headerElement}>
+          <Image
+            style={styles.headerIcon}
+            source={require('./img/mapbox.png')}
+          />
+        </View>
+      </Pressable>
 
-      <Text onPress={() => setNav('')} style={styles.headerLogo}>
-        MKaDifference
-      </Text>
+      <Text style={styles.headerLogo}>MKaDifference</Text>
 
-      {user._id && (
-        <>
-          <Pressable onPress={() => setNav('activities')}>
-            <View
-              style={
-                nav === 'activities'
-                  ? styles.headerElementActive
-                  : styles.headerElement
-              }>
-              <Image
-                style={styles.headerIcon}
-                source={require('./img/events.png')}
-              />
-            </View>
-          </Pressable>
-          <Pressable onPress={() => setNav('communicate')}>
-            <View
-              style={
-                nav === 'communicate'
-                  ? styles.headerElementActive
-                  : styles.headerElement
-              }>
-              <Image
-                style={styles.headerIcon}
-                source={{
-                  uri: `https://api.multiavatar.com/${user.username}.png`,
-                }}
-              />
-            </View>
-          </Pressable>
-        </>
-      )}
+      <Pressable onPress={() => navigation.navigate('Activities')}>
+        <View style={styles.headerElement}>
+          <Image
+            style={styles.headerIcon}
+            source={require('./img/events.png')}
+          />
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Communicate')}>
+        <View style={styles.headerElement}>
+          <Image
+            style={styles.headerIcon}
+            source={{
+              uri: `https://api.multiavatar.com/${user.username}.png`,
+            }}
+          />
+        </View>
+      </Pressable>
     </View>
   );
 }
@@ -78,9 +48,7 @@ export default function Header({setNav, user, nav}) {
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    margin: 0,
-    paddingTop: 10,
+    justifyContent: 'space-between',
     backgroundColor: '#3c2f2f',
   },
   headerElement: {
@@ -100,7 +68,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   headerLogo: {
-    height: 40,
     fontSize: 25,
     fontWeight: 'bold',
     color: '#fff4e6',

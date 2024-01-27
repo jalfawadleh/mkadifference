@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import axios from 'axios';
 
-export default function LoginForm({setUser, setToken}) {
+export default function LoginForm({navigation, setUser, setToken}) {
   const [joinUs, setJoinUs] = useState(false);
 
   // login
@@ -71,6 +71,7 @@ export default function LoginForm({setUser, setToken}) {
         data.token = 'Bearer ' + data.token;
         setUser(data);
         console.log(' Login Successful : ' + data.username);
+        navigation.navigate('Home');
       }
     }
   };

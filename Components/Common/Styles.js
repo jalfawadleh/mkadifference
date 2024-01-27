@@ -1,6 +1,12 @@
 import {StyleSheet} from 'react-native';
 
 export const Styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#be9b7b',
+  },
+
   error: {
     padding: 5,
     color: 'red',

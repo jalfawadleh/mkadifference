@@ -3,9 +3,13 @@
  * @format
  */
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import axios from 'axios';
-import {Login, Header, Communicate, Search, Activities, Mapbox} from '.';
+import {Home, Login, Communicate, Search, Activities, Mapbox} from '.';
+
+const Stack = createNativeStackNavigator();
 
 export default function Main() {
   const [user, setUser] = useState({
@@ -13,41 +17,58 @@ export default function Main() {
     username: '',
   });
 
-  const [nav, setNav] = useState('');
-
   axios.defaults.baseURL = 'http://127.0.0.1:3001/api/';
   axios.defaults.headers.common.Authorization = user.token;
   axios.defaults.headers.post['Content-Type'] =
     'application/x-www-form-urlencoded';
 
   return (
-    <View style={styles.container}>
-      <View style={styles.status} />
-      <Header user={user} nav={nav} setNav={setNav} />
-
-      {user.token ? (
-        <>
-          {nav === 'search' && <Search user={user} />}
-          {nav === 'mapbox' && <Mapbox />}
-          {nav === 'activities' && <Activities user={user} />}
-          {nav === 'communicate' && <Communicate user={user} />}
-          {nav === '' && <Text>Home Page</Text>}
-        </>
-      ) : (
-        <Login setUser={setUser} />
-      )}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerTitleStyle: {fontSize: 28, color: '#fff4e6'},
+          headerStyle: {
+            backgroundColor: '#3c2f2f',
+          },
+          headerBackTitleVisible: false,
+        }}>
+        {user._id ? (
+          <Stack.Group>
+            <Stack.Screen
+              name="home"
+              options={{
+                headerBackVisible: false,
+                headerTitle: 'MKaDifference',
+              }}>
+              {props => <Home {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="Activities">
+              {props => <Activities {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="Communicate">
+              {props => <Communicate {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="Search">
+              {props => <Search {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="Mapbox">
+              {props => <Mapbox {...props} user={user} />}
+            </Stack.Screen>
+          </Stack.Group>
+        ) : (
+          <Stack.Screen
+            name="Login"
+            options={{
+              headerTitle: 'MKaDifference',
+              headerTitleStyle: {fontSize: 28, color: '#fff4e6'},
+              headerStyle: {
+                backgroundColor: '#3c2f2f',
+              },
+            }}>
+            {props => <Login {...props} setUser={setUser} />}
+          </Stack.Screen>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#be9b7b',
-  },
-  status: {
-    height: 20,
-    backgroundColor: '#be9b7b',
-  },
-});
