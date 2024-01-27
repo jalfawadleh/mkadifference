@@ -35,7 +35,7 @@ export default function Main() {
         {user._id ? (
           <Stack.Group>
             <Stack.Screen
-              name="home"
+              name="Home"
               options={{
                 headerBackVisible: false,
                 headerTitle: 'MKaDifference',
