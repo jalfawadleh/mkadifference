@@ -114,15 +114,14 @@ const styles = StyleSheet.create({
     margin: 0,
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    backgroundColor: '#3c2f2f',
+    backgroundColor: '#fff4e6',
   },
   row: {
     padding: 0,
     margin: 0,
     flexDirection: 'row',
     width: '100%',
-    backgroundColor: '#222222',
-    height: 120,
+    backgroundColor: 'brown',
   },
   leftUnit: {
     alignContent: 'flex-start',

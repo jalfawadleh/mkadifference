@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 0,
     padding: 5,
+    backgroundColor: 'brown',
   },
 
   searchInput: {
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     margin: 5,
     paddingLeft: 5,
     color: '#3c2f2f',
+    borderRadius: 45,
   },
   searchIcon: {
     height: 30,
