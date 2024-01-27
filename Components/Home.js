@@ -47,6 +47,48 @@ export default function Home({user, navigation}) {
         </View>
       </Pressable>
 
+      <Pressable onPress={() => navigation.navigate('Activities')}>
+        <View style={styles.row}>
+          <View style={styles.leftUnit}>
+            <Image
+              style={styles.imageIcon}
+              source={require('./img/events.png')}
+            />
+          </View>
+          <View style={styles.rightUnit}>
+            <Text style={styles.description}>Messages </Text>
+          </View>
+        </View>
+      </Pressable>
+
+      <Pressable onPress={() => navigation.navigate('Activities')}>
+        <View style={styles.row}>
+          <View style={styles.leftUnit}>
+            <Image
+              style={styles.imageIcon}
+              source={require('./img/events.png')}
+            />
+          </View>
+          <View style={styles.rightUnit}>
+            <Text style={styles.description}>Updates </Text>
+          </View>
+        </View>
+      </Pressable>
+
+      <Pressable onPress={() => navigation.navigate('Activities')}>
+        <View style={styles.row}>
+          <View style={styles.leftUnit}>
+            <Image
+              style={styles.imageIcon}
+              source={require('./img/events.png')}
+            />
+          </View>
+          <View style={styles.rightUnit}>
+            <Text style={styles.description}>Contacts </Text>
+          </View>
+        </View>
+      </Pressable>
+
       <Pressable onPress={() => navigation.navigate('Profile')}>
         <View style={styles.row}>
           <View style={styles.leftUnit}>
@@ -93,11 +135,11 @@ const styles = StyleSheet.create({
   },
   imageIcon: {
     margin: 10,
-    width: 100,
-    height: 100,
+    width: 50,
+    height: 50,
   },
   description: {
-    fontSize: 50,
+    fontSize: 30,
     color: '#fff4e6',
     alignSelf: 'center',
   },
