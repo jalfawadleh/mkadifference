@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import axios from 'axios';
 
-export default function LoginForm({navigation, setUser, setToken}) {
+export default function LoginForm({navigation, setUser}) {
   const [joinUs, setJoinUs] = useState(false);
 
   // login

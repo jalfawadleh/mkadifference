@@ -3,7 +3,7 @@ import {Text} from 'react-native';
 
 import {MenuItems} from '.';
 
-import Profile from './Communicate/Profile';
+import Profile from './Profile';
 
 export default function Communicate({user}) {
   const [nav, setNav] = useState('');

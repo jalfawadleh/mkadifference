@@ -47,7 +47,7 @@ export default function Home({user, navigation}) {
         </View>
       </Pressable>
 
-      <Pressable onPress={() => navigation.navigate('Communicate')}>
+      <Pressable onPress={() => navigation.navigate('Profile')}>
         <View style={styles.row}>
           <View style={styles.leftUnit}>
             <Image
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#3c2f2f',
   },
-
   row: {
     padding: 0,
     margin: 0,

@@ -7,7 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import axios from 'axios';
-import {Home, Login, Communicate, Search, Activities, Mapbox} from '.';
+import {Home, Login, Profile, Search, Activities, Mapbox} from '.';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,8 +45,8 @@ export default function Main() {
             <Stack.Screen name="Activities">
               {props => <Activities {...props} user={user} />}
             </Stack.Screen>
-            <Stack.Screen name="Communicate">
-              {props => <Communicate {...props} user={user} />}
+            <Stack.Screen name="Profile">
+              {props => <Profile {...props} user={user} />}
             </Stack.Screen>
             <Stack.Screen name="Search">
               {props => <Search {...props} user={user} />}

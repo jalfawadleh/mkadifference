@@ -3,18 +3,11 @@ import {Button, Text, TextInput, View} from 'react-native';
 
 import axios from 'axios';
 
-import {Styles} from '../Common/Styles';
-import StackText from '../Common/StackText';
+import {Styles} from './Common/Styles';
+import StackText from './Common/StackText';
 
 export default function Profile({user}) {
-  const [member, setMember] = useState([]);
-
-  const updateDescription = text => {
-    setMember(prevState => ({
-      ...prevState,
-      description: text,
-    }));
-  };
+  const [member, setMember] = useState([{description: ''}]);
 
   const getMember = async () => {
     const {data} = await axios.get('members/' + user._id);
@@ -36,7 +29,12 @@ export default function Profile({user}) {
       <View style={Styles.box}>
         <Text style={Styles.title}>About Me</Text>
         <TextInput
-          onChangeText={text => updateDescription(text)}
+          onChangeText={text =>
+            setMember(prevState => ({
+              ...prevState,
+              description: text,
+            }))
+          }
           value={member.description}
           editable
           multiline

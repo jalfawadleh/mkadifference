@@ -4,7 +4,7 @@ import uuid from 'react-native-uuid';
 import {Styles} from './Styles';
 
 export default function StackText({type, title, items = [], setItem}) {
-  const [tag, setTag] = useState([]);
+  const [tag, setTag] = useState('');
   const addTag = () => {
     items.push({name: tag});
 
@@ -20,10 +20,8 @@ export default function StackText({type, title, items = [], setItem}) {
       <View style={Styles.row}>
         {items ? (
           items.map(t => (
-            <View style={Styles.row}>
-              <Text style={Styles.tagName} key={uuid.v4()}>
-                {t.name}
-              </Text>
+            <View style={Styles.row} key={t._id ? t._id : uuid.v4()}>
+              <Text style={Styles.tagName}>{t.name}</Text>
               <Button title="X" onPress={() => delTag(t.name)} />
             </View>
           ))
@@ -35,7 +33,7 @@ export default function StackText({type, title, items = [], setItem}) {
         <TextInput
           style={Styles.rowInputText}
           value={tag}
-          placeholder="Enter Tag"
+          placeholder="Enter New"
           onChangeText={setTag}
           placeholderTextColor="#dddddd"
         />

@@ -5,6 +5,7 @@ import {Styles} from '../Common/Styles';
 import Stages from './Stages';
 
 export default function EditActivity({activity, setActivity, putActivity}) {
+  const newActivity = [{_id: 0, name: '', stages: []}];
   return (
     <>
       <View style={Styles.box}>
@@ -54,7 +55,7 @@ export default function EditActivity({activity, setActivity, putActivity}) {
           <Button
             style={Styles.button}
             title="Cancel"
-            onPress={() => setActivity([{_id: 0, name: ''}])}
+            onPress={() => setActivity(newActivity)}
           />
         </View>
       </View>
