@@ -26,3 +26,28 @@ Note: Don't put < braces in password >
     Run Pod install
 
 # https://reactnative.dev/docs/flexbox?language=typescript
+
+options={{ headerShown: false }}
+\
+
+<Stack.Screen
+name="Home"
+component={HomeScreen}
+options={{
+          headerTitle: (props) => <LogoTitle {...props} />,
+          headerRight: () => (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Info"
+              color="#fff"
+            />
+          ),
+        }}
+/>
+
+<Image
+style={styles.imageIcon}
+source={{
+                uri: `https://api.multiavatar.com/${user.username}.png`,
+              }}
+/>

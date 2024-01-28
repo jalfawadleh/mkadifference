@@ -47,49 +47,7 @@ export default function Home({user, navigation}) {
         </View>
       </Pressable>
 
-      <Pressable onPress={() => navigation.navigate('Activities')}>
-        <View style={styles.row}>
-          <View style={styles.leftUnit}>
-            <Image
-              style={styles.imageIcon}
-              source={require('./img/events.png')}
-            />
-          </View>
-          <View style={styles.rightUnit}>
-            <Text style={styles.description}>Messages </Text>
-          </View>
-        </View>
-      </Pressable>
-
-      <Pressable onPress={() => navigation.navigate('Activities')}>
-        <View style={styles.row}>
-          <View style={styles.leftUnit}>
-            <Image
-              style={styles.imageIcon}
-              source={require('./img/events.png')}
-            />
-          </View>
-          <View style={styles.rightUnit}>
-            <Text style={styles.description}>Updates </Text>
-          </View>
-        </View>
-      </Pressable>
-
-      <Pressable onPress={() => navigation.navigate('Activities')}>
-        <View style={styles.row}>
-          <View style={styles.leftUnit}>
-            <Image
-              style={styles.imageIcon}
-              source={require('./img/events.png')}
-            />
-          </View>
-          <View style={styles.rightUnit}>
-            <Text style={styles.description}>Contacts </Text>
-          </View>
-        </View>
-      </Pressable>
-
-      <Pressable onPress={() => navigation.navigate('Profile')}>
+      <Pressable onPress={() => navigation.navigate('Communicate')}>
         <View style={styles.row}>
           <View style={styles.leftUnit}>
             <Image
@@ -100,7 +58,7 @@ export default function Home({user, navigation}) {
             />
           </View>
           <View style={styles.rightUnit}>
-            <Text style={styles.description}>Profile</Text>
+            <Text style={styles.description}>Communicate</Text>
           </View>
         </View>
       </Pressable>

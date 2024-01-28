@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, TextInput, View} from 'react-native';
 
 import {Styles} from '../Common/Styles';
-import Stages from './Stages';
+import Stages from './Stages/Stages';
 
 export default function EditActivity({activity, setActivity, putActivity}) {
   const newActivity = [{_id: 0, name: '', stages: []}];

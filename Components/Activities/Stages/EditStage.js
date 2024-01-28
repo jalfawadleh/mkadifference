@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, TextInput, View} from 'react-native';
 
-import {Styles} from '../Common/Styles';
+import {Styles} from '../../Common/Styles';
 
 export default function EditStage({stage, setStage}) {
   return (
