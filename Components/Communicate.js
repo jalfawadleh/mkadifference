@@ -1,9 +1,9 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Profile} from '.';
-import Messages from './Messages';
-import Updates from './Updates';
-import Contacts from './Contacts';
+import Messages from './Communicate/Messages';
+import Updates from './Communicate/Updates';
+import Contacts from './Communicate/Contacts';
 
 const Tab = createBottomTabNavigator();
 

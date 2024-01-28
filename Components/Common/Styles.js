@@ -4,7 +4,8 @@ export const Styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#be9b7b',
+    backgroundColor: '#3c2f2f',
+    padding: 5,
   },
 
   error: {
@@ -14,6 +15,15 @@ export const Styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   },
+
+  header: {
+    padding: 5,
+    color: '#fff4e6',
+    alignSelf: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
   note: {
     padding: 5,
     color: 'yellow',
@@ -23,9 +33,10 @@ export const Styles = StyleSheet.create({
   },
 
   box: {
-    backgroundColor: '#3c2f2f',
     margin: 5,
     padding: 5,
+    borderColor: '#be9b7b',
+    borderWidth: 1,
   },
   title: {
     padding: 5,

@@ -2,31 +2,25 @@ import React from 'react';
 import {Button, Text, View} from 'react-native';
 
 import {Styles} from '../Common/Styles';
-import Stages from './Stages';
 
-export default function ViewActivity({activity, setActivity, putActivity}) {
-  const newActivity = [{_id: 0, name: '', stages: []}];
+export default function ViewActivity({navigation, route}) {
+  const activity = route.params.activity;
   return (
     <>
       <View style={Styles.box}>
         <Text>{activity.name}</Text>
         <Text>{activity.description}</Text>
-        <Stages
+        {/* <Stages
           activity={activity}
           setActivity={setActivity}
           putActivity={putActivity}
-        />
+        /> */}
 
         <View style={Styles.rowButtons}>
           <Button
             style={Styles.button}
-            title="Update Activity"
-            onPress={() => putActivity()}
-          />
-          <Button
-            style={Styles.button}
-            title="Cancel"
-            onPress={() => setActivity(newActivity)}
+            title="Back"
+            onPress={() => navigation.navigate('Activities')}
           />
         </View>
       </View>

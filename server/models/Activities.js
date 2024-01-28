@@ -35,7 +35,11 @@ const Activities = Schema(
         start: Date,
         end: Date,
 
-        location: {
+        startLocation: {
+          lng: {type: Number, default: 0},
+          lat: {type: Number, default: 0},
+        },
+        endLocation: {
           lng: {type: Number, default: 0},
           lat: {type: Number, default: 0},
         },

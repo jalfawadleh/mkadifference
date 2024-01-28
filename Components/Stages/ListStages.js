@@ -3,7 +3,7 @@ import {Button, Text, View} from 'react-native';
 
 import uuid from 'react-native-uuid';
 
-import {Styles} from '../../Common/Styles';
+import {Styles} from '../Common/Styles';
 export default function ListStages({activity, setStage, delStage}) {
   return (
     <>

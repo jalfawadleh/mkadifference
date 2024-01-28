@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Text} from 'react-native';
 
-import {Styles} from '../../Common/Styles';
+import {Styles} from '../Common/Styles';
 import CreateStage from './CreateStage';
 import ListStages from './ListStages';
 // import EditStage from '../EditStage';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Text, TextInput, View} from 'react-native';
 
-import {Styles} from '../../Common/Styles';
+import {Styles} from '../Common/Styles';
 import Stages from './Stages';
 
 export default function ViewActivity({activity, setActivity, putActivity}) {

@@ -2,66 +2,70 @@
 import React from 'react';
 import {StyleSheet, Text, Image, View, Pressable} from 'react-native';
 
+import {Styles} from './Common/Styles';
+
 export default function Home({user, navigation}) {
   return (
-    <View style={styles.container}>
-      <Pressable onPress={() => navigation.navigate('Search')}>
-        <View style={styles.row}>
-          <View style={styles.leftUnit}>
-            <Image
-              style={styles.imageIcon}
-              source={require('./img/search.png')}
-            />
+    <View style={Styles.container}>
+      <View style={styles.container}>
+        <Pressable onPress={() => navigation.navigate('Search')}>
+          <View style={styles.row}>
+            <View style={styles.leftUnit}>
+              <Image
+                style={styles.imageIcon}
+                source={require('./img/search.png')}
+              />
+            </View>
+            <View style={styles.rightUnit}>
+              <Text style={styles.description}>Search</Text>
+            </View>
           </View>
-          <View style={styles.rightUnit}>
-            <Text style={styles.description}>Search</Text>
-          </View>
-        </View>
-      </Pressable>
+        </Pressable>
 
-      <Pressable onPress={() => navigation.navigate('Mapbox')}>
-        <View style={styles.row}>
-          <View style={styles.leftUnit}>
-            <Image
-              style={styles.imageIcon}
-              source={require('./img/mapbox.png')}
-            />
+        <Pressable onPress={() => navigation.navigate('Mapbox')}>
+          <View style={styles.row}>
+            <View style={styles.leftUnit}>
+              <Image
+                style={styles.imageIcon}
+                source={require('./img/mapbox.png')}
+              />
+            </View>
+            <View style={styles.rightUnit}>
+              <Text style={styles.description}>Map</Text>
+            </View>
           </View>
-          <View style={styles.rightUnit}>
-            <Text style={styles.description}>Map</Text>
-          </View>
-        </View>
-      </Pressable>
+        </Pressable>
 
-      <Pressable onPress={() => navigation.navigate('Activities')}>
-        <View style={styles.row}>
-          <View style={styles.leftUnit}>
-            <Image
-              style={styles.imageIcon}
-              source={require('./img/events.png')}
-            />
+        <Pressable onPress={() => navigation.navigate('Activities')}>
+          <View style={styles.row}>
+            <View style={styles.leftUnit}>
+              <Image
+                style={styles.imageIcon}
+                source={require('./img/events.png')}
+              />
+            </View>
+            <View style={styles.rightUnit}>
+              <Text style={styles.description}>Activities</Text>
+            </View>
           </View>
-          <View style={styles.rightUnit}>
-            <Text style={styles.description}>Activities</Text>
-          </View>
-        </View>
-      </Pressable>
+        </Pressable>
 
-      <Pressable onPress={() => navigation.navigate('Communicate')}>
-        <View style={styles.row}>
-          <View style={styles.leftUnit}>
-            <Image
-              style={styles.imageIcon}
-              source={{
-                uri: `https://api.multiavatar.com/${user.username}.png`,
-              }}
-            />
+        <Pressable onPress={() => navigation.navigate('Communicate')}>
+          <View style={styles.row}>
+            <View style={styles.leftUnit}>
+              <Image
+                style={styles.imageIcon}
+                source={{
+                  uri: `https://api.multiavatar.com/${user.username}.png`,
+                }}
+              />
+            </View>
+            <View style={styles.rightUnit}>
+              <Text style={styles.description}>Communicate</Text>
+            </View>
           </View>
-          <View style={styles.rightUnit}>
-            <Text style={styles.description}>Communicate</Text>
-          </View>
-        </View>
-      </Pressable>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -72,7 +76,6 @@ const styles = StyleSheet.create({
     margin: 0,
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    backgroundColor: '#fff4e6',
   },
   row: {
     padding: 0,

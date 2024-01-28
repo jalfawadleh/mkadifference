@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Text} from 'react-native';
-
+import {View, Text, Button, TextInput} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 
 import {Styles} from './Common/Styles';
-import ListActivities from './Activities/ListActivities';
-import CreateActivity from './Activities/CreateActivity';
-import EditActivity from './Activities/EditActivity';
 
-export default function Activities({user}) {
+export default function Activities({navigation}) {
+  const focused = useIsFocused();
+
   const [activities, setActivities] = useState([]);
   const [activity, setActivity] = useState([{_id: 0, name: '', stages: []}]);
 
@@ -37,47 +36,61 @@ export default function Activities({user}) {
     }
   };
 
-  const putActivity = async (closeActivity = 1) => {
-    const {data} = await axios.put('activities/' + activity._id, activity);
-    if (data.error) {
-      setError(data.error);
-    } else {
-      getActivities();
-      if (closeActivity) {
-        setActivity([{_id: 0, name: '', stages: []}]);
-      }
-    }
-  };
-
   useEffect(() => {
-    getActivities();
-  }, [user._id]);
+    if (focused) {
+      getActivities();
+    }
+  }, [focused]);
 
   return (
-    // edit activity
-    <>
+    <View style={Styles.container}>
       {error && <Text style={Styles.error}> {error}</Text>}
+      {/* list Activities */}
+      {activities.map(a => (
+        <View style={Styles.box} key={a._id}>
+          <Text style={Styles.title}>{a.name}</Text>
+          <View style={Styles.rowButtons}>
+            <Button
+              title="View"
+              onPress={() => {
+                /* 1. Navigate to the Details route with params */
+                navigation.navigate('ViewActivity', {activity: a});
+              }}
+            />
+            <Button
+              title="Edit"
+              onPress={() => {
+                /* 1. Navigate to the Details route with params */
+                navigation.navigate('EditActivity', {activityId: a._id});
+              }}
+            />
+            <Button title="Delete" onPress={() => delActivity(a._id)} />
+          </View>
+        </View>
+      ))}
 
-      {activity._id ? (
-        <EditActivity
-          activity={activity}
-          setActivity={setActivity}
-          putActivity={putActivity}
-        />
-      ) : (
-        <>
-          <ListActivities
-            activities={activities}
-            setActivity={setActivity}
-            delActivity={delActivity}
+      {/* create activity */}
+      <View style={Styles.box}>
+        <View style={Styles.rowInput}>
+          <TextInput
+            style={Styles.rowInputText}
+            value={activity.name}
+            placeholder="Activity Name"
+            onChangeText={text =>
+              setActivity(prevState => ({
+                ...prevState,
+                name: text,
+              }))
+            }
+            placeholderTextColor="#dddddd"
           />
-          <CreateActivity
-            activity={activity}
-            setActivity={setActivity}
-            postActivity={postActivity}
+          <Button
+            style={Styles.rowInputButton}
+            title="+"
+            onPress={() => postActivity()}
           />
-        </>
-      )}
-    </>
+        </View>
+      </View>
+    </View>
   );
 }

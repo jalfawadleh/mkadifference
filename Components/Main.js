@@ -9,6 +9,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import axios from 'axios';
 import {Home, Login, Search, Activities, Mapbox} from '.';
 import Communicate from './Communicate';
+import EditActivity from './Activities/EditActivity';
+import ViewActivity from './Activities/ViewActivity';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +46,12 @@ export default function Main() {
             </Stack.Screen>
             <Stack.Screen name="Activities">
               {props => <Activities {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="EditActivity">
+              {props => <EditActivity {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="ViewActivity">
+              {props => <ViewActivity {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Communicate">
               {props => <Communicate {...props} user={user} />}
