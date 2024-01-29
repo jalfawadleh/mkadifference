@@ -3,7 +3,6 @@ import {Button, Text, TextInput, View} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 
 import axios from 'axios';
-import uuid from 'react-native-uuid';
 
 import {Styles} from '../Common/Styles';
 

@@ -3,8 +3,8 @@ import {Button, Text, TextInput, View} from 'react-native';
 
 import axios from 'axios';
 
-import {Styles} from './Common/Styles';
-import StackText from './Common/StackText';
+import {Styles} from '../Common/Styles';
+import StackText from '../Common/StackText';
 
 export default function Profile({user}) {
   const [member, setMember] = useState([{description: ''}]);
