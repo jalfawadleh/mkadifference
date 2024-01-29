@@ -98,4 +98,41 @@ export const Styles = StyleSheet.create({
     borderColor: 'black',
   },
   placeholderTextColor: '#dddddd',
+
+  // home screen
+  homeContainer: {
+    flex: 1,
+    backgroundColor: '#3c2f2f',
+    margin: 0,
+    padding: 10,
+    borderColor: 'white',
+    borderWidth: 1,
+  },
+  homeRow: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  homeCol: {
+    flex: 1,
+    justifyContent: 'center',
+    borderColor: 'white',
+    borderWidth: 1,
+    margin: 10,
+  },
+  homeLink: {
+    alignSelf: 'center',
+    margin: 5,
+    padding: 5,
+  },
+  homeLinkIcon: {
+    width: 100,
+    height: 100,
+  },
+  homeLinkTitle: {
+    fontSize: 30,
+    color: '#fff4e6',
+    textAlign: 'center',
+    width: '100%',
+  },
 });
