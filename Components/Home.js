@@ -2,67 +2,49 @@
 import React from 'react';
 import {StyleSheet, Text, Image, View, Pressable} from 'react-native';
 
-import {Styles} from './Common/Styles';
-
 export default function Home({user, navigation}) {
   return (
-    <View style={Styles.container}>
-      <View style={styles.container}>
+    <View style={styles.box}>
+      <View style={styles.row}>
         <Pressable onPress={() => navigation.navigate('Search')}>
-          <View style={styles.row}>
-            <View style={styles.leftUnit}>
-              <Image
-                style={styles.imageIcon}
-                source={require('./img/search.png')}
-              />
-            </View>
-            <View style={styles.rightUnit}>
-              <Text style={styles.description}>Search</Text>
-            </View>
+          <View style={styles.col}>
+            <Image
+              style={styles.imageIcon}
+              source={require('./img/search.png')}
+            />
+            <Text style={styles.description}>Search</Text>
           </View>
         </Pressable>
-
         <Pressable onPress={() => navigation.navigate('Mapbox')}>
-          <View style={styles.row}>
-            <View style={styles.leftUnit}>
-              <Image
-                style={styles.imageIcon}
-                source={require('./img/mapbox.png')}
-              />
-            </View>
-            <View style={styles.rightUnit}>
-              <Text style={styles.description}>Map</Text>
-            </View>
+          <View style={styles.col}>
+            <Image
+              style={styles.imageIcon}
+              source={require('./img/mapbox.png')}
+            />
+            <Text style={styles.description}>Map</Text>
           </View>
         </Pressable>
-
+      </View>
+      <View style={styles.row}>
         <Pressable onPress={() => navigation.navigate('Activities')}>
-          <View style={styles.row}>
-            <View style={styles.leftUnit}>
-              <Image
-                style={styles.imageIcon}
-                source={require('./img/events.png')}
-              />
-            </View>
-            <View style={styles.rightUnit}>
-              <Text style={styles.description}>Activities</Text>
-            </View>
+          <View style={styles.col}>
+            <Image
+              style={styles.imageIcon}
+              source={require('./img/events.png')}
+            />
+            <Text style={styles.description}>Activities</Text>
           </View>
         </Pressable>
 
         <Pressable onPress={() => navigation.navigate('Communicate')}>
-          <View style={styles.row}>
-            <View style={styles.leftUnit}>
-              <Image
-                style={styles.imageIcon}
-                source={{
-                  uri: `https://api.multiavatar.com/${user.username}.png`,
-                }}
-              />
-            </View>
-            <View style={styles.rightUnit}>
-              <Text style={styles.description}>Communicate</Text>
-            </View>
+          <View style={styles.col}>
+            <Image
+              style={styles.imageIcon}
+              source={{
+                uri: `https://api.multiavatar.com/${user.username}.png`,
+              }}
+            />
+            <Text style={styles.description}>Communicate</Text>
           </View>
         </Pressable>
       </View>
@@ -71,36 +53,28 @@ export default function Home({user, navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  box: {
     flex: 1,
-    margin: 0,
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
+    backgroundColor: 'black',
   },
   row: {
-    padding: 0,
-    margin: 0,
-    flexDirection: 'row',
-    width: '100%',
-    backgroundColor: 'brown',
-  },
-  leftUnit: {
-    alignContent: 'flex-start',
-    justifyContent: 'center',
-  },
-  rightUnit: {
     flex: 1,
-    alignContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  col: {
+    flex: 1,
     justifyContent: 'center',
   },
   imageIcon: {
     margin: 10,
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
   },
   description: {
     fontSize: 30,
     color: '#fff4e6',
-    alignSelf: 'center',
+    textAlign: 'center',
   },
 });
