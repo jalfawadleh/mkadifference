@@ -5,7 +5,6 @@ export const Styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#3c2f2f',
-    padding: 5,
   },
 
   error: {
@@ -57,33 +56,36 @@ export const Styles = StyleSheet.create({
   },
 
   // SearchScreen
-
   searchBox: {
     flexDirection: 'row',
-    margin: 0,
+    marginTop: 15,
     padding: 5,
   },
-
   searchInput: {
-    margin: 0,
-    paddingLeft: 10,
+    marginLeft: -45,
+    paddingLeft: 45,
 
-    width: '100%',
-    height: 40,
+    width: '85%',
+    height: 50,
 
     fontSize: 20,
     fontWeight: 'bold',
 
     color: 'white',
-    borderRadius: 15,
+    borderRadius: 25,
     backgroundColor: '#be9b7b',
   },
   searchIcon: {
-    height: 35,
-    width: 35,
-    marginLeft: -40,
-    marginTop: 2,
+    height: 40,
+    width: 40,
+    marginTop: 6,
     padding: 0,
+    zIndex: 1,
+  },
+
+  avatarImage: {
+    width: '14%',
+    marginLeft: 10,
   },
 
   box: {

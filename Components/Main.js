@@ -57,7 +57,7 @@ export default function Main() {
             <Stack.Screen name="Communicate">
               {props => <Communicate {...props} user={user} />}
             </Stack.Screen>
-            <Stack.Screen name="Search">
+            <Stack.Screen name="Search" options={{headerShown: false}}>
               {props => <Search {...props} user={user} />}
             </Stack.Screen>
             <Stack.Screen name="Mapbox">
