@@ -8,7 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import axios from 'axios';
 
-import {Home, Login, Search, Activities, Mapbox} from '.';
+import {Home, Login, Activities} from '.';
 import Communicate from './Communicate';
 import EditActivity from './Activities/EditActivity';
 import ViewActivity from './Activities/ViewActivity';
@@ -34,34 +34,28 @@ export default function Main() {
           headerStyle: {
             backgroundColor: '#3c2f2f',
           },
+          headerBackTitle: null,
         }}>
         {user._id ? (
           <Stack.Group initialRouteName="Home">
-            <Stack.Screen
-              name="Home"
-              options={{
-                headerBackVisible: false,
-                headerTitle: 'MKaDifference',
-              }}>
+            <Stack.Screen name="Home" options={{headerShown: false}}>
               {props => <Home {...props} user={user} />}
             </Stack.Screen>
-            <Stack.Screen name="Activities">
+            <Stack.Screen
+              name="Activities"
+              options={{headerBackTitleVisible: false}}>
               {props => <Activities {...props} user={user} />}
             </Stack.Screen>
-            <Stack.Screen name="EditActivity">
+            <Stack.Screen
+              name="EditActivity"
+              options={{headerBackTitleVisible: false}}>
               {props => <EditActivity {...props} />}
             </Stack.Screen>
-            <Stack.Screen name="ViewActivity">
+            <Stack.Screen name="ViewActivity" options={{headerBackTitle: ''}}>
               {props => <ViewActivity {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Communicate">
               {props => <Communicate {...props} user={user} />}
-            </Stack.Screen>
-            <Stack.Screen name="Search" options={{headerShown: false}}>
-              {props => <Search {...props} user={user} />}
-            </Stack.Screen>
-            <Stack.Screen name="Mapbox">
-              {props => <Mapbox {...props} user={user} />}
             </Stack.Screen>
           </Stack.Group>
         ) : (
