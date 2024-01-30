@@ -3,7 +3,7 @@
 // https://github.com/rnmapbox/maps/blob/main/README.md
 
 import React, {useState} from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View} from 'react-native';
 
 import MapboxGL from '@rnmapbox/maps';
 
@@ -16,7 +16,6 @@ MapboxGL.setTelemetryEnabled(false);
 
 export default function Location({loc = [0, 0], setElement}) {
   const [mapWidth, setMapWidth] = useState(200);
-  const [finishedLoading, setFinishedLoading] = useState(0);
 
   return (
     <>
@@ -45,8 +44,7 @@ export default function Location({loc = [0, 0], setElement}) {
             title="locationPoint"
             coordinate={loc}
             isDraggable={false}
-            onDrag={null}
-            Anchor={{x: 0.5, y: 0.5}}>
+            onDrag={null}>
             <View style={Styles.locationPoint} />
           </MapboxGL.PointAnnotation>
         </MapboxGL.MapView>
