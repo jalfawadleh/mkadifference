@@ -1,0 +1,59 @@
+// import axios from 'axios';
+
+// https://github.com/rnmapbox/maps/blob/main/README.md
+
+import React, {useState} from 'react';
+import {Text, View, Image} from 'react-native';
+
+import MapboxGL from '@rnmapbox/maps';
+
+import {Styles} from './Styles';
+
+MapboxGL.setAccessToken(
+  'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
+);
+MapboxGL.setTelemetryEnabled(false);
+
+export default function Location({loc = [0, 0], setElement}) {
+  const [mapWidth, setMapWidth] = useState(200);
+  const [finishedLoading, setFinishedLoading] = useState(0);
+
+  return (
+    <>
+      <Text style={Styles.header}>Location</Text>
+      <View
+        style={Styles.container}
+        onLayout={event => {
+          setMapWidth(event.nativeEvent.layout.width - 10);
+        }}>
+        <MapboxGL.MapView
+          zoomEnabled
+          scrollEnabled
+          pitchEnabled
+          scaleBarEnabled={false}
+          compassEnabled={true}
+          style={{width: mapWidth, height: mapWidth}}
+          onPress={e =>
+            setElement(prevState => ({
+              ...prevState,
+              location: e.geometry.coordinates,
+            }))
+          }>
+          <MapboxGL.Camera zoomLevel={12} centerCoordinate={loc} />
+          <MapboxGL.PointAnnotation
+            id="locationPoint"
+            title="locationPoint"
+            coordinate={loc}
+            isDraggable={false}
+            onDrag={null}
+            Anchor={{x: 0.5, y: 0.5}}>
+            <View style={Styles.locationPoint} />
+          </MapboxGL.PointAnnotation>
+        </MapboxGL.MapView>
+      </View>
+    </>
+  );
+}
+
+// ERROR  Mapbox error MapLoad error Source RNMBX-mapview-point-annotations_drag is not in style
+// {"level": "error", "message": "MapLoad error Source RNMBX-mapview-point-annotations_drag is not in style"}

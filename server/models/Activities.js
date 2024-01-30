@@ -12,7 +12,7 @@ const Activities = Schema(
     },
     description: {type: String, default: ''},
     notes: [],
-
+    location: {type: Array, default: [-122.2683, 37.8243]},
     createdBy: {id: Schema.Types.ObjectId, name: String},
     managedBy: [{id: Schema.Types.ObjectId, name: String}],
     lastLogin: Date,

@@ -4,12 +4,13 @@ import {useIsFocused} from '@react-navigation/native';
 
 import axios from 'axios';
 
+import {Location} from '..';
 import {Styles} from '../Common/Styles';
 
 export default function EditActivity({route, navigation}) {
   const focused = useIsFocused();
   const [activity, setActivity] = useState([]);
-  const [stage, setStage] = useState([]);
+  // const [stage, setStage] = useState([]);
   const [error, setError] = useState('');
 
   const getActivity = async () => {
@@ -33,15 +34,24 @@ export default function EditActivity({route, navigation}) {
     }
   };
 
-  const addStage = () => {
-    activity.stages.push(stage);
-    putActivity();
+  const delActivity = async () => {
+    const {data} = await axios.delete('activities/' + activity._id);
+    if (data.error) {
+      setError(data.error);
+    } else {
+      navigation.navigate('Activities');
+    }
   };
 
-  const delStage = s => {
-    const temp = activity.stages.filter(st => st._id !== s._id);
-    setActivity(prevState => ({...prevState, stages: temp}));
-  };
+  // const addStage = () => {
+  //   activity.stages.push(stage);
+  //   putActivity();
+  // };
+
+  // const delStage = s => {
+  //   const temp = activity.stages.filter(st => st._id !== s._id);
+  //   setActivity(prevState => ({...prevState, stages: temp}));
+  // };
 
   const updateActivity = () => {
     putActivity();
@@ -57,10 +67,8 @@ export default function EditActivity({route, navigation}) {
 
   return (
     <View style={Styles.container}>
-      <Text style={Styles.header}>{activity.name}</Text>
-
       {error && <Text style={Styles.error}> {error}</Text>}
-
+      <Text style={Styles.header}>Name</Text>
       <TextInput
         style={Styles.textInput}
         placeholder="Name"
@@ -75,6 +83,7 @@ export default function EditActivity({route, navigation}) {
         editable
         maxLength={50}
       />
+      <Text style={Styles.header}>Description</Text>
       <TextInput
         style={Styles.textInput}
         placeholder="Description"
@@ -89,7 +98,7 @@ export default function EditActivity({route, navigation}) {
         maxLength={40}
       />
 
-      {activity.stages &&
+      {/* {activity.stages &&
         activity.stages.map(s => (
           <View style={Styles.rowInput} key={s._id}>
             <Text style={Styles.title}>{s.name}</Text>
@@ -98,9 +107,9 @@ export default function EditActivity({route, navigation}) {
               <Button title="Delete" onPress={() => delStage(s)} />
             </View>
           </View>
-        ))}
+        ))} */}
 
-      <View style={Styles.box}>
+      {/* <View style={Styles.box}>
         <View style={Styles.rowInput}>
           <TextInput
             style={Styles.rowInputText}
@@ -115,7 +124,9 @@ export default function EditActivity({route, navigation}) {
             onPress={() => addStage()}
           />
         </View>
-      </View>
+      </View> */}
+
+      <Location loc={activity.location} setElement={setActivity} />
 
       <View style={Styles.rowButtons}>
         <Button
@@ -125,10 +136,14 @@ export default function EditActivity({route, navigation}) {
         />
         <Button
           style={Styles.button}
-          title="Back"
+          title="Cancel"
           onPress={() => navigation.navigate('Activities')}
         />
+        <Button title="Delete" onPress={() => delActivity()} />
       </View>
     </View>
   );
 }
+
+// db.dealerships.find({loc: {$near:[51,-114]}}).limit(2)
+// https://myadventuresincoding.wordpress.com/2011/10/02/mongodb-geospatial-queries/

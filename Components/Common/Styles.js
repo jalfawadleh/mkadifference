@@ -132,7 +132,17 @@ export const Styles = StyleSheet.create({
   homeLinkTitle: {
     fontSize: 30,
     color: '#fff4e6',
-    textAlign: 'center',
+    alignSelf: 'center',
     width: '100%',
+  },
+
+  // location
+  locationPoint: {
+    height: 15,
+    width: 15,
+    backgroundColor: 'red',
+    borderRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

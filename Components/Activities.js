@@ -18,14 +18,6 @@ export default function Activities({navigation}) {
     setActivities(data);
   };
 
-  const delActivity = async id => {
-    const {data} = await axios.delete('activities/' + id);
-    if (data.error) {
-      setError(data.error);
-    }
-    setActivities(data);
-  };
-
   const postActivity = async () => {
     const {data} = await axios.post('activities/', activity);
     if (data.error) {
@@ -64,7 +56,6 @@ export default function Activities({navigation}) {
                 navigation.navigate('EditActivity', {activityId: a._id});
               }}
             />
-            <Button title="Delete" onPress={() => delActivity(a._id)} />
           </View>
         </View>
       ))}

@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   container: {
     height: 600,
     width: 400,
-    backgroundColor: 'tomato',
   },
   map: {
     flex: 1,

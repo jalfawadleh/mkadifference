@@ -3,6 +3,7 @@ import {Button, Text, TextInput, View} from 'react-native';
 
 import axios from 'axios';
 
+import {Location} from '..';
 import {Styles} from '../Common/Styles';
 import StackText from '../Common/StackText';
 
@@ -55,6 +56,7 @@ export default function Profile({user}) {
         items={member.help}
         setItem={setMember}
       />
+      <Location loc={member.location} setElement={setMember} />
       <View style={Styles.submit}>
         <Button title="Update" onPress={() => putMember()} />
       </View>
