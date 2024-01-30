@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import axios from 'axios';
 
+import {Styles} from './Common/Styles';
+
 export default function LoginForm({navigation, setUser}) {
   const [joinUs, setJoinUs] = useState(false);
 
@@ -81,55 +83,55 @@ export default function LoginForm({navigation, setUser}) {
   };
 
   return (
-    <>
-      <Image style={styles.avatar} source={{uri: avatarLink}} />
+    <View style={Styles.container}>
+      <Image style={Styles.avatar} source={{uri: avatarLink}} />
 
-      {joinUs && <Text style={styles.note}>Username determin the avatar</Text>}
+      {joinUs && <Text style={Styles.note}>Username determin the avatar</Text>}
 
       <TextInput
-        style={styles.input}
+        style={Styles.input}
         autoComplete="username"
         placeholder="Username"
-        placeholderTextColor="#fff4e6"
         onChangeText={setUsername}
         onEndEditing={handleAvatarChange}
         value={username}
         autoCapitalize="none"
+        placeholderTextColor={Styles.placeholderTextColor}
       />
 
       <TextInput
-        style={styles.input}
+        style={Styles.input}
         onChangeText={setPassword}
         value={password}
         autoComplete="password"
         placeholder="Password"
-        placeholderTextColor="#fff4e6"
         secureTextEntry
+        placeholderTextColor={Styles.placeholderTextColor}
       />
       {joinUs && (
         <>
           <TextInput
-            style={styles.input}
+            style={Styles.input}
             onChangeText={setPasswordR}
             value={rpassword}
             placeholder="Confirm Password"
-            placeholderTextColor="#fff4e6"
+            placeholderTextColor={Styles.placeholderTextColor}
             secureTextEntry
           />
           <TextInput
-            style={styles.input}
+            style={Styles.input}
             onChangeText={setEmail}
             value={email}
             placeholder="Email"
-            placeholderTextColor="#fff4e6"
+            placeholderTextColor={Styles.placeholderTextColor}
             autoComplete="email"
           />
-          <Text style={styles.note}>
+          <Text style={Styles.note}>
             Email will only be used to reset the password
           </Text>
         </>
       )}
-      {error && <Text style={styles.error}> {error}</Text>}
+      {error && <Text style={Styles.error}> {error}</Text>}
       <View style={styles.viewLogin}>
         <View style={styles.viewButton}>
           <Button title={joinUs ? 'Join US' : 'Login'} onPress={onPress} />
@@ -144,38 +146,11 @@ export default function LoginForm({navigation, setUser}) {
           />
         </View>
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  avatar: {
-    marginTop: 20,
-    marginBottom: 10,
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
-  },
-  error: {
-    padding: 5,
-    color: 'red',
-    alignSelf: 'center',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  viewForm: {
-    margin: 0,
-    padding: 0,
-  },
-  input: {
-    margin: 10,
-    padding: 10,
-    borderColor: 'black',
-    borderWidth: 1,
-    fontSize: 20,
-    fontWeight: 'bold',
-    borderRadius: 45,
-  },
   viewLogin: {
     flex: 1,
     flexDirection: 'row',
@@ -193,8 +168,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 20,
     borderRadius: 45,
-  },
-  note: {
-    alignSelf: 'center',
   },
 });

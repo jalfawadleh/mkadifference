@@ -1,33 +1,29 @@
 // import axios from 'axios';
 import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, Image, View} from 'react-native';
-export default function Search({user}) {
-  //const x = `https://api.multiavatar.com/${probs.user.username}.png`;
+import {StyleSheet, TextInput, Image, View} from 'react-native';
 
+import {Styles} from './Common/Styles';
+
+export default function Search({user}) {
   const [search, setSearch] = useState('');
 
   return (
-    <>
-      <View style={styles.menu}>
+    <View style={Styles.container}>
+      <View style={Styles.searchBox}>
         <TextInput
-          style={styles.searchInput}
-          placeholder="Type here"
-          placeholderTextColor="#fff4e6"
+          style={Styles.searchInput}
+          placeholder="Search"
+          placeholderTextColor={Styles.placeholderTextColor}
           onChangeText={setSearch}
           // onEndEditing={setSearch}
           value={search}
           autoCapitalize="none"
         />
-        <Image style={styles.searchIcon} source={require('./img/search.png')} />
+        <Image style={Styles.searchIcon} source={require('./img/search.png')} />
       </View>
       <View style={styles.searchLine} />
-      <View style={styles.items}>
-        <Text style={styles.item}>{user._id}</Text>
-        <Text style={styles.item}>{user._id}</Text>
-        <Text style={styles.item}>{user._id}</Text>
-        <Text style={styles.item}>{user._id}</Text>
-      </View>
-    </>
+      <View style={styles.items} />
+    </View>
   );
 }
 

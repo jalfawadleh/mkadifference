@@ -12,7 +12,7 @@ export const Styles = StyleSheet.create({
     padding: 5,
     color: 'red',
     alignSelf: 'center',
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold',
   },
 
@@ -30,6 +30,60 @@ export const Styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 15,
     fontWeight: 'bold',
+  },
+
+  placeholderTextColor: '#666666',
+
+  input: {
+    margin: 10,
+    padding: 10,
+    borderColor: 'black',
+    borderWidth: 1,
+    fontSize: 20,
+    fontWeight: 'bold',
+    borderRadius: 15,
+    backgroundColor: '#be9b7b',
+    color: 'white',
+  },
+
+  // LoginScreen
+
+  avatar: {
+    marginTop: 20,
+    marginBottom: 10,
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+  },
+
+  // SearchScreen
+
+  searchBox: {
+    flexDirection: 'row',
+    margin: 0,
+    padding: 5,
+  },
+
+  searchInput: {
+    margin: 0,
+    paddingLeft: 10,
+
+    width: '100%',
+    height: 40,
+
+    fontSize: 20,
+    fontWeight: 'bold',
+
+    color: 'white',
+    borderRadius: 15,
+    backgroundColor: '#be9b7b',
+  },
+  searchIcon: {
+    height: 35,
+    width: 35,
+    marginLeft: -40,
+    marginTop: 2,
+    padding: 0,
   },
 
   box: {
@@ -97,7 +151,6 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#fff4e6',
     borderColor: 'black',
   },
-  placeholderTextColor: '#dddddd',
 
   // home screen
   homeContainer: {
@@ -105,8 +158,6 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#3c2f2f',
     margin: 0,
     padding: 10,
-    borderColor: 'white',
-    borderWidth: 1,
   },
   homeRow: {
     flex: 1,
@@ -119,6 +170,7 @@ export const Styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     margin: 10,
+    borderRadius: 45,
   },
   homeLink: {
     alignSelf: 'center',
