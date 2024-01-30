@@ -155,15 +155,21 @@ const styles = StyleSheet.create({
   linkMenu: {
     flexDirection: 'col',
     alignSelf: 'flex-end',
-    margin: 5,
-  },
-  linkImage: {
-    height: 50,
+    justifyContent: 'space-between',
+
+    height: 230,
     width: 50,
 
-    marginBottom: 10,
-    borderColor: 'white',
-    borderWidth: 1,
+    marginRight: 5,
+    padding: 5,
+
+    borderRadius: 25,
+    backgroundColor: '#3c2f2f',
+  },
+  linkImage: {
+    alignSelf: 'center',
+    height: 40,
+    width: 40,
     backgroundColor: '#3c2f2f',
     borderRadius: 50,
   },
