@@ -1120,13 +1120,13 @@ PODS:
     - React-jsi (= 0.73.2)
     - React-logger (= 0.73.2)
     - React-perflogger (= 0.73.2)
-  - rnmapbox-maps (10.1.6):
+  - rnmapbox-maps (10.1.9):
     - MapboxMaps (= 11.0.0)
     - React
     - React-Core
-    - rnmapbox-maps/DynamicLibrary (= 10.1.6)
+    - rnmapbox-maps/DynamicLibrary (= 10.1.9)
     - Turf
-  - rnmapbox-maps/DynamicLibrary (10.1.6):
+  - rnmapbox-maps/DynamicLibrary (10.1.9):
     - MapboxMaps (= 11.0.0)
     - React
     - React-Core
@@ -1167,6 +1167,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
+  - MapboxMaps (= 11.0.0)
   - OpenSSL-Universal (= 1.1.1100)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -1406,12 +1407,12 @@ SPEC CHECKSUMS:
   React-runtimescheduler: df8945a656356ff10f58f65a70820478bfcf33ad
   React-utils: f5bc61e7ea3325c0732ae2d755f4441940163b85
   ReactCommon: 45b5d4f784e869c44a6f5a8fad5b114ca8f78c53
-  rnmapbox-maps: 036e11fb6933a92b61a6d0c3c202c5097bf6d832
+  rnmapbox-maps: 34d7a6fa461529c4927af42865a0de5abb5cb7ed
   RNScreens: b582cb834dc4133307562e930e8fa914b8c04ef2
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Turf: 13d1a92d969ca0311bbc26e8356cca178ce95da2
   Yoga: e64aa65de36c0832d04e8c7bd614396c77a80047
 
-PODFILE CHECKSUM: 7f627556bc0fb64451aa01b56c9ebb4981a22528
+PODFILE CHECKSUM: 49da1548c8debf87cfbf67fdb4f74535d5004952
 
 COCOAPODS: 1.14.3

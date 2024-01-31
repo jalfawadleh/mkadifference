@@ -55,34 +55,6 @@ export const Styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  // SearchScreen
-  searchBox: {
-    flexDirection: 'row',
-    marginTop: 15,
-    padding: 5,
-  },
-  searchInput: {
-    marginLeft: -45,
-    paddingLeft: 45,
-
-    width: '85%',
-    height: 50,
-
-    fontSize: 20,
-    fontWeight: 'bold',
-
-    color: 'white',
-    borderRadius: 25,
-    backgroundColor: '#be9b7b',
-  },
-  searchIcon: {
-    height: 40,
-    width: 40,
-    marginTop: 6,
-    padding: 0,
-    zIndex: 1,
-  },
-
   avatarImage: {
     width: '14%',
     marginLeft: 10,

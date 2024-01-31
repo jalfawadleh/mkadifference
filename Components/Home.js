@@ -12,70 +12,79 @@ export default function Home({navigation, user}) {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.inputPanel}>
-        <View style={styles.inputBox}>
-          <Image
-            style={Styles.searchIcon}
-            source={require('./img/search.png')}
-          />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search"
-            placeholderTextColor={Styles.placeholderTextColor}
-            onChangeText={setSearch}
-            // onEndEditing={setSearch}
-            value={search}
-            autoCapitalize="none"
-          />
-        </View>
-        <Pressable
-          style={styles.profileButton}
-          onPress={() => setShowMenu(!showMenu)}>
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri: `https://api.multiavatar.com/${user.username}.png`,
-            }}
-          />
-        </Pressable>
-      </View>
-      {showMenu && (
-        <View style={styles.linkMenu}>
-          <Pressable onPress={() => navigation.navigate('Activities')}>
+    <>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.inputPanel}>
+          <View style={styles.inputBox}>
             <Image
-              style={styles.linkImage}
-              source={require('./img/events.png')}
-            />
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate('Activities')}>
-            <Image
-              style={styles.linkImage}
-              source={require('./img/mapbox.png')}
-            />
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate('Activities')}>
-            <Image
-              style={styles.linkImage}
+              style={styles.searchIcon}
               source={require('./img/search.png')}
             />
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate('Activities')}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search"
+              placeholderTextColor={Styles.placeholderTextColor}
+              onChangeText={setSearch}
+              // onEndEditing={setSearch}
+              value={search}
+              autoCapitalize="none"
+            />
+          </View>
+          <Pressable
+            style={styles.profileButton}
+            onPress={() => setShowMenu(!showMenu)}>
             <Image
-              style={styles.linkImage}
+              style={styles.profileImage}
               source={{
                 uri: `https://api.multiavatar.com/${user.username}.png`,
               }}
             />
           </Pressable>
         </View>
-      )}
+
+        {/* right menu */}
+        {showMenu && (
+          <View style={styles.linkMenu}>
+            <Pressable onPress={() => navigation.navigate('Activities')}>
+              <Image
+                style={styles.linkImage}
+                source={require('./img/mapbox.png')}
+              />
+            </Pressable>
+            <Pressable onPress={() => navigation.navigate('Activities')}>
+              <Image
+                style={styles.linkImage}
+                source={require('./img/events.png')}
+              />
+            </Pressable>
+
+            <Pressable onPress={() => navigation.navigate('Activities')}>
+              <Image
+                style={styles.linkImage}
+                source={require('./img/search.png')}
+              />
+            </Pressable>
+            <Pressable onPress={() => navigation.navigate('Activities')}>
+              <Image
+                style={styles.linkImage}
+                source={{
+                  uri: `https://api.multiavatar.com/${user.username}.png`,
+                }}
+              />
+            </Pressable>
+          </View>
+        )}
+      </SafeAreaView>
+      <MapboxGL.StyleImport />
       <MapboxGL.MapView
         zoomEnabled
         scrollEnabled
         pitchEnabled
         scaleBarEnabled={false}
         style={styles.map}
+        styleURL={MapboxGL.StyleURL.Dark}
+        attributionEnabled={false}
+        logoEnabled={false}
         // onPress={e =>
         //   setElement(prevState => ({
         //     ...prevState,
@@ -90,27 +99,28 @@ export default function Home({navigation, user}) {
           coordinate={user.location}
           isDraggable={false}
           onDrag={null}>
-          <View style={Styles.locationPoint} />
+          <View style={styles.locationPoint} />
         </MapboxGL.PointAnnotation>
       </MapboxGL.MapView>
-    </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column-reverse',
   },
-
   inputPanel: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
+
     margin: 5,
     padding: 0,
     height: 50,
 
     borderRadius: 25,
-    backgroundColor: '#3c2f2f',
+    backgroundColor: 'black',
   },
   inputBox: {
     flex: 6,
@@ -121,10 +131,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   searchIcon: {
-    flex: 1,
-
     height: 40,
     width: 40,
+    marginTop: 6,
+    padding: 0,
   },
   searchInput: {
     flex: 5,
@@ -164,13 +174,14 @@ const styles = StyleSheet.create({
     padding: 5,
 
     borderRadius: 25,
-    backgroundColor: '#3c2f2f',
   },
   linkImage: {
     alignSelf: 'center',
-    height: 40,
-    width: 40,
+    height: 50,
+    width: 50,
     backgroundColor: '#3c2f2f',
+    borderColor: 'white',
+    borderWidth: 1,
     borderRadius: 50,
   },
 
@@ -181,5 +192,13 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     zIndex: -1,
+  },
+  locationPoint: {
+    height: 15,
+    width: 15,
+    backgroundColor: 'red',
+    borderRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

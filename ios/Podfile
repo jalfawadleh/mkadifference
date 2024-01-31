@@ -25,9 +25,9 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-pre_install do |installer|
-  $RNMapboxMaps.pre_install(installer)
-end
+$RNMapboxMapsImpl = ‘mapbox’
+
+
 
 
 target 'mkadifference' do
@@ -46,7 +46,12 @@ target 'mkadifference' do
 
   target 'mkadifferenceTests' do
     inherit! :complete
+    pod 'MapboxMaps', '11.0.0'
     # Pods for testing
+  end
+
+  pre_install do |installer|
+    $RNMapboxMaps.pre_install(installer)
   end
 
   $RNMapboxMapsVersion = '= 11.0.0'

@@ -34,7 +34,6 @@ export default function Main() {
           headerStyle: {
             backgroundColor: '#3c2f2f',
           },
-          headerBackTitle: null,
         }}>
         {user._id ? (
           <Stack.Group initialRouteName="Home">
