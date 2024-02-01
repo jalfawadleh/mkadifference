@@ -8,7 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import axios from 'axios';
 
-import {Home, Login, Activities} from '.';
+import {Home, Login, Activities, Profile} from '.';
 import Communicate from './Communicate';
 import EditActivity from './Activities/EditActivity';
 import ViewActivity from './Activities/ViewActivity';
@@ -55,6 +55,9 @@ export default function Main() {
             </Stack.Screen>
             <Stack.Screen name="Communicate">
               {props => <Communicate {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="Profile">
+              {props => <Profile {...props} user={user} />}
             </Stack.Screen>
           </Stack.Group>
         ) : (

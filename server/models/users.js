@@ -25,8 +25,12 @@ const userSchema = Schema(
     help: {type: [{name: String}], default: []},
     tags: {type: [{name: String}], default: []},
     location: {type: Array, default: [-122.2683, 37.8243]},
-    type: {type: String, default: 'members'},
+
+    darkmood: {type: Boolean, default: false},
     hidden: {type: Boolean, default: false},
+
+    type: {type: String, default: 'members'},
+
     contacts: [
       {
         id: {type: Schema.Types.ObjectId},

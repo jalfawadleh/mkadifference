@@ -22,16 +22,9 @@ MapboxGL.setTelemetryEnabled(false);
 export default function Home({navigation, user}) {
   const [search, setSearch] = useState('');
   const [showMenu, setShowMenu] = useState(false);
-  const [lightPreset, setLightPreset] = useState('night');
-  const nextLightPreset = lightPreset === 'night' ? 'day' : 'night';
+  const [darkMood, setDarkMood] = useState(user.darkMood);
   return (
     <>
-      <Button
-        title={`Change to ${nextLightPreset}`}
-        onPress={() => {
-          setLightPreset(nextLightPreset);
-        }}
-      />
       <MapboxGL.MapView
         styleURL="mapbox://styles/mapbox/standard"
         zoomEnabled
@@ -66,16 +59,26 @@ export default function Home({navigation, user}) {
           id="basemap"
           existing
           config={{
-            lightPreset: lightPreset,
+            lightPreset: darkMood ? 'night' : 'day',
           }}
         />
         <MapboxGL.Images images={{example: require('./img/search.png')}} />
       </MapboxGL.MapView>
+      <View style={styles.darkmood}>
+        <Button
+          title={darkMood ? 'Light Mood' : 'Dark Mood'}
+          onPress={() => setDarkMood(!darkMood)}
+        />
+      </View>
       <SafeAreaView style={styles.container}>
+        <View style={styles.darkmood}>
+          <Button title="Dark Mood" onPress={() => setDarkMood(!darkMood)} />
+        </View>
+
         {/* Menu */}
         {showMenu && (
           <View style={styles.linkMenu}>
-            <Pressable onPress={() => navigation.navigate('Activities')}>
+            <Pressable onPress={() => navigation.navigate('Profile')}>
               <Image
                 style={styles.linkImage}
                 source={require('./img/mapbox.png')}
@@ -231,5 +234,11 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  darkmood: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
   },
 });

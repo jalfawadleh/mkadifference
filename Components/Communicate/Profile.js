@@ -1,13 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 import axios from 'axios';
 
 import {Location} from '..';
 import {Styles} from '../Common/Styles';
 import StackText from '../Common/StackText';
+import Hidden from '../Common/Hidden';
+import DarkMood from '../Common/DarkMood';
 
-export default function Profile({user}) {
+export default function Profile({navigation, user}) {
   const [member, setMember] = useState([{description: ''}]);
 
   const getMember = async () => {
@@ -20,6 +29,11 @@ export default function Profile({user}) {
     setMember(data);
   };
 
+  const updateMember = () => {
+    putMember();
+    navigation.navigate('Home');
+  };
+
   useEffect(() => {
     getMember();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,45 +41,52 @@ export default function Profile({user}) {
 
   return (
     <>
-      <View style={Styles.box}>
-        <Text style={Styles.title}>About Me</Text>
-        <TextInput
-          onChangeText={text =>
-            setMember(prevState => ({
-              ...prevState,
-              description: text,
-            }))
-          }
-          value={member.description}
-          editable
-          multiline
-          numberOfLines={4}
-          maxLength={200}
-          style={Styles.textInput}
-        />
-      </View>
-      <StackText
-        type="languages"
-        title="Languages"
-        items={member.languages}
-        setItem={setMember}
-      />
-      <StackText
-        type="tags"
-        title="Interests"
-        items={member.tags}
-        setItem={setMember}
-      />
-      <StackText
-        type="help"
-        title="Help offered or needed"
-        items={member.help}
-        setItem={setMember}
-      />
-      <Location loc={member.location} setElement={setMember} />
-      <View style={Styles.submit}>
-        <Button title="Update" onPress={() => putMember()} />
-      </View>
+      <SafeAreaView style={Styles.container}>
+        <ScrollView>
+          <View style={Styles.box}>
+            <Text style={Styles.title}>About Me</Text>
+            <TextInput
+              onChangeText={text =>
+                setMember(prevState => ({
+                  ...prevState,
+                  description: text,
+                }))
+              }
+              value={member.description}
+              editable
+              multiline
+              numberOfLines={4}
+              maxLength={200}
+              style={Styles.textInput}
+            />
+          </View>
+          <StackText
+            type="languages"
+            title="Languages"
+            items={member.languages}
+            setItem={setMember}
+          />
+          <StackText
+            type="tags"
+            title="Interests"
+            items={member.tags}
+            setItem={setMember}
+          />
+          <StackText
+            type="help"
+            title="Help offered or needed"
+            items={member.help}
+            setItem={setMember}
+          />
+          <Hidden element={member} setElement={setMember} />
+          <DarkMood element={member} setElement={setMember} />
+          <Location loc={member.location} setElement={setMember} />
+        </ScrollView>
+        <View style={Styles.rowButtons}>
+          <Button title="Update" onPress={() => updateMember()} />
+          <Button title="Back" onPress={() => navigation.navigate('Home')} />
+        </View>
+      </SafeAreaView>
     </>
   );
 }

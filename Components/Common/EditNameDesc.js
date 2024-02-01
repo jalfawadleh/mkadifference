@@ -1,39 +1,45 @@
 import React from 'react';
-import {StyleSheet, Text, TextInput} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 
+import {Styles} from './Styles';
 export default function EditNameDesc({element = [], setElement}) {
   return (
     <>
-      <Text style={styles.caption}>Name</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Name"
-        placeholderTextColor="#333333"
-        onChangeText={text =>
-          setElement(prevState => ({
-            ...prevState,
-            name: text,
-          }))
-        }
-        value={element.name}
-        editable
-        maxLength={50}
-      />
-      <Text style={styles.caption}>Description</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Description"
-        placeholderTextColor="#333333"
-        onChangeText={text =>
-          setElement(prevState => ({
-            ...prevState,
-            description: text,
-          }))
-        }
-        value={element.description}
-        editable
-        maxLength={50}
-      />
+      <View style={Styles.box}>
+        <Text style={styles.caption}>Name</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Name"
+          placeholderTextColor="#333333"
+          onChangeText={text =>
+            setElement(prevState => ({
+              ...prevState,
+              name: text,
+            }))
+          }
+          value={element.name}
+          editable
+          maxLength={50}
+        />
+      </View>
+      <View style={Styles.box}>
+        <Text style={styles.caption}>Description</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Description"
+          placeholderTextColor="#333333"
+          onChangeText={text =>
+            setElement(prevState => ({
+              ...prevState,
+              description: text,
+            }))
+          }
+          value={element.description}
+          editable
+          maxLength={240}
+          multiline
+        />
+      </View>
     </>
   );
 }

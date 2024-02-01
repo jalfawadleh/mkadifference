@@ -21,6 +21,7 @@ const Activities = Schema(
     members: [{_id: Schema.Types.ObjectId, name: String}],
 
     tags: [{name: String}],
+    help: [{name: String}],
 
     stages: [
       {

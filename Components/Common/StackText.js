@@ -12,8 +12,14 @@ export default function StackText({type, title, items = [], setItem}) {
       ...prevState,
       [type]: items,
     }));
+    setTag('');
   };
-  const delTag = () => {};
+  const delTag = n => {
+    setItem(prevState => ({
+      ...prevState,
+      [type]: items.filter(item => item.name !== n),
+    }));
+  };
   return (
     <View style={Styles.box}>
       <Text style={Styles.title}>{title}</Text>

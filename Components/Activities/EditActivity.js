@@ -7,6 +7,8 @@ import axios from 'axios';
 import {Location} from '..';
 import {Styles} from '../Common/Styles';
 import EditNameDesc from '../Common/EditNameDesc';
+import StackText from '../Common/StackText';
+import Hidden from '../Common/Hidden';
 
 export default function EditActivity({route, navigation}) {
   const focused = useIsFocused();
@@ -70,7 +72,20 @@ export default function EditActivity({route, navigation}) {
     <SafeAreaView style={Styles.container}>
       <ScrollView>
         <EditNameDesc element={activity} setElement={setActivity} />
-
+        <StackText
+          type="tags"
+          title="Related Interests"
+          items={activity.tags}
+          setItem={setActivity}
+        />
+        <StackText
+          type="help"
+          title="Help Needed"
+          items={activity.help}
+          setItem={setActivity}
+        />
+        <Hidden element={activity} setElement={setActivity} />
+        <Location loc={activity.location} setElement={setActivity} />
         {/* {activity.stages &&
         activity.stages.map(s => (
           <View style={Styles.rowInput} key={s._id}>
@@ -97,7 +112,7 @@ export default function EditActivity({route, navigation}) {
           />
         </View>
       </View> */}
-        <Location loc={activity.location} setElement={setActivity} />
+
         {error && <Text style={Styles.error}> {error}</Text>}
       </ScrollView>
       <View style={Styles.rowButtons}>
