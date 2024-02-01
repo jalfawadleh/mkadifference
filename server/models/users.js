@@ -21,11 +21,12 @@ const userSchema = Schema(
       unique: true,
     },
     description: String,
-    hidden: {type: Boolean, default: false},
+    languages: {type: [{name: String}], default: []},
+    help: {type: [{name: String}], default: []},
+    tags: {type: [{name: String}], default: []},
     location: {type: Array, default: [-122.2683, 37.8243]},
-    help: [{name: String}],
-    tags: [{name: String}],
     type: {type: String, default: 'members'},
+    hidden: {type: Boolean, default: false},
     contacts: [
       {
         id: {type: Schema.Types.ObjectId},

@@ -51,3 +51,11 @@ source={{
                 uri: `https://api.multiavatar.com/${user.username}.png`,
               }}
 />
+
+https://github.com/facebook/react-native/blob/main/packages/rn-tester/js/examples/NewAppScreen/NewAppScreenExample.js
+
+MapBox installation
+
+https://rnmapbox.github.io/docs/install
+
+https://github.com/rnmapbox/maps/tree/main/example/src/examples

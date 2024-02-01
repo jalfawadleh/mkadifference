@@ -1,48 +1,78 @@
 // import axios from 'axios';
 import React, {useState} from 'react';
-import {StyleSheet, TextInput, Image, View, Pressable} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  Image,
+  View,
+  Pressable,
+  Button,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import MapboxGL from '@rnmapbox/maps';
 
 import {Styles} from './Common/Styles';
 
+MapboxGL.setAccessToken(
+  'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
+);
+MapboxGL.setTelemetryEnabled(false);
+
 export default function Home({navigation, user}) {
   const [search, setSearch] = useState('');
   const [showMenu, setShowMenu] = useState(false);
-
+  const [lightPreset, setLightPreset] = useState('night');
+  const nextLightPreset = lightPreset === 'night' ? 'day' : 'night';
   return (
     <>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.inputPanel}>
-          <View style={styles.inputBox}>
-            <Image
-              style={styles.searchIcon}
-              source={require('./img/search.png')}
-            />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search"
-              placeholderTextColor={Styles.placeholderTextColor}
-              onChangeText={setSearch}
-              // onEndEditing={setSearch}
-              value={search}
-              autoCapitalize="none"
-            />
-          </View>
-          <Pressable
-            style={styles.profileButton}
-            onPress={() => setShowMenu(!showMenu)}>
-            <Image
-              style={styles.profileImage}
-              source={{
-                uri: `https://api.multiavatar.com/${user.username}.png`,
-              }}
-            />
-          </Pressable>
-        </View>
+      <Button
+        title={`Change to ${nextLightPreset}`}
+        onPress={() => {
+          setLightPreset(nextLightPreset);
+        }}
+      />
+      <MapboxGL.MapView
+        styleURL="mapbox://styles/mapbox/standard"
+        zoomEnabled
+        scaleBarEnabled={false}
+        style={styles.map}
+        attributionEnabled={false}
+        logoEnabled={false}
+        onTouchStart={() => setShowMenu(false)}>
+        <MapboxGL.Camera
+          zoomLevel={12}
+          centerCoordinate={user.location}
+          animationDuration={0}
+        />
 
-        {/* right menu */}
+        <MapboxGL.MarkerView
+          id="markerView"
+          key={'markerView'}
+          coordinate={user.location}>
+          <View
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              height: 20,
+              width: 20,
+              backgroundColor: '#f00',
+              borderRadius: 15,
+              borderColor: '#fff',
+              borderWidth: 3,
+            }}
+          />
+        </MapboxGL.MarkerView>
+        <MapboxGL.StyleImport
+          id="basemap"
+          existing
+          config={{
+            lightPreset: lightPreset,
+          }}
+        />
+        <MapboxGL.Images images={{example: require('./img/search.png')}} />
+      </MapboxGL.MapView>
+      <SafeAreaView style={styles.container}>
+        {/* Menu */}
         {showMenu && (
           <View style={styles.linkMenu}>
             <Pressable onPress={() => navigation.navigate('Activities')}>
@@ -74,42 +104,43 @@ export default function Home({navigation, user}) {
             </Pressable>
           </View>
         )}
+        <View style={styles.inputPanel}>
+          <View style={styles.inputBox}>
+            <Image
+              style={styles.searchIcon}
+              source={require('./img/search.png')}
+            />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search"
+              placeholderTextColor={Styles.placeholderTextColor}
+              onChangeText={setSearch}
+              // onEndEditing={setSearch}
+              value={search}
+              autoCapitalize="none"
+            />
+          </View>
+          <Pressable
+            style={styles.profileButton}
+            onPress={() => setShowMenu(!showMenu)}>
+            <Image
+              style={styles.profileImage}
+              source={{
+                uri: `https://api.multiavatar.com/${user.username}.png`,
+              }}
+            />
+          </Pressable>
+        </View>
       </SafeAreaView>
-      <MapboxGL.StyleImport />
-      <MapboxGL.MapView
-        zoomEnabled
-        scrollEnabled
-        pitchEnabled
-        scaleBarEnabled={false}
-        style={styles.map}
-        styleURL={MapboxGL.StyleURL.Dark}
-        attributionEnabled={false}
-        logoEnabled={false}
-        // onPress={e =>
-        //   setElement(prevState => ({
-        //     ...prevState,
-        //     location: e.geometry.coordinates,
-        //   }))
-        // }
-      >
-        <MapboxGL.Camera zoomLevel={12} centerCoordinate={user.location} />
-        <MapboxGL.PointAnnotation
-          id="locationPoint"
-          title="locationPoint"
-          coordinate={user.location}
-          isDraggable={false}
-          onDrag={null}>
-          <View style={styles.locationPoint} />
-        </MapboxGL.PointAnnotation>
-      </MapboxGL.MapView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column-reverse',
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
   },
   inputPanel: {
     flexDirection: 'row',

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button, TextInput} from 'react-native';
+import {View, Text, Button, TextInput, FlatList} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 
@@ -36,31 +36,55 @@ export default function Activities({navigation}) {
 
   return (
     <View style={Styles.container}>
-      {error && <Text style={Styles.error}> {error}</Text>}
-      {/* list Activities */}
-      {activities.map(a => (
-        <View style={Styles.box} key={a._id}>
-          <Text style={Styles.title}>{a.name}</Text>
-          <View style={Styles.rowButtons}>
-            <Button
-              title="View"
-              onPress={() => {
-                /* 1. Navigate to the Details route with params */
-                navigation.navigate('ViewActivity', {activity: a});
-              }}
-            />
-            <Button
-              title="Edit"
-              onPress={() => {
-                /* 1. Navigate to the Details route with params */
-                navigation.navigate('EditActivity', {activityId: a._id});
-              }}
-            />
+      <FlatList
+        data={activities}
+        renderItem={({item}) => (
+          <View style={Styles.box} key={item._id}>
+            <Text style={Styles.title}>{item.name}</Text>
+            <View style={Styles.rowButtons}>
+              <Button
+                title="View"
+                onPress={() => {
+                  /* 1. Navigate to the Details route with params */
+                  navigation.navigate('ViewActivity', {activity: item});
+                }}
+              />
+              <Button
+                title="Edit"
+                onPress={() => {
+                  /* 1. Navigate to the Details route with params */
+                  navigation.navigate('EditActivity', {activityId: item._id});
+                }}
+              />
+            </View>
           </View>
-        </View>
-      ))}
-
+        )}
+        keyExtractor={item => item._id}>
+        {/* list Activities */}
+        {activities.map(a => (
+          <View style={Styles.box} key={a._id}>
+            <Text style={Styles.title}>{a.name}</Text>
+            <View style={Styles.rowButtons}>
+              <Button
+                title="View"
+                onPress={() => {
+                  /* 1. Navigate to the Details route with params */
+                  navigation.navigate('ViewActivity', {activity: a});
+                }}
+              />
+              <Button
+                title="Edit"
+                onPress={() => {
+                  /* 1. Navigate to the Details route with params */
+                  navigation.navigate('EditActivity', {activityId: a._id});
+                }}
+              />
+            </View>
+          </View>
+        ))}
+      </FlatList>
       {/* create activity */}
+      {error && <Text style={Styles.error}> {error}</Text>}
       <View style={Styles.box}>
         <View style={Styles.rowInput}>
           <TextInput
@@ -73,7 +97,7 @@ export default function Activities({navigation}) {
                 name: text,
               }))
             }
-            placeholderTextColor="#dddddd"
+            placeholderTextColor={Styles.placeholderTextColor}
           />
           <Button
             style={Styles.rowInputButton}

@@ -45,6 +45,12 @@ export default function Profile({user}) {
         />
       </View>
       <StackText
+        type="languages"
+        title="Languages"
+        items={member.languages}
+        setItem={setMember}
+      />
+      <StackText
         type="tags"
         title="Interests"
         items={member.tags}

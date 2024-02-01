@@ -38,15 +38,19 @@ export default function Location({loc = [0, 0], setElement}) {
               location: e.geometry.coordinates,
             }))
           }>
-          <MapboxGL.Camera zoomLevel={12} centerCoordinate={loc} />
-          <MapboxGL.PointAnnotation
+          <MapboxGL.Camera
+            zoomLevel={12}
+            centerCoordinate={loc}
+            animationDuration={0}
+          />
+          <MapboxGL.MarkerView
             id="locationPoint"
             title="locationPoint"
             coordinate={loc}
             isDraggable={false}
             onDrag={null}>
             <View style={Styles.locationPoint} />
-          </MapboxGL.PointAnnotation>
+          </MapboxGL.MarkerView>
         </MapboxGL.MapView>
       </View>
     </>

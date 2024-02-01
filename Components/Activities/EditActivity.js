@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Button, SafeAreaView, Text, ScrollView, View} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 
 import axios from 'axios';
 
 import {Location} from '..';
 import {Styles} from '../Common/Styles';
+import EditNameDesc from '../Common/EditNameDesc';
 
 export default function EditActivity({route, navigation}) {
   const focused = useIsFocused();
@@ -66,39 +67,11 @@ export default function EditActivity({route, navigation}) {
   }, [focused]);
 
   return (
-    <View style={Styles.container}>
-      {error && <Text style={Styles.error}> {error}</Text>}
-      <Text style={Styles.header}>Name</Text>
-      <TextInput
-        style={Styles.textInput}
-        placeholder="Name"
-        placeholderTextColor="#aaa4e6"
-        onChangeText={text =>
-          setActivity(prevState => ({
-            ...prevState,
-            name: text,
-          }))
-        }
-        value={activity.name}
-        editable
-        maxLength={50}
-      />
-      <Text style={Styles.header}>Description</Text>
-      <TextInput
-        style={Styles.textInput}
-        placeholder="Description"
-        placeholderTextColor="#aaa4e6"
-        onChangeText={text =>
-          setActivity(prevState => ({...prevState, description: text}))
-        }
-        value={activity.description}
-        editable
-        multiline
-        numberOfLines={4}
-        maxLength={40}
-      />
+    <SafeAreaView style={Styles.container}>
+      <ScrollView>
+        <EditNameDesc element={activity} setElement={setActivity} />
 
-      {/* {activity.stages &&
+        {/* {activity.stages &&
         activity.stages.map(s => (
           <View style={Styles.rowInput} key={s._id}>
             <Text style={Styles.title}>{s.name}</Text>
@@ -108,8 +81,7 @@ export default function EditActivity({route, navigation}) {
             </View>
           </View>
         ))} */}
-
-      {/* <View style={Styles.box}>
+        {/* <View style={Styles.box}>
         <View style={Styles.rowInput}>
           <TextInput
             style={Styles.rowInputText}
@@ -125,25 +97,17 @@ export default function EditActivity({route, navigation}) {
           />
         </View>
       </View> */}
-
-      <Location loc={activity.location} setElement={setActivity} />
-
+        <Location loc={activity.location} setElement={setActivity} />
+        {error && <Text style={Styles.error}> {error}</Text>}
+      </ScrollView>
       <View style={Styles.rowButtons}>
+        <Button title="Update" onPress={() => updateActivity()} />
+        <Button title="Delete" onPress={() => delActivity()} />
         <Button
-          style={Styles.button}
-          title="Update Activity"
-          onPress={() => updateActivity()}
-        />
-        <Button
-          style={Styles.button}
-          title="Cancel"
+          title="Back"
           onPress={() => navigation.navigate('Activities')}
         />
-        <Button title="Delete" onPress={() => delActivity()} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
-
-// db.dealerships.find({loc: {$near:[51,-114]}}).limit(2)
-// https://myadventuresincoding.wordpress.com/2011/10/02/mongodb-geospatial-queries/
