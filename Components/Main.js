@@ -8,10 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import axios from 'axios';
 
-import {Home, Login, Activities, Profile} from '.';
-import Communicate from './Communicate';
-import EditActivity from './Activities/EditActivity';
-import ViewActivity from './Activities/ViewActivity';
+import {Home, Login, Activities, Profile, EditActivity, ViewActivity} from '.';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +16,8 @@ export default function Main() {
   const [user, setUser] = useState({
     _id: '',
     username: '',
+    location: [],
+    darkmood: true,
   });
 
   axios.defaults.baseURL = 'http://127.0.0.1:3001/api/';
@@ -57,7 +56,7 @@ export default function Main() {
               {props => <Communicate {...props} user={user} />}
             </Stack.Screen>
             <Stack.Screen name="Profile">
-              {props => <Profile {...props} user={user} />}
+              {props => <Profile {...props} user={user} setUser={setUser} />}
             </Stack.Screen>
           </Stack.Group>
         ) : (

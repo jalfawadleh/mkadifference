@@ -2,5 +2,13 @@ export {default as Login} from './Login';
 
 export {default as Home} from './Home';
 export {default as Activities} from './Activities';
+export {default as EditActivity} from './Activities/EditActivity';
+export {default as ViewActivity} from './Activities/ViewActivity';
+
 export {default as Profile} from './Communicate/Profile';
+
 export {default as Location} from './Common/Location';
+export {default as StackText} from './Common/StackText';
+export {default as Hidden} from './Common/Hidden';
+export {default as DarkMood} from './Common/DarkMood';
+export {default as EditNameDesc} from './Common/EditNameDesc';

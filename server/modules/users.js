@@ -54,6 +54,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       location: user.location,
+      darkmood: user.darkmood,
       token: generateToken(user._id),
     });
     return;
@@ -78,6 +79,7 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       location: user.location,
+      darkmood: user.darkmood,
       token: generateToken(user._id),
     });
     console.log(user.username + ' - Logged in');

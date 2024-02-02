@@ -10,13 +10,10 @@ import {
 
 import axios from 'axios';
 
-import {Location} from '..';
 import {Styles} from '../Common/Styles';
-import StackText from '../Common/StackText';
-import Hidden from '../Common/Hidden';
-import DarkMood from '../Common/DarkMood';
+import {StackText, Hidden, DarkMood, Location} from '..';
 
-export default function Profile({navigation, user}) {
+export default function Profile({navigation, user, setUser}) {
   const [member, setMember] = useState([{description: ''}]);
 
   const getMember = async () => {
@@ -30,7 +27,9 @@ export default function Profile({navigation, user}) {
   };
 
   const updateMember = () => {
+    const darkmood = member.darkmood;
     putMember();
+    setUser(prevState => ({...prevState, darkmood}));
     navigation.navigate('Home');
   };
 
@@ -47,10 +46,7 @@ export default function Profile({navigation, user}) {
             <Text style={Styles.title}>About Me</Text>
             <TextInput
               onChangeText={text =>
-                setMember(prevState => ({
-                  ...prevState,
-                  description: text,
-                }))
+                setMember(prevState => ({...prevState, description: text}))
               }
               value={member.description}
               editable

@@ -22,23 +22,27 @@ MapboxGL.setTelemetryEnabled(false);
 export default function Home({navigation, user}) {
   const [search, setSearch] = useState('');
   const [showMenu, setShowMenu] = useState(false);
-  const [darkMood, setDarkMood] = useState(user.darkMood);
+  const [darkmood, setDarkMood] = useState(user.darkmood);
+
   return (
     <>
       <MapboxGL.MapView
-        styleURL="mapbox://styles/mapbox/standard"
+        styleURL={'mapbox://styles/mapbox/standard'}
         zoomEnabled
         scaleBarEnabled={false}
         style={styles.map}
         attributionEnabled={false}
         logoEnabled={false}
+        dragRotate={false}
+        touchZoomRotate={false}
         onTouchStart={() => setShowMenu(false)}>
         <MapboxGL.Camera
           zoomLevel={12}
           centerCoordinate={user.location}
           animationDuration={0}
+          pitch={0}
+          bearing={0}
         />
-
         <MapboxGL.MarkerView
           id="markerView"
           key={'markerView'}
@@ -59,22 +63,18 @@ export default function Home({navigation, user}) {
           id="basemap"
           existing
           config={{
-            lightPreset: darkMood ? 'night' : 'day',
+            lightPreset: darkmood ? 'night' : 'day',
           }}
         />
-        <MapboxGL.Images images={{example: require('./img/search.png')}} />
+        {/* <MapboxGL.Images images={{example: require('./img/search.png')}} /> */}
       </MapboxGL.MapView>
       <View style={styles.darkmood}>
         <Button
-          title={darkMood ? 'Light Mood' : 'Dark Mood'}
-          onPress={() => setDarkMood(!darkMood)}
+          title={darkmood ? 'Light Mood' : 'Dark Mood'}
+          onPress={() => setDarkMood(!darkmood)}
         />
       </View>
       <SafeAreaView style={styles.container}>
-        <View style={styles.darkmood}>
-          <Button title="Dark Mood" onPress={() => setDarkMood(!darkMood)} />
-        </View>
-
         {/* Menu */}
         {showMenu && (
           <View style={styles.linkMenu}>
@@ -239,6 +239,6 @@ const styles = StyleSheet.create({
   darkmood: {
     position: 'absolute',
     left: 0,
-    top: 0,
+    top: 15,
   },
 });

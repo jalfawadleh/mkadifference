@@ -8,8 +8,8 @@ export default function DarkMood({element = [], setElement}) {
       <Text style={styles.caption}>Dark Mood</Text>
       <View style={Styles.row}>
         <Switch
-          trackColor={{false: '#fff4e6', true: '#be9b7b'}}
-          thumbColor={element.hidden ? '#be9b7b' : '#fff4e6'}
+          trackColor={{false: '#be9b7b', true: '#fff4e6'}}
+          thumbColor={element.darkmood ? '#be9b7b' : '#fff4e6'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={() =>
             setElement(prevState => ({
