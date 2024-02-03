@@ -17,7 +17,7 @@ const Activities = Schema(
     managedBy: [{id: Schema.Types.ObjectId, name: String}],
     lastLogin: Date,
     hidden: {type: Boolean, default: false},
-
+    type: {type: String, default: 'activity'},
     members: [{_id: Schema.Types.ObjectId, name: String}],
 
     tags: [{name: String}],

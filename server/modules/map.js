@@ -1,24 +1,64 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { protect } = require("../middleware/authMiddleware");
-const asyncHandler = require("express-async-handler");
+const {protect} = require('../middleware/authMiddleware');
+const asyncHandler = require('express-async-handler');
 
-const Items = require("../models/items");
-const Members = require("../models/users");
+const Activities = require('../models/Activities');
+const Members = require('../models/users');
 
 // @desc    Get all items in a certain criteria
 // @route   GET /search
 // @access  Private
 const getAll = asyncHandler(async (req, res) => {
-  const items = await Items.find({ hidden: false }, "_id name type location");
+  const featureCollection = {
+    type: 'FeatureCollection',
+    features: [],
+  };
+  const activities = await Activities.find(
+    {hidden: false},
+    '_id name type location',
+  );
+
+  activities.forEach(activity => {
+    featureCollection.features.push({
+      id: activity._id,
+      type: 'Feature',
+      properties: {
+        name: activity.name,
+        id: activity._id,
+        type: activity.type,
+      },
+      geometry: {
+        coordinates: activity.location,
+        type: 'Point',
+      },
+    });
+  });
 
   const members = await Members.find(
-    { hidden: false },
-    "_id name type location"
+    {hidden: false},
+    '_id username type location',
   );
-  const results = items.concat(members);
-  res.status(200).json(results);
+
+  members.forEach(member => {
+    featureCollection.features.push({
+      id: member._id,
+      type: 'Feature',
+      properties: {
+        name: member.username,
+        id: member._id,
+        type: member.type,
+      },
+      geometry: {
+        coordinates: member.location,
+        type: 'Point',
+      },
+    });
+  });
+
+  console.log('Map Items: Sent');
+  res.status(200).json(featureCollection);
 });
 
-router.route("/").get(protect, getAll);
+router.route('/').get(protect, getAll);
 module.exports = router;
