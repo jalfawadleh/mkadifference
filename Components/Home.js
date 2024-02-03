@@ -7,6 +7,8 @@ import {
   View,
   Pressable,
   Button,
+  Text,
+  Alert,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
@@ -18,6 +20,98 @@ MapboxGL.setAccessToken(
   'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
 );
 MapboxGL.setTelemetryEnabled(false);
+
+const markerView = location => {
+  return (
+    <MapboxGL.MarkerView id="markerView" key="markerView" coordinate={location}>
+      <View
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={{
+          height: 20,
+          width: 20,
+          backgroundColor: '#f00',
+          borderRadius: 15,
+          borderColor: '#fff',
+          borderWidth: 3,
+        }}
+      />
+    </MapboxGL.MarkerView>
+  );
+};
+
+const heatMap = () => {
+  return (
+    <MapboxGL.ShapeSource
+      id="earthquakes"
+      url="https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson">
+      <MapboxGL.HeatmapLayer
+        id="earthquakes"
+        sourceID="earthquakes"
+        style={{
+          heatmapColor: [
+            'interpolate',
+            ['linear'],
+            ['heatmap-density'],
+            0,
+            'rgba(33,102,172,0)',
+            0.2,
+            'rgb(103,169,207)',
+            0.4,
+            'rgb(209,229,240)',
+            0.6,
+            'rgb(253,219,199)',
+            0.8,
+            'rgb(239,138,98)',
+            1,
+            'rgb(178,24,43)',
+          ],
+        }}
+      />
+    </MapboxGL.ShapeSource>
+  );
+};
+
+const featureCollection = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      id: 1,
+      type: 'Feature',
+      properties: {name: 'Oakland'},
+      geometry: {
+        coordinates: [-122.27150772059446, 37.80407911943172],
+        type: 'Point',
+      },
+    },
+    {
+      id: 2,
+      type: 'Feature',
+      properties: {name: 'Berkeley'},
+      geometry: {
+        coordinates: [-122.27272112503658, 37.87140376652819],
+        type: 'Point',
+      },
+    },
+    {
+      id: 3,
+      type: 'Feature',
+      properties: {name: 'Emeryvil'},
+      geometry: {
+        coordinates: [-122.28684324374171, 37.83133182679214],
+        type: 'Point',
+      },
+    },
+    {
+      id: 4,
+      type: 'Feature',
+      properties: {name: 'Piedmont'},
+      geometry: {
+        coordinates: [-122.23392371940557, 37.82436097198746],
+        type: 'Point',
+      },
+    },
+  ],
+};
 
 export default function Home({navigation, user}) {
   const [search, setSearch] = useState('');
@@ -43,22 +137,6 @@ export default function Home({navigation, user}) {
           pitch={0}
           bearing={0}
         />
-        <MapboxGL.MarkerView
-          id="markerView"
-          key={'markerView'}
-          coordinate={user.location}>
-          <View
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              height: 20,
-              width: 20,
-              backgroundColor: '#f00',
-              borderRadius: 15,
-              borderColor: '#fff',
-              borderWidth: 3,
-            }}
-          />
-        </MapboxGL.MarkerView>
         <MapboxGL.StyleImport
           id="basemap"
           existing
@@ -66,7 +144,20 @@ export default function Home({navigation, user}) {
             lightPreset: darkmood ? 'night' : 'day',
           }}
         />
-        {/* <MapboxGL.Images images={{example: require('./img/search.png')}} /> */}
+        {/* {markerView(user.location)} */}
+
+        {/* {heatMap()} */}
+
+        <MapboxGL.ShapeSource
+          id="exampleShapeSource"
+          shape={featureCollection}
+          onPress={e => console.log(e.features[0].properties.name)}>
+          <MapboxGL.CircleLayer
+            id="CircleLayer"
+            key="CircleLayer"
+            style={CircleStyle}
+          />
+        </MapboxGL.ShapeSource>
       </MapboxGL.MapView>
       <View style={styles.darkmood}>
         <Button
@@ -138,6 +229,23 @@ export default function Home({navigation, user}) {
     </>
   );
 }
+
+const CircleStyle = {
+  visibility: 'visible',
+  circleRadius: 20,
+  // circleColor: 'rgb(103,169,207)',
+  // circleBlur: 1,
+  // circleOpacity
+  // circleTranslate
+  // circleTranslateAnchor
+  // circlePitchScale
+  // circlePitchAlignment
+  // circleStrokeWidth: 4,
+  // circleStrokeColor: 'white',
+  // circleStrokeOpacity: 1,
+};
+
+const x = {};
 
 const styles = StyleSheet.create({
   container: {
