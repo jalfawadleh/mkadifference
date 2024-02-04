@@ -74,8 +74,8 @@ export default function Profile({navigation, user, setUser}) {
             items={member.help}
             setItem={setMember}
           />
-          <Hidden element={member} setElement={setMember} />
           <DarkMood element={member} setElement={setMember} />
+          <Hidden element={member} setElement={setMember} />
           <Location loc={member.location} setElement={setMember} />
         </ScrollView>
         <View style={Styles.rowButtons}>

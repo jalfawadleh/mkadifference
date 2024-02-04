@@ -6,8 +6,9 @@ import {
   Image,
   View,
   Pressable,
-  Button,
   Alert,
+  Modal,
+  Text,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useIsFocused} from '@react-navigation/native';
@@ -35,6 +36,42 @@ export default function Home({navigation, user, setUser}) {
     features: [],
   });
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalContent, setModalcontent] = useState('');
+
+  const showMember = id => {
+    setModalcontent(id);
+    setModalVisible(true);
+  };
+
+  const showActivity = id => {
+    setModalcontent(id);
+    setModalVisible(true);
+  };
+
+  const modal = (
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(!modalVisible);
+      }}>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Hello World!</Text>
+          <Text style={styles.modalText}>{modalContent}</Text>
+
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={styles.textStyle}>Hide Modal</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
+
   const inputBox = (
     <>
       <Image style={styles.linkImage} source={require('./img/filter.png')} />
@@ -52,10 +89,10 @@ export default function Home({navigation, user, setUser}) {
 
   const menu = (
     <>
-      <Pressable
+      {/* <Pressable
         onPress={() => setUser(prevState => ({...prevState, _id: ''}))}>
         <Image style={styles.linkImage} source={require('./img/close.png')} />
-      </Pressable>
+      </Pressable> */}
       <Pressable onPress={() => navigation.navigate('Activities')}>
         <Image
           style={styles.linkImage}
@@ -99,15 +136,7 @@ export default function Home({navigation, user, setUser}) {
     <MapboxGL.ShapeSource
       id="membersShapeSource"
       shape={membersPoints}
-      onPress={e =>
-        Alert.alert(
-          e.features[0].properties.name +
-            ' ' +
-            e.features[0].properties.id +
-            ' ' +
-            e.features[0].properties.type,
-        )
-      }>
+      onPress={e => showMember(e.features[0].properties.id)}>
       <MapboxGL.CircleLayer
         id="membersCircleLayer"
         style={styles.membersCircleLayer}
@@ -125,20 +154,11 @@ export default function Home({navigation, user, setUser}) {
     <MapboxGL.ShapeSource
       id="activitiesShapeSource"
       shape={activitiesPoints}
-      onPress={e =>
-        Alert.alert(
-          e.features[0].properties.name +
-            ' ' +
-            e.features[0].properties.id +
-            ' ' +
-            e.features[0].properties.type,
-        )
-      }>
+      onPress={e => showActivity(e.features[0].properties.id)}>
       <MapboxGL.CircleLayer
         id="activitieCircleLayer"
         style={styles.activitiesCircleLayer}
       />
-
       {darkmood && (
         <MapboxGL.HeatmapLayer
           id="activitiesHeatmapLayer"
@@ -189,12 +209,14 @@ export default function Home({navigation, user, setUser}) {
         </Pressable>
       </View>
       <View style={styles.profile}>
-        <Image
-          style={styles.profileImage}
-          source={{
-            uri: `https://api.multiavatar.com/${user.username}.png`,
-          }}
-        />
+        <Pressable onPress={() => navigation.navigate('Profile')}>
+          <Image
+            style={styles.profileImage}
+            source={{
+              uri: `https://api.multiavatar.com/${user.username}.png`,
+            }}
+          />
+        </Pressable>
       </View>
       <SafeAreaView style={styles.container}>
         <View style={styles.inputPanel}>
@@ -210,6 +232,7 @@ export default function Home({navigation, user, setUser}) {
             />
           </Pressable>
         </View>
+        {modal}
       </SafeAreaView>
     </>
   );
@@ -231,11 +254,9 @@ const styles = StyleSheet.create({
       0,
       'rgba(33,102,172,0)',
       0.2,
-      'rgb(103,169,207)',
-      0.4,
-      'rgb(209,229,240)',
+      'green',
       0.6,
-      'rgb(253,219,199)',
+      'rgb(44,219,44)',
       1,
       'rgb(98,239,98)',
       2,
@@ -250,7 +271,8 @@ const styles = StyleSheet.create({
     circleStrokeColor: 'white',
   },
   activitiesHeatmapLayer: {
-    heatmapRadius: 25,
+    heatmapRadius: 20,
+    heatmapOpacity: 0.85,
     heatmapColor: [
       'interpolate',
       ['linear'],
@@ -258,15 +280,13 @@ const styles = StyleSheet.create({
       0,
       'rgba(33,102,172,0)',
       0.2,
-      'rgb(103,169,207)',
-      0.4,
-      'rgb(209,229,240)',
+      'red',
       0.6,
-      'rgb(253,219,199)',
+      'rgb(219,44,44)',
       1,
-      'rgb(98,239,98)',
+      'rgb(239,98,98)',
       2,
-      'rgb(0,255,0)',
+      'rgb(255,0,0)',
     ],
   },
 
@@ -344,9 +364,10 @@ const styles = StyleSheet.create({
     top: 35,
   },
   darkmoodImage: {
-    height: 50,
-    width: 50,
-    backgroundColor: '#444444',
+    height: 40,
+    width: 40,
+    backgroundColor: '#aa9003',
+    opacity: 0.8,
     tintColor: 'yellow',
     borderRadius: 25,
   },
@@ -354,9 +375,56 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 15,
     top: 35,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 40,
+    padding: 1,
   },
   profileImage: {
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
+  },
+
+  // modal
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
