@@ -318,6 +318,7 @@ const styles = StyleSheet.create({
     // borderColor: 'black',
     // borderWidth: 2,
     borderRadius: 25,
+    tintColor: '#333333',
   },
 
   map: {
@@ -345,14 +346,15 @@ const styles = StyleSheet.create({
   darkmoodImage: {
     height: 50,
     width: 50,
-    // backgroundColor: 'yellow',
-    borderColor: 'black',
-    borderWidth: 1,
+    backgroundColor: 'black',
+    tintColor: 'yellow',
     borderRadius: 25,
-    shadowColor: 'yellow',
-    shadowOpacity: 50,
   },
-  profile: {position: 'absolute', right: 15, top: 35},
+  profile: {
+    position: 'absolute',
+    right: 15,
+    top: 35,
+  },
   profileImage: {
     height: 50,
     width: 50,
