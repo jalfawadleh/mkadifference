@@ -1,8 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Profile} from '.';
-import Messages from './Communicate/Messages';
-import Updates from './Communicate/Updates';
+import {Activities, Profile} from '.';
+import Messages from './Messages';
+import Updates from './Updates';
 import Contacts from './Communicate/Contacts';
 
 const Tab = createBottomTabNavigator();
@@ -20,7 +20,7 @@ export default function Communicate({user, setUser}) {
         {props => <Contacts {...props} user={user} />}
       </Tab.Screen>
       <Tab.Screen name="Activities">
-        {props => <Profile {...props} user={user} />}
+        {props => <Activities {...props} user={user} />}
       </Tab.Screen>
       <Tab.Screen name="Profile">
         {props => <Profile {...props} user={user} setUser={setUser} />}

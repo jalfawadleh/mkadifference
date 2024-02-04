@@ -5,9 +5,9 @@ export {default as Activities} from './Activities';
 export {default as EditActivity} from './Activities/EditActivity';
 export {default as ViewActivity} from './Activities/ViewActivity';
 
-export {default as Profile} from './Communicate/Profile';
-export {default as Messages} from './Communicate/Messages';
-export {default as Feed} from './Communicate/Feed';
+export {default as Profile} from './Profile';
+export {default as Messages} from './Messages';
+export {default as Updates} from './Updates';
 
 export {default as Location} from './Common/Location';
 export {default as StackText} from './Common/StackText';

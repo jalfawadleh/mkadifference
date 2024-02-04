@@ -10,8 +10,8 @@ import {
 
 import axios from 'axios';
 
-import {Styles} from '../Common/Styles';
-import {StackText, Hidden, DarkMood, Location} from '..';
+import {Styles} from './Common/Styles';
+import {StackText, Hidden, DarkMood, Location} from '.';
 
 export default function Profile({navigation, user, setUser}) {
   const [member, setMember] = useState([{description: ''}]);

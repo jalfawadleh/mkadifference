@@ -72,6 +72,45 @@ export default function Home({navigation, user, setUser}) {
     </Modal>
   );
 
+  const topLeftMenu = (
+    <View style={styles.topLeftMenu}>
+      <Pressable onPress={() => setDarkMood(!darkmood)}>
+        <Image style={styles.iconDarkmood} source={require('./img/dark.png')} />
+      </Pressable>
+    </View>
+  );
+
+  const topRightMenu = (
+    <View style={styles.topRightMenu}>
+      <Pressable
+        style={styles.menuIconBox}
+        onPress={() => navigation.navigate('Profile')}>
+        <Image
+          style={styles.iconProfile}
+          source={{
+            uri: `https://api.multiavatar.com/${user.username}.png`,
+          }}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.menuIconBox}
+        onPress={() => navigation.navigate('Updates')}>
+        <Image
+          style={styles.iconInactive}
+          source={require('./img/updates.png')}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.iconActive}
+        onPress={() => navigation.navigate('Messages')}>
+        <Image
+          style={styles.iconActive}
+          source={require('./img/messages.png')}
+        />
+      </Pressable>
+    </View>
+  );
+
   const inputBox = (
     <View style={styles.inputPanel}>
       <Image style={styles.searchImage} source={require('./img/search.png')} />
@@ -84,12 +123,10 @@ export default function Home({navigation, user, setUser}) {
         value={search}
         autoCapitalize="none"
       />
-      <Pressable onPress={() => navigation.navigate('Communicate')}>
+      <Pressable onPress={() => navigation.navigate('Activities')}>
         <Image
-          style={styles.profileImage}
-          source={{
-            uri: `https://api.multiavatar.com/${user.username}.png`,
-          }}
+          style={styles.menuIcon}
+          source={require('./img/activities.png')}
         />
       </Pressable>
     </View>
@@ -183,14 +220,9 @@ export default function Home({navigation, user, setUser}) {
 
         {activities}
       </MapboxGL.MapView>
-      <View style={styles.darkmood}>
-        <Pressable onPress={() => setDarkMood(!darkmood)}>
-          <Image
-            style={styles.darkmoodImage}
-            source={require('./img/dark.png')}
-          />
-        </Pressable>
-      </View>
+
+      {topLeftMenu}
+      {topRightMenu}
 
       <SafeAreaView style={styles.container}>
         {inputBox}
@@ -264,7 +296,8 @@ const styles = StyleSheet.create({
 
     margin: 0,
 
-    padding: 5,
+    paddingTop: 10,
+    paddingLeft: 5,
     height: 50,
     borderTopEndRadius: 25,
     borderTopStartRadius: 25,
@@ -312,31 +345,63 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  darkmood: {
+  topLeftMenu: {
     position: 'absolute',
+    padding: 5,
     left: 15,
     top: 35,
+    backgroundColor: '#555555',
+    borderWidth: 4,
+    borderColor: '#bbbb44',
+    borderRadius: 50,
   },
-  darkmoodImage: {
-    height: 40,
-    width: 40,
-    backgroundColor: '#aa9003',
+
+  iconDarkmood: {
+    height: 25,
+    width: 25,
+
     opacity: 0.8,
     tintColor: 'yellow',
+
     borderRadius: 25,
   },
-  profile: {
+
+  topRightMenu: {
     position: 'absolute',
     right: 15,
     top: 35,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 40,
+    // borderColor: 'black',
+    // borderWidth: 1,
+    // borderRadius: 40,
     padding: 1,
   },
-  profileImage: {
+
+  iconProfile: {
     height: 40,
     width: 40,
+  },
+
+  iconInactive: {
+    height: 40,
+    width: 40,
+    tintColor: 'green',
+  },
+
+  iconActive: {
+    height: 40,
+    width: 40,
+    tintColor: 'red',
+  },
+
+  menuIcon: {
+    height: 40,
+    width: 40,
+  },
+
+  menuIconBox: {
+    marginBottom: 10,
+    borderRadius: 40,
+    tintColor: 'black',
   },
 
   // modal
