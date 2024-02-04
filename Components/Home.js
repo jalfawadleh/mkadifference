@@ -262,11 +262,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
 
-    margin: 5,
+    margin: 0,
+
     padding: 5,
     height: 50,
-
-    borderRadius: 25,
+    borderTopEndRadius: 25,
+    borderTopStartRadius: 25,
+    // borderRadius: 25,
     backgroundColor: 'black',
   },
 
@@ -274,6 +276,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     marginTop: 5,
+    marginLeft: 10,
     zIndex: 1,
   },
   searchInput: {
@@ -287,7 +290,7 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: 'black',
     borderColor: '#bbbbbb',
-    borderWidth: 3,
+    borderWidth: 2,
     borderRadius: 15,
   },
   placeholderTextColor: '#aaaaaa',
