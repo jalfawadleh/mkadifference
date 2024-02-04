@@ -36,7 +36,7 @@ export default function Home({navigation, user, setUser}) {
   });
 
   const inputBox = (
-    <View style={styles.inputPanel}>
+    <>
       <Image style={styles.linkImage} source={require('./img/filter.png')} />
       <TextInput
         style={styles.searchInput}
@@ -47,14 +47,11 @@ export default function Home({navigation, user, setUser}) {
         value={search}
         autoCapitalize="none"
       />
-      <Pressable onPress={() => setShowMenu(!showMenu)}>
-        <Image style={styles.linkImage} source={require('./img/menu.png')} />
-      </Pressable>
-    </View>
+    </>
   );
 
   const menu = (
-    <View style={styles.inputPanel}>
+    <>
       <Pressable
         onPress={() => setUser(prevState => ({...prevState, _id: ''}))}>
         <Image style={styles.linkImage} source={require('./img/close.png')} />
@@ -75,16 +72,7 @@ export default function Home({navigation, user, setUser}) {
           source={require('./img/messages.png')}
         />
       </Pressable>
-      <Pressable onPress={() => navigation.navigate('Profile')}>
-        <Image
-          style={styles.linkImage}
-          source={require('./img/settings.png')}
-        />
-      </Pressable>
-      <Pressable onPress={() => setShowMenu(!showMenu)}>
-        <Image style={styles.linkImage} source={require('./img/search.png')} />
-      </Pressable>
-    </View>
+    </>
   );
 
   const camera = (
@@ -209,7 +197,19 @@ export default function Home({navigation, user, setUser}) {
         />
       </View>
       <SafeAreaView style={styles.container}>
-        {showMenu ? menu : inputBox}
+        <View style={styles.inputPanel}>
+          {showMenu ? menu : inputBox}
+          <Pressable onPress={() => setShowMenu(!showMenu)}>
+            <Image
+              style={styles.linkImage}
+              source={
+                showMenu
+                  ? require('./img/search.png')
+                  : require('./img/menu.png')
+              }
+            />
+          </Pressable>
+        </View>
       </SafeAreaView>
     </>
   );
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
   darkmoodImage: {
     height: 50,
     width: 50,
-    backgroundColor: 'black',
+    backgroundColor: '#444444',
     tintColor: 'yellow',
     borderRadius: 25,
   },

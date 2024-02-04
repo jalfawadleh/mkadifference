@@ -61,9 +61,6 @@ export default function Main() {
             <Stack.Screen name="ViewActivity" options={{headerBackTitle: ''}}>
               {props => <ViewActivity {...props} />}
             </Stack.Screen>
-            <Stack.Screen name="Communicate">
-              {props => <Communicate {...props} user={user} />}
-            </Stack.Screen>
             <Stack.Screen name="Profile">
               {props => <Profile {...props} user={user} setUser={setUser} />}
             </Stack.Screen>
