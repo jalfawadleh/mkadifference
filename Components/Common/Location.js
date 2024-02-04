@@ -21,17 +21,21 @@ export default function Location({loc = [0, 0], setElement}) {
     <>
       <View style={Styles.box}>
         <Text style={Styles.header}>Location</Text>
+        <Text style={Styles.note}>
+          Location used to center the home page map
+        </Text>
+        <Text style={Styles.note}>Click on the map to set the location</Text>
         <View
           style={Styles.container}
           onLayout={event => {
             setMapWidth(event.nativeEvent.layout.width);
           }}>
           <MapboxGL.MapView
-            zoomEnabled
-            scrollEnabled
-            pitchEnabled
             scaleBarEnabled={false}
-            compassEnabled={true}
+            attributionEnabled={false}
+            logoEnabled={false}
+            dragRotate={false}
+            touchZoomRotate={false}
             style={{width: mapWidth, height: mapWidth}}
             onPress={e =>
               setElement(prevState => ({
@@ -40,7 +44,7 @@ export default function Location({loc = [0, 0], setElement}) {
               }))
             }>
             <MapboxGL.Camera
-              zoomLevel={12}
+              zoomLevel={10}
               centerCoordinate={loc}
               animationDuration={0}
             />
