@@ -73,8 +73,8 @@ export default function Home({navigation, user, setUser}) {
   );
 
   const inputBox = (
-    <>
-      <Image style={styles.linkImage} source={require('./img/filter.png')} />
+    <View style={styles.inputPanel}>
+      <Image style={styles.searchImage} source={require('./img/search.png')} />
       <TextInput
         style={styles.searchInput}
         placeholder="Search"
@@ -84,32 +84,15 @@ export default function Home({navigation, user, setUser}) {
         value={search}
         autoCapitalize="none"
       />
-    </>
-  );
-
-  const menu = (
-    <>
-      {/* <Pressable
-        onPress={() => setUser(prevState => ({...prevState, _id: ''}))}>
-        <Image style={styles.linkImage} source={require('./img/close.png')} />
-      </Pressable> */}
-      <Pressable onPress={() => navigation.navigate('Activities')}>
+      <Pressable onPress={() => navigation.navigate('Communicate')}>
         <Image
-          style={styles.linkImage}
-          source={require('./img/activity.png')}
+          style={styles.profileImage}
+          source={{
+            uri: `https://api.multiavatar.com/${user.username}.png`,
+          }}
         />
       </Pressable>
-      <Pressable onPress={() => navigation.navigate('Feed')}>
-        <Image style={styles.linkImage} source={require('./img/feed.png')} />
-      </Pressable>
-
-      <Pressable onPress={() => navigation.navigate('Messages')}>
-        <Image
-          style={styles.linkImage}
-          source={require('./img/messages.png')}
-        />
-      </Pressable>
-    </>
+    </View>
   );
 
   const camera = (
@@ -208,30 +191,9 @@ export default function Home({navigation, user, setUser}) {
           />
         </Pressable>
       </View>
-      <View style={styles.profile}>
-        <Pressable onPress={() => navigation.navigate('Profile')}>
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri: `https://api.multiavatar.com/${user.username}.png`,
-            }}
-          />
-        </Pressable>
-      </View>
+
       <SafeAreaView style={styles.container}>
-        <View style={styles.inputPanel}>
-          {showMenu ? menu : inputBox}
-          <Pressable onPress={() => setShowMenu(!showMenu)}>
-            <Image
-              style={styles.linkImage}
-              source={
-                showMenu
-                  ? require('./img/search.png')
-                  : require('./img/menu.png')
-              }
-            />
-          </Pressable>
-        </View>
+        {inputBox}
         {modal}
       </SafeAreaView>
     </>
@@ -308,38 +270,27 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
 
-  searchIcon: {
-    height: 50,
-    width: 50,
-    padding: 0,
-    backgroundColor: 'white',
-    borderRadius: 25,
+  searchImage: {
+    height: 30,
+    width: 30,
+    marginTop: 5,
+    zIndex: 1,
   },
   searchInput: {
     flex: 5,
-    marginLeft: 5,
+    marginLeft: -35,
     marginRight: 5,
     paddingRight: 5,
-    paddingLeft: 5,
+    paddingLeft: 35,
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     backgroundColor: 'black',
-    borderColor: 'white',
-    borderWidth: 5,
-    borderRadius: 10,
+    borderColor: '#bbbbbb',
+    borderWidth: 3,
+    borderRadius: 15,
   },
   placeholderTextColor: '#aaaaaa',
-  linkImage: {
-    margin: 0,
-    height: 40,
-    width: 40,
-    backgroundColor: 'white',
-    // borderColor: 'black',
-    // borderWidth: 2,
-    borderRadius: 25,
-    tintColor: '#333333',
-  },
 
   map: {
     width: '100%',

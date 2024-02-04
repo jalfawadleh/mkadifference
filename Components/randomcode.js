@@ -116,3 +116,28 @@ const featureCollection = {
     uri: `https://api.multiavatar.com/${user.username}.png`,
   }}
 />; */
+
+// const menu = (
+//   <>
+//     {/* <Pressable
+//       onPress={() => setUser(prevState => ({...prevState, _id: ''}))}>
+//       <Image style={styles.linkImage} source={require('./img/close.png')} />
+//     </Pressable> */}
+//     <Pressable onPress={() => navigation.navigate('Activities')}>
+//       <Image
+//         style={styles.linkImage}
+//         source={require('./img/activity.png')}
+//       />
+//     </Pressable>
+//     <Pressable onPress={() => navigation.navigate('Feed')}>
+//       <Image style={styles.linkImage} source={require('./img/feed.png')} />
+//     </Pressable>
+
+//     <Pressable onPress={() => navigation.navigate('Messages')}>
+//       <Image
+//         style={styles.linkImage}
+//         source={require('./img/messages.png')}
+//       />
+//     </Pressable>
+//   </>
+// );
