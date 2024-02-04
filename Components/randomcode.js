@@ -109,3 +109,10 @@ const featureCollection = {
 
 // clusters
 // https://github.com/rnmapbox/maps/blob/main/example/src/examples/SymbolCircleLayer/Earthquakes.tsx
+
+/* <Image
+  style={styles.linkImage}
+  source={{
+    uri: `https://api.multiavatar.com/${user.username}.png`,
+  }}
+/>; */

@@ -59,3 +59,5 @@ MapBox installation
 https://rnmapbox.github.io/docs/install
 
 https://github.com/rnmapbox/maps/tree/main/example/src/examples
+
+https://www.svgrepo.com/collection/cfpb-design-system-icons/3

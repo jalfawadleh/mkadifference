@@ -10,10 +10,10 @@ import {
   Alert,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useIsFocused} from '@react-navigation/native';
 
 import MapboxGL from '@rnmapbox/maps';
 
-import {Styles} from './Common/Styles';
 import axios from 'axios';
 
 MapboxGL.setAccessToken(
@@ -22,6 +22,7 @@ MapboxGL.setAccessToken(
 MapboxGL.setTelemetryEnabled(false);
 
 export default function Home({navigation, user, setUser}) {
+  const focused = useIsFocused();
   const [search, setSearch] = useState('');
   const [showMenu, setShowMenu] = useState(false);
   const [darkmood, setDarkMood] = useState(user.darkmood);
@@ -34,63 +35,61 @@ export default function Home({navigation, user, setUser}) {
     features: [],
   });
 
-  const menu = (
-    <View style={styles.linkMenu}>
-      <Pressable
-        onPress={() => setUser(prevState => ({...prevState, _id: ''}))}>
-        <Image style={styles.linkImage} source={require('./img/search.png')} />
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('Profile')}>
-        <Image style={styles.linkImage} source={require('./img/mapbox.png')} />
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('Activities')}>
-        <Image style={styles.linkImage} source={require('./img/events.png')} />
-      </Pressable>
-
-      <Pressable onPress={() => navigation.navigate('Activities')}>
-        <Image style={styles.linkImage} source={require('./img/search.png')} />
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('Profile')}>
-        <Image
-          style={styles.linkImage}
-          source={{
-            uri: `https://api.multiavatar.com/${user.username}.png`,
-          }}
-        />
+  const inputBox = (
+    <View style={styles.inputPanel}>
+      <Image style={styles.linkImage} source={require('./img/filter.png')} />
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search"
+        placeholderTextColor={styles.placeholderTextColor}
+        onChangeText={setSearch}
+        // onEndEditing={setSearch}
+        value={search}
+        autoCapitalize="none"
+      />
+      <Pressable onPress={() => setShowMenu(!showMenu)}>
+        <Image style={styles.linkImage} source={require('./img/menu.png')} />
       </Pressable>
     </View>
   );
 
-  const inputPanel = (
+  const menu = (
     <View style={styles.inputPanel}>
-      <View style={styles.inputBox}>
-        <Image style={styles.searchIcon} source={require('./img/search.png')} />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search"
-          placeholderTextColor={Styles.placeholderTextColor}
-          onChangeText={setSearch}
-          // onEndEditing={setSearch}
-          value={search}
-          autoCapitalize="none"
-        />
-      </View>
       <Pressable
-        style={styles.profileButton}
-        onPress={() => setShowMenu(!showMenu)}>
+        onPress={() => setUser(prevState => ({...prevState, _id: ''}))}>
+        <Image style={styles.linkImage} source={require('./img/close.png')} />
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Activities')}>
         <Image
-          style={styles.profileImage}
-          source={{
-            uri: `https://api.multiavatar.com/${user.username}.png`,
-          }}
+          style={styles.linkImage}
+          source={require('./img/activity.png')}
         />
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Feed')}>
+        <Image style={styles.linkImage} source={require('./img/feed.png')} />
+      </Pressable>
+
+      <Pressable onPress={() => navigation.navigate('Messages')}>
+        <Image
+          style={styles.linkImage}
+          source={require('./img/messages.png')}
+        />
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Profile')}>
+        <Image
+          style={styles.linkImage}
+          source={require('./img/settings.png')}
+        />
+      </Pressable>
+      <Pressable onPress={() => setShowMenu(!showMenu)}>
+        <Image style={styles.linkImage} source={require('./img/search.png')} />
       </Pressable>
     </View>
   );
 
   const camera = (
     <MapboxGL.Camera
-      zoomLevel={12}
+      zoomLevel={10}
       centerCoordinate={user.location}
       animationDuration={0}
       pitch={0}
@@ -165,12 +164,13 @@ export default function Home({navigation, user, setUser}) {
     const {data} = await axios.get('map/');
     setActivitiesPoints(data.activitiesPoints);
     setMembersPoints(data.membersPoints);
-    console.log(data.activitiesPoints);
   };
 
   useEffect(() => {
-    getMapItems();
-  }, []);
+    if (focused) {
+      getMapItems();
+    }
+  }, [focused]);
 
   return (
     <>
@@ -193,14 +193,23 @@ export default function Home({navigation, user, setUser}) {
         {activities}
       </MapboxGL.MapView>
       <View style={styles.darkmood}>
-        <Button
-          title={darkmood ? 'Light Mood' : 'Dark Mood'}
-          onPress={() => setDarkMood(!darkmood)}
+        <Pressable onPress={() => setDarkMood(!darkmood)}>
+          <Image
+            style={styles.darkmoodImage}
+            source={require('./img/dark.png')}
+          />
+        </Pressable>
+      </View>
+      <View style={styles.profile}>
+        <Image
+          style={styles.profileImage}
+          source={{
+            uri: `https://api.multiavatar.com/${user.username}.png`,
+          }}
         />
       </View>
       <SafeAreaView style={styles.container}>
-        {showMenu && menu}
-        {inputPanel}
+        {showMenu ? menu : inputBox}
       </SafeAreaView>
     </>
   );
@@ -266,78 +275,49 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
+
   inputPanel: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
 
     margin: 5,
-    padding: 0,
+    padding: 5,
     height: 50,
 
     borderRadius: 25,
     backgroundColor: 'black',
   },
-  inputBox: {
-    flex: 6,
-    flexDirection: 'row',
 
-    paddingLeft: 5,
-
-    alignItems: 'stretch',
-  },
   searchIcon: {
-    height: 40,
-    width: 40,
-    marginTop: 6,
+    height: 50,
+    width: 50,
     padding: 0,
+    backgroundColor: 'white',
+    borderRadius: 25,
   },
   searchInput: {
     flex: 5,
+    marginLeft: 5,
+    marginRight: 5,
     paddingRight: 5,
     paddingLeft: 5,
-    margin: 5,
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    borderColor: '#666666',
-    borderWidth: 2,
+    backgroundColor: 'black',
+    borderColor: 'white',
+    borderWidth: 5,
     borderRadius: 10,
   },
-
-  profileButton: {
-    flex: 1,
-    width: 50,
-    height: 50,
-  },
-  profileImage: {
-    height: '100%',
-    width: '100%',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 50,
-  },
-
-  linkMenu: {
-    flexDirection: 'col',
-    alignSelf: 'flex-end',
-    justifyContent: 'space-between',
-
-    height: 230,
-    width: 50,
-
-    marginRight: 5,
-    padding: 5,
-
-    borderRadius: 25,
-  },
+  placeholderTextColor: '#aaaaaa',
   linkImage: {
-    alignSelf: 'center',
-    height: 50,
-    width: 50,
-    backgroundColor: '#3c2f2f',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 50,
+    margin: 0,
+    height: 40,
+    width: 40,
+    backgroundColor: 'white',
+    // borderColor: 'black',
+    // borderWidth: 2,
+    borderRadius: 25,
   },
 
   map: {
@@ -359,7 +339,22 @@ const styles = StyleSheet.create({
 
   darkmood: {
     position: 'absolute',
-    left: 0,
-    top: 15,
+    left: 15,
+    top: 35,
+  },
+  darkmoodImage: {
+    height: 50,
+    width: 50,
+    // backgroundColor: 'yellow',
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 25,
+    shadowColor: 'yellow',
+    shadowOpacity: 50,
+  },
+  profile: {position: 'absolute', right: 15, top: 35},
+  profileImage: {
+    height: 50,
+    width: 50,
   },
 });
