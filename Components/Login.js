@@ -8,8 +8,8 @@ export default function LoginForm({navigation, setUser}) {
   const [joinUs, setJoinUs] = useState(false);
 
   // login
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('username');
+  const [password, setPassword] = useState('password');
 
   //join us
   const [rpassword, setPasswordR] = useState('');
@@ -83,54 +83,58 @@ export default function LoginForm({navigation, setUser}) {
   };
 
   return (
-    <View style={Styles.container}>
-      <Image style={Styles.avatar} source={{uri: avatarLink}} />
+    <View style={styles.container}>
+      <Text style={styles.logo}>MKaDifference</Text>
+      <View style={styles.avatar}>
+        <Image style={styles.avatarImage} source={{uri: avatarLink}} />
+      </View>
 
       {joinUs && <Text style={Styles.note}>Username determin the avatar</Text>}
+      <View style={styles.inputform}>
+        <TextInput
+          style={styles.input}
+          autoComplete="username"
+          placeholder="Username"
+          onChangeText={setUsername}
+          onEndEditing={handleAvatarChange}
+          value={username}
+          autoCapitalize="none"
+          placeholderTextColor={Styles.placeholderTextColor}
+        />
 
-      <TextInput
-        style={Styles.input}
-        autoComplete="username"
-        placeholder="Username"
-        onChangeText={setUsername}
-        onEndEditing={handleAvatarChange}
-        value={username}
-        autoCapitalize="none"
-        placeholderTextColor={Styles.placeholderTextColor}
-      />
-
-      <TextInput
-        style={Styles.input}
-        onChangeText={setPassword}
-        value={password}
-        autoComplete="password"
-        placeholder="Password"
-        secureTextEntry
-        placeholderTextColor={Styles.placeholderTextColor}
-      />
-      {joinUs && (
-        <>
-          <TextInput
-            style={Styles.input}
-            onChangeText={setPasswordR}
-            value={rpassword}
-            placeholder="Confirm Password"
-            placeholderTextColor={Styles.placeholderTextColor}
-            secureTextEntry
-          />
-          <TextInput
-            style={Styles.input}
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Email"
-            placeholderTextColor={Styles.placeholderTextColor}
-            autoComplete="email"
-          />
-          <Text style={Styles.note}>
-            Email will only be used to reset the password
-          </Text>
-        </>
-      )}
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          autoComplete="password"
+          placeholder="Password"
+          secureTextEntry
+          placeholderTextColor={Styles.placeholderTextColor}
+        />
+        {joinUs && (
+          <>
+            <TextInput
+              style={styles.input}
+              onChangeText={setPasswordR}
+              value={rpassword}
+              placeholder="Confirm Password"
+              placeholderTextColor={Styles.placeholderTextColor}
+              secureTextEntry
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={setEmail}
+              value={email}
+              placeholder="Email"
+              placeholderTextColor={Styles.placeholderTextColor}
+              autoComplete="email"
+            />
+            <Text style={Styles.note}>
+              Email will only be used to reset the password
+            </Text>
+          </>
+        )}
+      </View>
       {error && <Text style={Styles.error}> {error}</Text>}
       <View style={styles.viewLogin}>
         <View style={styles.viewButton}>
@@ -151,13 +155,44 @@ export default function LoginForm({navigation, setUser}) {
 }
 
 const styles = StyleSheet.create({
-  viewLogin: {
+  container: {
     flex: 1,
+    backgroundColor: '#161618',
+    alignContent: 'space-around',
+  },
+  logo: {
+    marginTop: 60,
+    color: '#fff4e6',
+    alignSelf: 'center',
+    fontSize: 35,
+    fontWeight: 'bold',
+  },
+
+  avatarImage: {
+    marginTop: 25,
+    marginBottom: 25,
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+  },
+  viewLogin: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    margin: 0,
+    marginTop: 25,
     paddingTop: 5,
   },
+  input: {
+    margin: 10,
+    padding: 10,
+    borderColor: 'white',
+    borderWidth: 1,
+    fontSize: 20,
+    fontWeight: 'bold',
+    borderRadius: 15,
+    backgroundColor: '#212124',
+    color: 'white',
+  },
+
   viewButton: {
     height: 50,
   },
@@ -165,6 +200,7 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 5,
     borderColor: 'black',
+    backgroundColor: '#818181',
     borderWidth: 1,
     fontSize: 20,
     borderRadius: 45,

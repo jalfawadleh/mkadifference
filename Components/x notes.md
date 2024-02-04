@@ -61,3 +61,11 @@ https://rnmapbox.github.io/docs/install
 https://github.com/rnmapbox/maps/tree/main/example/src/examples
 
 https://www.svgrepo.com/collection/cfpb-design-system-icons/3
+
+https://www.color-hex.com/color-palette/99159
+
+#000000 (0,0,0)
+#161618 (22,22,24)
+#212124 (33,33,36)
+#ffffff (255,255,255)
+#818181 (129,129,129)

@@ -78,15 +78,7 @@ export default function Main() {
             </Stack.Screen>
           </Stack.Group>
         ) : (
-          <Stack.Screen
-            name="Login"
-            options={{
-              headerTitle: 'MKaDifference',
-              headerTitleStyle: {fontSize: 28, color: '#fff4e6'},
-              headerStyle: {
-                backgroundColor: '#3c2f2f',
-              },
-            }}>
+          <Stack.Screen name="Login" options={{headerShown: false}}>
             {props => <Login {...props} setUser={setUser} />}
           </Stack.Screen>
         )}

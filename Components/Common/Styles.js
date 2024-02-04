@@ -45,21 +45,6 @@ export const Styles = StyleSheet.create({
     color: 'white',
   },
 
-  // LoginScreen
-
-  avatar: {
-    marginTop: 20,
-    marginBottom: 10,
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
-  },
-
-  avatarImage: {
-    width: '14%',
-    marginLeft: 10,
-  },
-
   box: {
     margin: 5,
     padding: 5,
