@@ -10,17 +10,15 @@ const Members = require('../models/users');
 // @route   GET /search
 // @access  Private
 const getAll = asyncHandler(async (req, res) => {
-  const featureCollection = {
-    type: 'FeatureCollection',
-    features: [],
-  };
   const activities = await Activities.find(
     {hidden: false},
     '_id name type location',
   );
+  const membersPoints = {type: 'FeatureCollection', features: []};
+  const activitiesPoints = {type: 'FeatureCollection', features: []};
 
   activities.forEach(activity => {
-    featureCollection.features.push({
+    activitiesPoints.features.push({
       id: activity._id,
       type: 'Feature',
       properties: {
@@ -41,7 +39,7 @@ const getAll = asyncHandler(async (req, res) => {
   );
 
   members.forEach(member => {
-    featureCollection.features.push({
+    membersPoints.features.push({
       id: member._id,
       type: 'Feature',
       properties: {
@@ -57,7 +55,7 @@ const getAll = asyncHandler(async (req, res) => {
   });
 
   console.log('Map Items: Sent');
-  res.status(200).json(featureCollection);
+  res.status(200).json({membersPoints, activitiesPoints});
 });
 
 router.route('/').get(protect, getAll);

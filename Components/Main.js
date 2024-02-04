@@ -37,7 +37,7 @@ export default function Main() {
         {user._id ? (
           <Stack.Group initialRouteName="Home">
             <Stack.Screen name="Home" options={{headerShown: false}}>
-              {props => <Home {...props} user={user} />}
+              {props => <Home {...props} user={user} setUser={setUser} />}
             </Stack.Screen>
             <Stack.Screen
               name="Activities"

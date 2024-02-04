@@ -92,10 +92,7 @@ export default function Activities({navigation}) {
             value={activity.name}
             placeholder="Activity Name"
             onChangeText={text =>
-              setActivity(prevState => ({
-                ...prevState,
-                name: text,
-              }))
+              setActivity(prevState => ({...prevState, name: text}))
             }
             placeholderTextColor={Styles.placeholderTextColor}
           />

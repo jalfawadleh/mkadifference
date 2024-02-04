@@ -29,7 +29,7 @@ const userSchema = Schema(
     darkmood: {type: Boolean, default: false},
     hidden: {type: Boolean, default: false},
 
-    type: {type: String, default: 'members'},
+    type: {type: String, default: 'member'},
 
     contacts: [
       {
