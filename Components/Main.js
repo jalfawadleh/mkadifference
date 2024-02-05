@@ -47,14 +47,10 @@ export default function Main() {
             <Stack.Screen name="Home" options={{headerShown: false}}>
               {props => <Home {...props} user={user} setUser={setUser} />}
             </Stack.Screen>
-            <Stack.Screen
-              name="Activities"
-              options={{headerBackTitleVisible: false}}>
+            <Stack.Screen name="Activities">
               {props => <Activities {...props} user={user} />}
             </Stack.Screen>
-            <Stack.Screen
-              name="EditActivity"
-              options={{headerBackTitleVisible: false}}>
+            <Stack.Screen name="EditActivity">
               {props => <EditActivity {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Profile">
@@ -69,7 +65,7 @@ export default function Main() {
           </Stack.Group>
         ) : (
           <Stack.Screen name="Login" options={{headerShown: false}}>
-            {props => <Login {...props} setUser={setUser} />}
+            {props => <Login {...props} user={user} setUser={setUser} />}
           </Stack.Screen>
         )}
       </Stack.Navigator>

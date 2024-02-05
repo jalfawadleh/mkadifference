@@ -38,19 +38,24 @@ export default function Home({navigation, user, setUser}) {
     features: [],
   });
 
+  const [showMembers, setShowMembers] = useState(true);
+  const [showActivities, setShowActivities] = useState(true);
+
   const modal = (
     <Modal
       animationType="fade"
       transparent={true}
       visible={modalContent ? true : false}
       onRequestClose={() => setModalcontent('')}>
-      <View style={styles.modalView}>
-        {modalContent ? modalContent : ''}
-        <Pressable
-          style={[styles.button, styles.buttonClose]}
-          onPress={() => setModalcontent('')}>
-          <Text style={styles.textStyle}>Close</Text>
-        </Pressable>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          {modalContent ? modalContent : ''}
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setModalcontent('')}>
+            <Text style={styles.textStyle}>Close</Text>
+          </Pressable>
+        </View>
       </View>
     </Modal>
   );
@@ -66,7 +71,7 @@ export default function Home({navigation, user, setUser}) {
   const topRightMenu = (
     <View style={styles.topRightMenu}>
       <Pressable
-        style={styles.menuIconBox}
+        style={styles.rightMenuIcon}
         onPress={() => navigation.navigate('Profile')}>
         <Image
           style={styles.iconProfile}
@@ -76,7 +81,7 @@ export default function Home({navigation, user, setUser}) {
         />
       </Pressable>
       <Pressable
-        style={styles.menuIconBox}
+        style={styles.rightMenuIcon}
         onPress={() => navigation.navigate('Updates')}>
         <Image
           style={styles.iconInactive}
@@ -84,7 +89,7 @@ export default function Home({navigation, user, setUser}) {
         />
       </Pressable>
       <Pressable
-        style={styles.iconActive}
+        style={styles.rightMenuIcon}
         onPress={() => navigation.navigate('Messages')}>
         <Image
           style={styles.iconActive}
@@ -94,8 +99,35 @@ export default function Home({navigation, user, setUser}) {
     </View>
   );
 
-  const inputBox = (
-    <View style={styles.inputPanel}>
+  const mapLegend = (
+    <View style={styles.legend}>
+      <Pressable onPress={() => setShowMembers(!showMembers)}>
+        <View style={styles.legendElement}>
+          <View
+            style={
+              showMembers ? styles.legendMembers : styles.legendMembersInactive
+            }
+          />
+          <Text style={styles.legendTitle}>Members</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => setShowActivities(!showActivities)}>
+        <View style={styles.legendElement}>
+          <View
+            style={
+              showActivities
+                ? styles.legendActivities
+                : styles.legendActivitiesInactive
+            }
+          />
+          <Text style={styles.legendTitle}>Activities</Text>
+        </View>
+      </Pressable>
+    </View>
+  );
+
+  const bottomPanel = (
+    <View style={styles.bottomPanel}>
       <Image style={styles.searchIcon} source={require('./img/search.png')} />
       <TextInput
         style={styles.searchInput}
@@ -108,7 +140,7 @@ export default function Home({navigation, user, setUser}) {
       />
       <Pressable onPress={() => navigation.navigate('Activities')}>
         <Image
-          style={styles.activitiesIcon}
+          style={styles.iconActivities}
           source={require('./img/activities.png')}
         />
       </Pressable>
@@ -205,10 +237,10 @@ export default function Home({navigation, user, setUser}) {
         {camera}
 
         {/* members layer */}
-        {members}
+        {showMembers && members}
 
         {/* activities layer */}
-        {activities}
+        {showActivities && activities}
 
         {/* code to change to darkmood */}
         {styleImport}
@@ -219,7 +251,8 @@ export default function Home({navigation, user, setUser}) {
       {modal}
 
       <SafeAreaView style={styles.container}>
-        {inputBox}
+        {mapLegend}
+        {bottomPanel}
         {searchResults}
       </SafeAreaView>
     </>
@@ -264,7 +297,6 @@ const styles = StyleSheet.create({
       'rgb(0,255,0)',
     ],
   },
-
   activitiesCircleLayer: {
     circleRadius: 10,
     circleColor: 'red',
@@ -291,7 +323,118 @@ const styles = StyleSheet.create({
     ],
   },
 
-  inputPanel: {
+  topLeftMenu: {
+    position: 'absolute',
+    padding: 5,
+    left: 15,
+    top: 35,
+    backgroundColor: '#555555',
+    borderWidth: 4,
+    borderColor: '#bbbb44',
+    borderRadius: 50,
+  },
+  topRightMenu: {
+    position: 'absolute',
+    right: 15,
+    top: 35,
+    padding: 1,
+  },
+  rightMenuIcon: {
+    marginBottom: 10,
+    borderRadius: 40,
+    tintColor: 'black',
+  },
+  iconDarkmood: {
+    height: 25,
+    width: 25,
+
+    opacity: 0.8,
+    tintColor: 'yellow',
+
+    borderRadius: 25,
+  },
+  iconProfile: {
+    height: 40,
+    width: 40,
+  },
+  iconInactive: {
+    height: 40,
+    width: 40,
+    tintColor: 'green',
+  },
+  iconActive: {
+    height: 40,
+    width: 40,
+    tintColor: 'red',
+  },
+  iconActivities: {
+    height: 40,
+    width: 40,
+    marginLeft: 5,
+    marginRight: 5,
+    tintColor: '#bbbbbb',
+  },
+
+  legend: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  legendElement: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 5,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+
+    borderRadius: 25,
+    backgroundColor: '#333333',
+  },
+  legendMembers: {
+    width: 20,
+    height: 20,
+
+    borderRadius: 20,
+
+    backgroundColor: 'green',
+  },
+  legendActivities: {
+    width: 20,
+    height: 20,
+
+    borderRadius: 20,
+
+    backgroundColor: 'red',
+  },
+  legendMembersInactive: {
+    width: 20,
+    height: 20,
+
+    borderRadius: 20,
+    borderColor: 'green',
+    borderWidth: 2,
+
+    backgroundColor: '#cccccc',
+  },
+  legendActivitiesInactive: {
+    width: 20,
+    height: 20,
+
+    borderRadius: 20,
+    borderColor: 'red',
+    borderWidth: 2,
+
+    backgroundColor: '#cccccc',
+  },
+  legendTitle: {
+    marginRight: 5,
+    padding: 0,
+    fontSize: 20,
+    color: 'white',
+  },
+
+  bottomPanel: {
     flexDirection: 'row',
     justifyContent: 'space-between',
 
@@ -305,7 +448,6 @@ const styles = StyleSheet.create({
     // borderRadius: 25,
     backgroundColor: 'black',
   },
-
   searchIcon: {
     height: 30,
     width: 30,
@@ -329,71 +471,11 @@ const styles = StyleSheet.create({
   },
   placeholderTextColor: '#aaaaaa',
 
-  topLeftMenu: {
-    position: 'absolute',
-    padding: 5,
-    left: 15,
-    top: 35,
-    backgroundColor: '#555555',
-    borderWidth: 4,
-    borderColor: '#bbbb44',
-    borderRadius: 50,
-  },
-
-  iconDarkmood: {
-    height: 25,
-    width: 25,
-
-    opacity: 0.8,
-    tintColor: 'yellow',
-
-    borderRadius: 25,
-  },
-
-  topRightMenu: {
-    position: 'absolute',
-    right: 15,
-    top: 35,
-    padding: 1,
-  },
-
-  iconProfile: {
-    height: 40,
-    width: 40,
-  },
-
-  iconInactive: {
-    height: 40,
-    width: 40,
-    tintColor: 'green',
-  },
-
-  iconActive: {
-    height: 40,
-    width: 40,
-    tintColor: 'red',
-  },
-
-  activitiesIcon: {
-    height: 40,
-    width: 40,
-    marginLeft: 5,
-    marginRight: 5,
-    tintColor: '#bbbbbb',
-  },
-
-  menuIconBox: {
-    marginBottom: 10,
-    borderRadius: 40,
-    tintColor: 'black',
-  },
-
   // modal
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -402,10 +484,7 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
