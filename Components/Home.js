@@ -113,7 +113,7 @@ export default function Home({navigation, user, setUser}) {
 
   const inputBox = (
     <View style={styles.inputPanel}>
-      <Image style={styles.searchImage} source={require('./img/search.png')} />
+      <Image style={styles.searchIcon} source={require('./img/search.png')} />
       <TextInput
         style={styles.searchInput}
         placeholder="Search"
@@ -125,7 +125,7 @@ export default function Home({navigation, user, setUser}) {
       />
       <Pressable onPress={() => navigation.navigate('Activities')}>
         <Image
-          style={styles.menuIcon}
+          style={styles.activitiesIcon}
           source={require('./img/activities.png')}
         />
       </Pressable>
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
 
-  searchImage: {
+  searchIcon: {
     height: 30,
     width: 30,
     marginTop: 5,
@@ -393,9 +393,11 @@ const styles = StyleSheet.create({
     tintColor: 'red',
   },
 
-  menuIcon: {
+  activitiesIcon: {
     height: 40,
     width: 40,
+    marginLeft: 5,
+    marginRight: 5,
   },
 
   menuIconBox: {
