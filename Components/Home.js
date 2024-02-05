@@ -6,7 +6,6 @@ import {
   Image,
   View,
   Pressable,
-  Alert,
   Modal,
   Text,
 } from 'react-native';
@@ -16,6 +15,7 @@ import {useIsFocused} from '@react-navigation/native';
 import MapboxGL from '@rnmapbox/maps';
 
 import axios from 'axios';
+import {ViewActivity} from '.';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
@@ -25,8 +25,10 @@ MapboxGL.setTelemetryEnabled(false);
 export default function Home({navigation, user, setUser}) {
   const focused = useIsFocused();
   const [search, setSearch] = useState('');
-  const [showMenu, setShowMenu] = useState(false);
   const [darkmood, setDarkMood] = useState(user.darkmood);
+
+  const [modalContent, setModalcontent] = useState('');
+
   const [membersPoints, setMembersPoints] = useState({
     type: 'FeatureCollection',
     features: [],
@@ -36,38 +38,19 @@ export default function Home({navigation, user, setUser}) {
     features: [],
   });
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalContent, setModalcontent] = useState('');
-
-  const showMember = id => {
-    setModalcontent(id);
-    setModalVisible(true);
-  };
-
-  const showActivity = id => {
-    setModalcontent(id);
-    setModalVisible(true);
-  };
-
   const modal = (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(!modalVisible);
-      }}>
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Hello World!</Text>
-          <Text style={styles.modalText}>{modalContent}</Text>
-
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={styles.textStyle}>Hide Modal</Text>
-          </Pressable>
-        </View>
+      visible={modalContent ? true : false}
+      onRequestClose={() => setModalcontent('')}>
+      <View style={styles.modalView}>
+        {modalContent ? modalContent : ''}
+        <Pressable
+          style={[styles.button, styles.buttonClose]}
+          onPress={() => setModalcontent('')}>
+          <Text style={styles.textStyle}>Close</Text>
+        </Pressable>
       </View>
     </Modal>
   );
@@ -156,7 +139,9 @@ export default function Home({navigation, user, setUser}) {
     <MapboxGL.ShapeSource
       id="membersShapeSource"
       shape={membersPoints}
-      onPress={e => showMember(e.features[0].properties.id)}>
+      onPress={e =>
+        setModalcontent(<ViewActivity id={e.features[0].properties.id} />)
+      }>
       <MapboxGL.CircleLayer
         id="membersCircleLayer"
         style={styles.membersCircleLayer}
@@ -174,7 +159,9 @@ export default function Home({navigation, user, setUser}) {
     <MapboxGL.ShapeSource
       id="activitiesShapeSource"
       shape={activitiesPoints}
-      onPress={e => showActivity(e.features[0].properties.id)}>
+      onPress={e =>
+        setModalcontent(<ViewActivity id={e.features[0].properties.id} />)
+      }>
       <MapboxGL.CircleLayer
         id="activitieCircleLayer"
         style={styles.activitiesCircleLayer}
@@ -187,6 +174,8 @@ export default function Home({navigation, user, setUser}) {
       )}
     </MapboxGL.ShapeSource>
   );
+
+  const searchResults = search && <Text style={styles.header}>{search}</Text>;
 
   const getMapItems = async () => {
     const {data} = await axios.get('map/');
@@ -211,28 +200,46 @@ export default function Home({navigation, user, setUser}) {
         attributionEnabled={false}
         logoEnabled={false}
         dragRotate={false}
-        touchZoomRotate={false}
-        onTouchStart={() => setShowMenu(false)}>
+        touchZoomRotate={false}>
+        {/* include camera modules */}
         {camera}
-        {styleImport}
 
+        {/* members layer */}
         {members}
 
+        {/* activities layer */}
         {activities}
+
+        {/* code to change to darkmood */}
+        {styleImport}
       </MapboxGL.MapView>
 
       {topLeftMenu}
       {topRightMenu}
+      {modal}
 
       <SafeAreaView style={styles.container}>
         {inputBox}
-        {modal}
+        {searchResults}
       </SafeAreaView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: -1,
+  },
   membersCircleLayer: {
     circleRadius: 10,
     circleColor: 'green',
@@ -284,12 +291,6 @@ const styles = StyleSheet.create({
     ],
   },
 
-  container: {
-    width: '100%',
-    position: 'absolute',
-    bottom: 0,
-  },
-
   inputPanel: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -328,23 +329,6 @@ const styles = StyleSheet.create({
   },
   placeholderTextColor: '#aaaaaa',
 
-  map: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    zIndex: -1,
-  },
-  locationPoint: {
-    height: 15,
-    width: 15,
-    backgroundColor: 'red',
-    borderRadius: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   topLeftMenu: {
     position: 'absolute',
     padding: 5,
@@ -370,9 +354,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 15,
     top: 35,
-    // borderColor: 'black',
-    // borderWidth: 1,
-    // borderRadius: 40,
     padding: 1,
   },
 
@@ -398,6 +379,7 @@ const styles = StyleSheet.create({
     width: 40,
     marginLeft: 5,
     marginRight: 5,
+    tintColor: '#bbbbbb',
   },
 
   menuIconBox: {

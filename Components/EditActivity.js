@@ -4,8 +4,8 @@ import {useIsFocused} from '@react-navigation/native';
 
 import axios from 'axios';
 
-import {Location, EditNameDesc, StackText, Hidden} from '..';
-import {Styles} from '../Common/Styles';
+import {Location, EditNameDesc, StackText, Hidden} from '.';
+import {Styles} from './Common/Styles';
 
 export default function EditActivity({route, navigation}) {
   const focused = useIsFocused();

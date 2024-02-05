@@ -2,8 +2,9 @@ export {default as Login} from './Login';
 
 export {default as Home} from './Home';
 export {default as Activities} from './Activities';
-export {default as EditActivity} from './Activities/EditActivity';
-export {default as ViewActivity} from './Activities/ViewActivity';
+export {default as EditActivity} from './EditActivity';
+export {default as ViewActivity} from './View/ViewActivity';
+export {default as ViewMember} from './View/ViewMember';
 
 export {default as Profile} from './Profile';
 export {default as Messages} from './Messages';
