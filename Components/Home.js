@@ -360,12 +360,16 @@ const styles = StyleSheet.create({
   iconInactive: {
     height: 40,
     width: 40,
-    tintColor: 'green',
+    tintColor: '#5555ff',
+    shadowColor: '#777777',
+    shadowOpacity: 0.4,
   },
   iconActive: {
     height: 40,
     width: 40,
-    tintColor: 'red',
+    tintColor: '#ff5555',
+    shadowColor: '#666666',
+    shadowOpacity: 0.4,
   },
   iconActivities: {
     height: 40,
