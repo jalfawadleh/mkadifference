@@ -16,6 +16,7 @@ import {
   Messages,
   Updates,
   EditActivity,
+  ViewActivity,
 } from '.';
 
 const Stack = createNativeStackNavigator();
@@ -52,6 +53,9 @@ export default function Main() {
             </Stack.Screen>
             <Stack.Screen name="EditActivity">
               {props => <EditActivity {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="ViewActivity">
+              {props => <ViewActivity {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Profile">
               {props => <Profile {...props} user={user} setUser={setUser} />}

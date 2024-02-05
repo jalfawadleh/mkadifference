@@ -8,6 +8,7 @@ import {
   Pressable,
   Modal,
   Text,
+  FlatList,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useIsFocused} from '@react-navigation/native';
@@ -15,7 +16,8 @@ import {useIsFocused} from '@react-navigation/native';
 import MapboxGL from '@rnmapbox/maps';
 
 import axios from 'axios';
-import {ViewActivity} from '.';
+import {ViewActivity, ViewMember} from '.';
+import {Styles} from './Common/Styles';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
@@ -24,8 +26,10 @@ MapboxGL.setTelemetryEnabled(false);
 
 export default function Home({navigation, user, setUser}) {
   const focused = useIsFocused();
-  const [search, setSearch] = useState('');
   const [darkmood, setDarkMood] = useState(user.darkmood);
+
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const [modalContent, setModalcontent] = useState('');
 
@@ -43,11 +47,11 @@ export default function Home({navigation, user, setUser}) {
 
   const modal = (
     <Modal
-      animationType="fade"
+      animationType="slide"
       transparent={true}
       visible={modalContent ? true : false}
       onRequestClose={() => setModalcontent('')}>
-      <View style={styles.centeredView}>
+      <SafeAreaView style={styles.centeredView}>
         <View style={styles.modalView}>
           {modalContent ? modalContent : ''}
           <Pressable
@@ -56,7 +60,7 @@ export default function Home({navigation, user, setUser}) {
             <Text style={styles.textStyle}>Close</Text>
           </Pressable>
         </View>
-      </View>
+      </SafeAreaView>
     </Modal>
   );
 
@@ -107,9 +111,9 @@ export default function Home({navigation, user, setUser}) {
           style={styles.searchInput}
           placeholder="Search"
           placeholderTextColor={styles.placeholderTextColor}
-          onChangeText={setSearch}
+          onChangeText={setSearchText}
           // onEndEditing={setSearch}
-          value={search}
+          value={searchText}
           autoCapitalize="none"
         />
         <Pressable onPress={() => navigation.navigate('Activities')}>
@@ -179,7 +183,7 @@ export default function Home({navigation, user, setUser}) {
       id="membersShapeSource"
       shape={membersPoints}
       onPress={e =>
-        setModalcontent(<ViewActivity id={e.features[0].properties.id} />)
+        setModalcontent(<ViewMember id={e.features[0].properties.id} />)
       }>
       <MapboxGL.CircleLayer
         id="membersCircleLayer"
@@ -214,7 +218,17 @@ export default function Home({navigation, user, setUser}) {
     </MapboxGL.ShapeSource>
   );
 
-  const searchResults = search && <Text style={styles.header}>{search}</Text>;
+  const results = searchText && (
+    <FlatList
+      data={searchResults}
+      renderItem={({item}) => (
+        <Pressable style={Styles.box} key={item._id}>
+          <Text style={Styles.title}>{item.name}</Text>
+        </Pressable>
+      )}
+      keyExtractor={item => item._id}
+    />
+  );
 
   const getMapItems = async () => {
     const {data} = await axios.get('map/');
@@ -231,7 +245,6 @@ export default function Home({navigation, user, setUser}) {
   return (
     <>
       <MapboxGL.MapView
-        // styleURL={'mapbox://styles/mapbox/standard'}
         styleURL="Mapbox.StyleURL.Street"
         zoomEnabled
         scaleBarEnabled={false}
@@ -257,10 +270,12 @@ export default function Home({navigation, user, setUser}) {
       {topRightMenu}
       {modal}
 
-      <SafeAreaView style={styles.container}>
-        {bottomPanel}
-        {searchResults}
-      </SafeAreaView>
+      {!modalContent && (
+        <SafeAreaView style={styles.container}>
+          {bottomPanel}
+          {results}
+        </SafeAreaView>
+      )}
     </>
   );
 }
@@ -488,14 +503,13 @@ const styles = StyleSheet.create({
   // modal
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   modalView: {
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
+    padding: 10,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},

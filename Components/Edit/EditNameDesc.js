@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 
-import {Styles} from './Styles';
+import {Styles} from '../Common/Styles';
 export default function EditNameDesc({element = [], setElement}) {
   return (
     <>

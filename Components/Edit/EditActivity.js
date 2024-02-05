@@ -4,8 +4,8 @@ import {useIsFocused} from '@react-navigation/native';
 
 import axios from 'axios';
 
-import {Location, EditNameDesc, StackText, Hidden} from '.';
-import {Styles} from './Common/Styles';
+import {Location, EditNameDesc, EditStackText, Hidden} from '..';
+import {Styles} from '../Common/Styles';
 
 export default function EditActivity({route, navigation}) {
   const focused = useIsFocused();
@@ -14,7 +14,7 @@ export default function EditActivity({route, navigation}) {
   const [error, setError] = useState('');
 
   const getActivity = async () => {
-    const {data} = await axios.get('activities/' + route.params.activityId);
+    const {data} = await axios.get('activities/' + route.params.id);
     if (data.error) {
       setError(data.error);
     } else {
@@ -23,10 +23,7 @@ export default function EditActivity({route, navigation}) {
   };
 
   const putActivity = async () => {
-    const {data} = await axios.put(
-      'activities/' + route.params.activityId,
-      activity,
-    );
+    const {data} = await axios.put('activities/' + route.params.id, activity);
     if (data.error) {
       setError(data.error);
     } else {
@@ -35,7 +32,7 @@ export default function EditActivity({route, navigation}) {
   };
 
   const delActivity = async () => {
-    const {data} = await axios.delete('activities/' + activity._id);
+    const {data} = await axios.delete('activities/' + route.params.id);
     if (data.error) {
       setError(data.error);
     } else {
@@ -69,13 +66,13 @@ export default function EditActivity({route, navigation}) {
     <SafeAreaView style={Styles.container}>
       <ScrollView>
         <EditNameDesc element={activity} setElement={setActivity} />
-        <StackText
+        <EditStackText
           type="tags"
           title="Related Interests"
           items={activity.tags}
           setItem={setActivity}
         />
-        <StackText
+        <EditStackText
           type="help"
           title="Help Needed"
           items={activity.help}

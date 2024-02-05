@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Button, Text, TextInput, View} from 'react-native';
 import uuid from 'react-native-uuid';
-import {Styles} from './Styles';
+import {Styles} from '../Common/Styles';
 
-export default function StackText({type, title, items = [], setItem}) {
+export default function EditStackText({type, title, items = [], setItem}) {
   const [tag, setTag] = useState('');
   const addTag = () => {
     items.push({name: tag});

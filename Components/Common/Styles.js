@@ -67,7 +67,7 @@ export const Styles = StyleSheet.create({
     margin: 5,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    flexWrap: 'wrap-reverse',
+    flexWrap: 'wrap',
   },
   rowButtons: {
     margin: 5,

@@ -45,44 +45,20 @@ export default function Activities({navigation}) {
               <Button
                 title="View"
                 onPress={() => {
-                  /* 1. Navigate to the Details route with params */
-                  navigation.navigate('ViewActivity', {activity: item});
+                  navigation.navigate('ViewActivity', {id: item._id});
                 }}
               />
               <Button
                 title="Edit"
                 onPress={() => {
-                  /* 1. Navigate to the Details route with params */
-                  navigation.navigate('EditActivity', {activityId: item._id});
+                  navigation.navigate('EditActivity', {id: item._id});
                 }}
               />
             </View>
           </View>
         )}
-        keyExtractor={item => item._id}>
-        {/* list Activities */}
-        {activities.map(a => (
-          <View style={Styles.box} key={a._id}>
-            <Text style={Styles.title}>{a.name}</Text>
-            <View style={Styles.rowButtons}>
-              <Button
-                title="View"
-                onPress={() => {
-                  /* 1. Navigate to the Details route with params */
-                  navigation.navigate('ViewActivity', {activity: a});
-                }}
-              />
-              <Button
-                title="Edit"
-                onPress={() => {
-                  /* 1. Navigate to the Details route with params */
-                  navigation.navigate('EditActivity', {activityId: a._id});
-                }}
-              />
-            </View>
-          </View>
-        ))}
-      </FlatList>
+        keyExtractor={item => item._id}
+      />
       {/* create activity */}
       {error && <Text style={Styles.error}> {error}</Text>}
       <View style={Styles.box}>
