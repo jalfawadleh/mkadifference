@@ -84,7 +84,7 @@ export default function Home({navigation, user, setUser}) {
         style={styles.rightMenuIcon}
         onPress={() => navigation.navigate('Updates')}>
         <Image
-          style={styles.iconInactive}
+          style={styles.iconUpdates}
           source={require('./img/updates.png')}
         />
       </Pressable>
@@ -92,58 +92,65 @@ export default function Home({navigation, user, setUser}) {
         style={styles.rightMenuIcon}
         onPress={() => navigation.navigate('Messages')}>
         <Image
-          style={styles.iconActive}
+          style={styles.iconMessages}
           source={require('./img/messages.png')}
         />
       </Pressable>
     </View>
   );
 
-  const mapLegend = (
-    <View style={styles.legend}>
-      <Pressable onPress={() => setShowMembers(!showMembers)}>
-        <View style={styles.legendElement}>
-          <View
-            style={
-              showMembers ? styles.legendMembers : styles.legendMembersInactive
-            }
-          />
-          <Text style={styles.legendTitle}>Members</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => setShowActivities(!showActivities)}>
-        <View style={styles.legendElement}>
-          <View
-            style={
-              showActivities
-                ? styles.legendActivities
-                : styles.legendActivitiesInactive
-            }
-          />
-          <Text style={styles.legendTitle}>Activities</Text>
-        </View>
-      </Pressable>
-    </View>
-  );
-
   const bottomPanel = (
     <View style={styles.bottomPanel}>
-      <Image style={styles.searchIcon} source={require('./img/search.png')} />
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search"
-        placeholderTextColor={styles.placeholderTextColor}
-        onChangeText={setSearch}
-        // onEndEditing={setSearch}
-        value={search}
-        autoCapitalize="none"
-      />
-      <Pressable onPress={() => navigation.navigate('Activities')}>
-        <Image
-          style={styles.iconActivities}
-          source={require('./img/activities.png')}
+      <View style={styles.inputPanel}>
+        <Image style={styles.searchIcon} source={require('./img/search.png')} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search"
+          placeholderTextColor={styles.placeholderTextColor}
+          onChangeText={setSearch}
+          // onEndEditing={setSearch}
+          value={search}
+          autoCapitalize="none"
         />
-      </Pressable>
+        <Pressable onPress={() => navigation.navigate('Activities')}>
+          <Image
+            style={styles.iconActivities}
+            source={require('./img/activities.png')}
+          />
+        </Pressable>
+      </View>
+      <View style={styles.legend}>
+        <Pressable onPress={() => setShowMembers(!showMembers)}>
+          <View style={styles.legendElement}>
+            <View
+              style={
+                showMembers
+                  ? styles.legendMembers
+                  : styles.legendMembersInactive
+              }
+            />
+            <Text style={styles.legendTitle}>Members</Text>
+          </View>
+        </Pressable>
+        <Pressable onPress={() => setShowActivities(!showActivities)}>
+          <View style={styles.legendElement}>
+            <View
+              style={
+                showActivities
+                  ? styles.legendActivities
+                  : styles.legendActivitiesInactive
+              }
+            />
+            <Text style={styles.legendTitle}>Activities</Text>
+          </View>
+        </Pressable>
+        <Pressable>
+          <View style={styles.legendElement}>
+            <View style={styles.legendCommunities} />
+            <Text style={styles.legendTitle}>Communities</Text>
+          </View>
+        </Pressable>
+      </View>
     </View>
   );
 
@@ -251,7 +258,6 @@ export default function Home({navigation, user, setUser}) {
       {modal}
 
       <SafeAreaView style={styles.container}>
-        {mapLegend}
         {bottomPanel}
         {searchResults}
       </SafeAreaView>
@@ -357,100 +363,32 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
   },
-  iconInactive: {
+  iconMessages: {
     height: 40,
     width: 40,
     tintColor: '#5555ff',
-    shadowColor: '#777777',
-    shadowOpacity: 0.4,
   },
-  iconActive: {
+  iconUpdates: {
     height: 40,
     width: 40,
-    tintColor: '#ff5555',
-    shadowColor: '#666666',
-    shadowOpacity: 0.4,
-  },
-  iconActivities: {
-    height: 40,
-    width: 40,
-    marginLeft: 5,
-    marginRight: 5,
-    tintColor: '#bbbbbb',
-  },
-
-  legend: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  legendElement: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: 5,
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-
-    borderRadius: 25,
-    backgroundColor: '#333333',
-  },
-  legendMembers: {
-    width: 20,
-    height: 20,
-
-    borderRadius: 20,
-
-    backgroundColor: 'green',
-  },
-  legendActivities: {
-    width: 20,
-    height: 20,
-
-    borderRadius: 20,
-
-    backgroundColor: 'red',
-  },
-  legendMembersInactive: {
-    width: 20,
-    height: 20,
-
-    borderRadius: 20,
-    borderColor: 'green',
-    borderWidth: 2,
-
-    backgroundColor: '#cccccc',
-  },
-  legendActivitiesInactive: {
-    width: 20,
-    height: 20,
-
-    borderRadius: 20,
-    borderColor: 'red',
-    borderWidth: 2,
-
-    backgroundColor: '#cccccc',
-  },
-  legendTitle: {
-    marginRight: 5,
-    padding: 0,
-    fontSize: 20,
-    color: 'white',
+    tintColor: '#5555ff',
   },
 
   bottomPanel: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-
     margin: 0,
 
     paddingTop: 10,
     paddingLeft: 5,
-    height: 50,
+
     borderTopEndRadius: 25,
     borderTopStartRadius: 25,
-    // borderRadius: 25,
+
     backgroundColor: 'black',
+  },
+  inputPanel: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 40,
   },
   searchIcon: {
     height: 30,
@@ -474,6 +412,78 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   placeholderTextColor: '#aaaaaa',
+  iconActivities: {
+    height: 40,
+    width: 40,
+    marginLeft: 5,
+    marginRight: 5,
+    tintColor: '#5555ff',
+  },
+
+  legend: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  legendElement: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 5,
+    padding: 5,
+    width: '100%',
+
+    borderRadius: 25,
+    backgroundColor: '#333333',
+  },
+  legendMembers: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+
+    backgroundColor: 'green',
+  },
+  legendMembersInactive: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+    borderColor: 'green',
+    borderWidth: 1,
+
+    backgroundColor: '#cccccc',
+  },
+  legendActivities: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+
+    backgroundColor: 'red',
+  },
+  legendActivitiesInactive: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+    borderColor: 'red',
+    borderWidth: 1,
+
+    backgroundColor: '#cccccc',
+  },
+  legendCommunities: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+
+    backgroundColor: 'orange',
+  },
+  legendTitle: {
+    padding: 0,
+    fontSize: 18,
+    color: 'white',
+    textAlign: 'center',
+  },
 
   // modal
   centeredView: {
