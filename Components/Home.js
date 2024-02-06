@@ -9,6 +9,7 @@ import {
   Modal,
   Text,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useIsFocused} from '@react-navigation/native';
@@ -25,6 +26,9 @@ MapboxGL.setTelemetryEnabled(false);
 
 export default function Home({navigation, user, setUser}) {
   const focused = useIsFocused();
+
+  const [mapCenter, setMapCenter] = useState(user.location);
+
   const [darkmood, setDarkMood] = useState(user.darkmood);
 
   const [searchText, setSearchText] = useState('');
@@ -111,14 +115,16 @@ export default function Home({navigation, user, setUser}) {
       visible={modalContent ? true : false}
       onRequestClose={() => setModalcontent('')}>
       <SafeAreaView style={styles.centeredView}>
-        <View style={styles.modalView}>
-          {modalContent ? modalContent : ''}
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalcontent('')}>
-            <Text style={styles.textStyle}>Close</Text>
-          </Pressable>
-        </View>
+        <ScrollView>
+          <View style={styles.modalView}>
+            {modalContent ? modalContent : ''}
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalcontent('')}>
+              <Text style={styles.textStyle}>Close</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </Modal>
   );
@@ -224,24 +230,23 @@ export default function Home({navigation, user, setUser}) {
 
   const results = searchText !== '' && (
     <View style={styles.searchResults}>
-      <Text style={styles.resultsTitle}>Hello</Text>
-      {searchResults.map(item => (
-        <Pressable
-          onPress={() =>
-            setModalcontent(
-              item.type === 'member' ? (
-                <ViewMember id={item._id} />
-              ) : (
-                <ViewActivity id={item._id} />
-              ),
-            )
-          }>
-          <Text style={styles.resultsTitle}>{item.name}</Text>
-        </Pressable>
-      ))}
-
-      <Text style={styles.resultsTitle}>Results</Text>
-      <Text style={styles.resultsTitle}>{JSON.stringify(searchResults)}</Text>
+      <ScrollView>
+        {searchResults.map(item => (
+          <Pressable
+            key={item._id}
+            onPress={() =>
+              setModalcontent(
+                item.type === 'member' ? (
+                  <ViewMember id={item._id} />
+                ) : (
+                  <ViewActivity id={item._id} />
+                ),
+              )
+            }>
+            <Text style={styles.resultsTitle}>{item.name}</Text>
+          </Pressable>
+        ))}
+      </ScrollView>
     </View>
   );
 
@@ -253,6 +258,8 @@ export default function Home({navigation, user, setUser}) {
   useEffect(() => {
     if (searchText.length > 3) {
       getSearchResults();
+    } else {
+      setSearchResults([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
@@ -561,16 +568,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalView: {
-    margin: 20,
+    top: 25,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    opacity: 0.9,
   },
   button: {
     borderRadius: 20,
