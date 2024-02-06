@@ -9,6 +9,7 @@ import {
   Modal,
   Text,
   FlatList,
+  Animated,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useIsFocused} from '@react-navigation/native';
@@ -44,119 +45,6 @@ export default function Home({navigation, user, setUser}) {
 
   const [showMembers, setShowMembers] = useState(true);
   const [showActivities, setShowActivities] = useState(true);
-
-  const modal = (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalContent ? true : false}
-      onRequestClose={() => setModalcontent('')}>
-      <SafeAreaView style={styles.centeredView}>
-        <View style={styles.modalView}>
-          {modalContent ? modalContent : ''}
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalcontent('')}>
-            <Text style={styles.textStyle}>Close</Text>
-          </Pressable>
-        </View>
-      </SafeAreaView>
-    </Modal>
-  );
-
-  const topLeftMenu = (
-    <View style={styles.topLeftMenu}>
-      <Pressable onPress={() => setDarkMood(!darkmood)}>
-        <Image style={styles.iconDarkmood} source={require('./img/dark.png')} />
-      </Pressable>
-    </View>
-  );
-
-  const topRightMenu = (
-    <View style={styles.topRightMenu}>
-      <Pressable
-        style={styles.rightMenuIcon}
-        onPress={() => navigation.navigate('Profile')}>
-        <Image
-          style={styles.iconProfile}
-          source={{
-            uri: `https://api.multiavatar.com/${user.username}.png`,
-          }}
-        />
-      </Pressable>
-      <Pressable
-        style={styles.rightMenuIcon}
-        onPress={() => navigation.navigate('Updates')}>
-        <Image
-          style={styles.iconUpdates}
-          source={require('./img/updates.png')}
-        />
-      </Pressable>
-      <Pressable
-        style={styles.rightMenuIcon}
-        onPress={() => navigation.navigate('Messages')}>
-        <Image
-          style={styles.iconMessages}
-          source={require('./img/messages.png')}
-        />
-      </Pressable>
-    </View>
-  );
-
-  const bottomPanel = (
-    <View style={styles.bottomPanel}>
-      <View style={styles.inputPanel}>
-        <Image style={styles.searchIcon} source={require('./img/search.png')} />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search"
-          placeholderTextColor={styles.placeholderTextColor}
-          onChangeText={setSearchText}
-          // onEndEditing={setSearch}
-          value={searchText}
-          autoCapitalize="none"
-        />
-        <Pressable onPress={() => navigation.navigate('Activities')}>
-          <Image
-            style={styles.iconActivities}
-            source={require('./img/activities.png')}
-          />
-        </Pressable>
-      </View>
-      <View style={styles.legend}>
-        <Pressable onPress={() => setShowMembers(!showMembers)}>
-          <View style={styles.legendElement}>
-            <View
-              style={
-                showMembers
-                  ? styles.legendMembers
-                  : styles.legendMembersInactive
-              }
-            />
-            <Text style={styles.legendTitle}>Members</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={() => setShowActivities(!showActivities)}>
-          <View style={styles.legendElement}>
-            <View
-              style={
-                showActivities
-                  ? styles.legendActivities
-                  : styles.legendActivitiesInactive
-              }
-            />
-            <Text style={styles.legendTitle}>Activities</Text>
-          </View>
-        </Pressable>
-        <Pressable>
-          <View style={styles.legendElement}>
-            <View style={styles.legendCommunities} />
-            <Text style={styles.legendTitle}>Communities</Text>
-          </View>
-        </Pressable>
-      </View>
-    </View>
-  );
 
   const camera = (
     <MapboxGL.Camera
@@ -218,16 +106,132 @@ export default function Home({navigation, user, setUser}) {
     </MapboxGL.ShapeSource>
   );
 
-  const results = searchText && (
-    <FlatList
-      data={searchResults}
-      renderItem={({item}) => (
-        <Pressable style={Styles.box} key={item._id}>
-          <Text style={Styles.title}>{item.name}</Text>
-        </Pressable>
-      )}
-      keyExtractor={item => item._id}
-    />
+  const modal = (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalContent ? true : false}
+      onRequestClose={() => setModalcontent('')}>
+      <SafeAreaView style={styles.centeredView}>
+        <View style={styles.modalView}>
+          {modalContent ? modalContent : ''}
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setModalcontent('')}>
+            <Text style={styles.textStyle}>Close</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    </Modal>
+  );
+
+  const topLeftMenu = (
+    <View style={styles.topLeftMenu}>
+      <Pressable onPress={() => setDarkMood(!darkmood)}>
+        <Image style={styles.iconDarkmood} source={require('./img/dark.png')} />
+      </Pressable>
+    </View>
+  );
+
+  const topRightMenu = (
+    <View style={styles.topRightMenu}>
+      <Pressable
+        style={styles.rightMenuIcon}
+        onPress={() => navigation.navigate('Profile')}>
+        <Image
+          style={styles.iconProfile}
+          source={{
+            uri: `https://api.multiavatar.com/${user.username}.png`,
+          }}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.rightMenuIcon}
+        onPress={() => navigation.navigate('Updates')}>
+        <Image
+          style={styles.iconUpdates}
+          source={require('./img/updates.png')}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.rightMenuIcon}
+        onPress={() => navigation.navigate('Messages')}>
+        <Image
+          style={styles.iconMessages}
+          source={require('./img/messages.png')}
+        />
+      </Pressable>
+    </View>
+  );
+
+  const bottomPanel = (
+    <View style={styles.inputPanel}>
+      <Image style={styles.searchIcon} source={require('./img/search.png')} />
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search"
+        placeholderTextColor={styles.placeholderTextColor}
+        onChangeText={setSearchText}
+        // onEndEditing={setSearch}
+        value={searchText}
+        autoCapitalize="none"
+      />
+      <Pressable onPress={() => navigation.navigate('Activities')}>
+        <Image
+          style={styles.iconActivities}
+          source={require('./img/activities.png')}
+        />
+      </Pressable>
+    </View>
+  );
+
+  const legend = (
+    <View style={styles.legend}>
+      <Pressable onPress={() => setShowMembers(!showMembers)}>
+        <View style={styles.legendElement}>
+          <View
+            style={
+              showMembers ? styles.legendMembers : styles.legendMembersInactive
+            }
+          />
+          <Text style={styles.legendTitle}>Members</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => setShowActivities(!showActivities)}>
+        <View style={styles.legendElement}>
+          <View
+            style={
+              showActivities
+                ? styles.legendActivities
+                : styles.legendActivitiesInactive
+            }
+          />
+          <Text style={styles.legendTitle}>Activities</Text>
+        </View>
+      </Pressable>
+      <Pressable>
+        <View style={styles.legendElement}>
+          <View style={styles.legendCommunities} />
+          <Text style={styles.legendTitle}>Communities</Text>
+        </View>
+      </Pressable>
+    </View>
+  );
+
+  const results = searchText !== '' && (
+    <View style={Styles.searchResults}>
+      <Text style={Styles.resultsTitle}>Hello</Text>
+      <FlatList
+        data={searchResults}
+        renderItem={({item}) => (
+          <Pressable style={Styles.box} key={item._id}>
+            <Text style={Styles.title}>{item.name}</Text>
+          </Pressable>
+        )}
+        keyExtractor={item => item._id}
+      />
+      <Text style={styles.resultsTitle}>Results</Text>
+    </View>
   );
 
   const getMapItems = async () => {
@@ -271,9 +275,13 @@ export default function Home({navigation, user, setUser}) {
       {modal}
 
       {!modalContent && (
-        <SafeAreaView style={styles.container}>
-          {bottomPanel}
-          {results}
+        <SafeAreaView
+          style={searchText ? styles.containerSearchShow : styles.container}>
+          <View style={styles.bottomPanel}>
+            {bottomPanel}
+            {legend}
+            {results}
+          </View>
         </SafeAreaView>
       )}
     </>
@@ -282,10 +290,137 @@ export default function Home({navigation, user, setUser}) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     position: 'absolute',
     bottom: 0,
+
+    borderTopEndRadius: 25,
+    borderTopStartRadius: 25,
+
+    backgroundColor: 'black',
   },
+  containerSearchShow: {
+    top: 35,
+    flex: 1,
+    borderTopEndRadius: 25,
+    borderTopStartRadius: 25,
+
+    backgroundColor: 'black',
+  },
+
+  bottomPanel: {
+    margin: 0,
+    padding: 5,
+
+    backgroundColor: 'black',
+  },
+  inputPanel: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  searchIcon: {
+    height: 30,
+    width: 30,
+    marginTop: 5,
+    marginLeft: 10,
+    zIndex: 1,
+  },
+  searchInput: {
+    flex: 5,
+    marginLeft: -35,
+    marginRight: 5,
+    paddingRight: 5,
+    paddingLeft: 35,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: 'black',
+    borderColor: '#bbbbbb',
+    borderWidth: 2,
+    borderRadius: 15,
+  },
+  placeholderTextColor: '#aaaaaa',
+  iconActivities: {
+    height: 40,
+    width: 40,
+    marginLeft: 5,
+    marginRight: 5,
+    tintColor: '#5555ff',
+  },
+
+  searchResults: {
+    flex: 1,
+  },
+  resultsTitle: {
+    fontSize: 25,
+    color: 'white',
+    height: 40,
+  },
+
+  legend: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  legendElement: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 5,
+    paddingLeft: 5,
+    width: '100%',
+
+    borderRadius: 25,
+    backgroundColor: '#333333',
+  },
+  legendMembers: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+
+    backgroundColor: 'green',
+  },
+  legendMembersInactive: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+    borderColor: 'green',
+    borderWidth: 1,
+
+    backgroundColor: '#cccccc',
+  },
+  legendActivities: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+
+    backgroundColor: 'red',
+  },
+  legendActivitiesInactive: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+    borderColor: 'red',
+    borderWidth: 1,
+
+    backgroundColor: '#cccccc',
+  },
+  legendCommunities: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+
+    backgroundColor: 'orange',
+  },
+  legendTitle: {
+    padding: 5,
+    fontSize: 18,
+    color: 'white',
+    textAlign: 'center',
+  },
+
   map: {
     width: '100%',
     height: '100%',
@@ -387,117 +522,6 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     tintColor: '#5555ff',
-  },
-
-  bottomPanel: {
-    margin: 0,
-
-    paddingTop: 10,
-    paddingLeft: 5,
-
-    borderTopEndRadius: 25,
-    borderTopStartRadius: 25,
-
-    backgroundColor: 'black',
-  },
-  inputPanel: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 40,
-  },
-  searchIcon: {
-    height: 30,
-    width: 30,
-    marginTop: 5,
-    marginLeft: 10,
-    zIndex: 1,
-  },
-  searchInput: {
-    flex: 5,
-    marginLeft: -35,
-    marginRight: 5,
-    paddingRight: 5,
-    paddingLeft: 35,
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
-    backgroundColor: 'black',
-    borderColor: '#bbbbbb',
-    borderWidth: 2,
-    borderRadius: 15,
-  },
-  placeholderTextColor: '#aaaaaa',
-  iconActivities: {
-    height: 40,
-    width: 40,
-    marginLeft: 5,
-    marginRight: 5,
-    tintColor: '#5555ff',
-  },
-
-  legend: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  legendElement: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: 5,
-    padding: 5,
-    width: '100%',
-
-    borderRadius: 25,
-    backgroundColor: '#333333',
-  },
-  legendMembers: {
-    width: 18,
-    height: 18,
-
-    borderRadius: 20,
-
-    backgroundColor: 'green',
-  },
-  legendMembersInactive: {
-    width: 18,
-    height: 18,
-
-    borderRadius: 20,
-    borderColor: 'green',
-    borderWidth: 1,
-
-    backgroundColor: '#cccccc',
-  },
-  legendActivities: {
-    width: 18,
-    height: 18,
-
-    borderRadius: 20,
-
-    backgroundColor: 'red',
-  },
-  legendActivitiesInactive: {
-    width: 18,
-    height: 18,
-
-    borderRadius: 20,
-    borderColor: 'red',
-    borderWidth: 1,
-
-    backgroundColor: '#cccccc',
-  },
-  legendCommunities: {
-    width: 18,
-    height: 18,
-
-    borderRadius: 20,
-
-    backgroundColor: 'orange',
-  },
-  legendTitle: {
-    padding: 0,
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'center',
   },
 
   // modal
