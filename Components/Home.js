@@ -9,7 +9,6 @@ import {
   Modal,
   Text,
   FlatList,
-  Animated,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useIsFocused} from '@react-navigation/native';
@@ -18,7 +17,6 @@ import MapboxGL from '@rnmapbox/maps';
 
 import axios from 'axios';
 import {ViewActivity, ViewMember} from '.';
-import {Styles} from './Common/Styles';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
@@ -225,20 +223,39 @@ export default function Home({navigation, user, setUser}) {
   );
 
   const results = searchText !== '' && (
-    <View style={Styles.searchResults}>
-      <Text style={Styles.resultsTitle}>Hello</Text>
-      <FlatList
-        data={searchResults}
-        renderItem={({item}) => (
-          <Pressable style={Styles.box} key={item._id}>
-            <Text style={Styles.title}>{item.name}</Text>
-          </Pressable>
-        )}
-        keyExtractor={item => item._id}
-      />
+    <View style={styles.searchResults}>
+      <Text style={styles.resultsTitle}>Hello</Text>
+      {searchResults.map(item => (
+        <Pressable
+          onPress={() =>
+            setModalcontent(
+              item.type === 'member' ? (
+                <ViewMember id={item._id} />
+              ) : (
+                <ViewActivity id={item._id} />
+              ),
+            )
+          }>
+          <Text style={styles.resultsTitle}>{item.name}</Text>
+        </Pressable>
+      ))}
+
       <Text style={styles.resultsTitle}>Results</Text>
+      <Text style={styles.resultsTitle}>{JSON.stringify(searchResults)}</Text>
     </View>
   );
+
+  const getSearchResults = async () => {
+    const {data} = await axios.get('search/' + searchText);
+    setSearchResults(data);
+  };
+
+  useEffect(() => {
+    if (searchText.length > 3) {
+      getSearchResults();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchText]);
 
   const getMapItems = async () => {
     const {data} = await axios.get('map/');
@@ -362,7 +379,7 @@ const styles = StyleSheet.create({
   },
 
   searchResults: {
-    flex: 1,
+    height: '100%',
   },
   resultsTitle: {
     fontSize: 25,
