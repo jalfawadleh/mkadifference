@@ -8,7 +8,6 @@ import {
   Pressable,
   Modal,
   Text,
-  FlatList,
   ScrollView,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -27,7 +26,7 @@ MapboxGL.setTelemetryEnabled(false);
 export default function Home({navigation, user, setUser}) {
   const focused = useIsFocused();
 
-  const [mapCenter, setMapCenter] = useState(user.location);
+  // const [mapCenter, setMapCenter] = useState(user.location);
 
   const [darkmood, setDarkMood] = useState(user.darkmood);
 
@@ -326,7 +325,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 25,
     borderTopStartRadius: 25,
 
-    backgroundColor: 'black',
+    backgroundColor: '#222222',
   },
   containerSearchShow: {
     top: 35,
@@ -334,28 +333,33 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 25,
     borderTopStartRadius: 25,
 
-    backgroundColor: 'black',
+    backgroundColor: '#222222',
   },
 
   bottomPanel: {
     margin: 0,
-    padding: 5,
-
-    backgroundColor: 'black',
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   inputPanel: {
+    margin: 0,
+    padding: 0,
+
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   searchIcon: {
-    height: 30,
-    width: 30,
     marginTop: 5,
     marginLeft: 10,
+    padding: 0,
+
+    height: 30,
+    width: 30,
+
     zIndex: 1,
   },
   searchInput: {
-    flex: 5,
+    flex: 1,
     marginLeft: -35,
     marginRight: 5,
     paddingRight: 5,
@@ -363,7 +367,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    backgroundColor: 'black',
+    backgroundColor: '#111111',
     borderColor: '#bbbbbb',
     borderWidth: 2,
     borderRadius: 15,
@@ -381,8 +385,8 @@ const styles = StyleSheet.create({
     width: 35,
     margin: 5,
     tintColor: '#dddddd',
-    backgroundColor: '#777777',
-    borderRadius: 40,
+    backgroundColor: '#666666',
+    borderRadius: 35,
   },
 
   searchResults: {
