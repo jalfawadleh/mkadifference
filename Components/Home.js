@@ -176,12 +176,18 @@ export default function Home({navigation, user, setUser}) {
         value={searchText}
         autoCapitalize="none"
       />
-      <Pressable onPress={() => navigation.navigate('Activities')}>
-        <Image
-          style={styles.iconActivities}
-          source={require('./img/activities.png')}
-        />
-      </Pressable>
+      {searchText === '' ? (
+        <Pressable onPress={() => navigation.navigate('Activities')}>
+          <Image
+            style={styles.iconActivities}
+            source={require('./img/activities.png')}
+          />
+        </Pressable>
+      ) : (
+        <Pressable onPress={() => setSearchText('')}>
+          <Image style={styles.iconClose} source={require('./img/close.png')} />
+        </Pressable>
+      )}
     </View>
   );
 
@@ -345,6 +351,14 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     tintColor: '#5555ff',
+  },
+  iconClose: {
+    height: 35,
+    width: 35,
+    margin: 5,
+    tintColor: '#dddddd',
+    backgroundColor: '#777777',
+    borderRadius: 40,
   },
 
   searchResults: {
