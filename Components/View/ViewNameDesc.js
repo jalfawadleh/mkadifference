@@ -6,7 +6,10 @@ export default function ViewNameDesc({element = []}) {
   return (
     <View style={Styles.container}>
       <View style={Styles.box}>
-        <Text style={styles.caption}>{element.name}</Text>
+        {element.name && <Text style={styles.caption}>{element.name}</Text>}
+        {element.username && (
+          <Text style={styles.caption}>{element.username}</Text>
+        )}
       </View>
       {element.description && (
         <View style={Styles.box}>

@@ -14,7 +14,7 @@ MapboxGL.setAccessToken(
 );
 MapboxGL.setTelemetryEnabled(false);
 
-export default function Location({loc = [0, 0], setElement}) {
+export default function EditLocation({loc = [0, 0], setElement}) {
   const [mapWidth, setMapWidth] = useState(200);
 
   return (

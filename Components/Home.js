@@ -224,6 +224,12 @@ export default function Home({navigation, user, setUser}) {
           <Text style={styles.legendTitle}>Communities</Text>
         </View>
       </Pressable>
+      <Pressable>
+        <View style={styles.legendElement}>
+          <View style={styles.legendUnions} />
+          <Text style={styles.legendTitle}>Unions</Text>
+        </View>
+      </Pressable>
     </View>
   );
 
@@ -361,13 +367,17 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     marginLeft: -35,
-    marginRight: 5,
     paddingRight: 5,
     paddingLeft: 35,
+
+    height: 40,
+
     fontSize: 20,
     fontWeight: 'bold',
+
     color: 'white',
     backgroundColor: '#111111',
+
     borderColor: '#bbbbbb',
     borderWidth: 2,
     borderRadius: 15,
@@ -381,9 +391,11 @@ const styles = StyleSheet.create({
     tintColor: '#5555ff',
   },
   iconClose: {
-    height: 35,
-    width: 35,
-    margin: 5,
+    height: 28,
+    width: 28,
+    marginTop: 6,
+    marginLeft: -35,
+    marginRight: 5,
     tintColor: '#dddddd',
     backgroundColor: '#666666',
     borderRadius: 35,
@@ -400,7 +412,8 @@ const styles = StyleSheet.create({
 
   legend: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
   },
   legendElement: {
     flexDirection: 'row',
@@ -411,6 +424,12 @@ const styles = StyleSheet.create({
 
     borderRadius: 25,
     backgroundColor: '#333333',
+  },
+  legendTitle: {
+    padding: 5,
+    fontSize: 18,
+    color: 'white',
+    textAlign: 'center',
   },
   legendMembers: {
     width: 18,
@@ -456,11 +475,13 @@ const styles = StyleSheet.create({
 
     backgroundColor: 'orange',
   },
-  legendTitle: {
-    padding: 5,
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'center',
+  legendUnions: {
+    width: 18,
+    height: 18,
+
+    borderRadius: 20,
+
+    backgroundColor: '#0000ff',
   },
 
   map: {

@@ -69,3 +69,5 @@ https://www.color-hex.com/color-palette/99159
 #212124 (33,33,36)
 #ffffff (255,255,255)
 #818181 (129,129,129)
+
+https://mongoosejs.com/docs/api/aggregate.html#Aggregate()

@@ -13,8 +13,8 @@ export {default as Profile} from './Profile';
 export {default as Messages} from './Messages';
 export {default as Updates} from './Updates';
 
-export {default as Location} from './Common/Location';
+export {default as EditLocation} from './Common/EditLocation';
 export {default as EditStackText} from './Edit/EditStackText';
-export {default as Hidden} from './Common/Hidden';
+export {default as EditHidden} from './Edit/EditHidden';
 export {default as DarkMood} from './Common/DarkMood';
 export {default as EditNameDesc} from './Edit/EditNameDesc';
