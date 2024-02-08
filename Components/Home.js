@@ -1,70 +1,17 @@
-// import axios from 'axios';
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Image,
-  View,
-  Pressable,
-  Modal,
-  Text,
-  ScrollView,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {StyleSheet, Image, View, Pressable} from 'react-native';
 
-import {ViewMap, ViewActivity, ViewMember} from '.';
-import ViewMapLegend from './View/ViewMapLegend';
+import {ViewMapLegend, ViewMap, ViewModal, Search, Messages, Updates} from '.';
 
 export default function Home({navigation, user, setUser}) {
   // const [mapCenter, setMapCenter] = useState(user.location);
 
   const [darkmood, setDarkMood] = useState(user.darkmood);
 
-  const [modalContent, setModalcontent] = useState('');
+  const [modalContent, setModalContent] = useState('');
 
   const [showMembers, setShowMembers] = useState(true);
   const [showActivities, setShowActivities] = useState(true);
-
-  const modal = (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalContent ? true : false}
-      onRequestClose={() => setModalcontent('')}>
-      <SafeAreaView style={styles.centeredView}>
-        <ScrollView>
-          <View style={styles.modalView}>
-            {modalContent ? modalContent : ''}
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalcontent('')}>
-              <Text style={styles.textStyle}>Close</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Modal>
-  );
-
-  // const topRightMenu = (
-  //   <View style={styles.topRightMenu}>
-  //     <Pressable
-  //       style={styles.rightMenuIcon}
-  //       onPress={() => navigation.navigate('Updates')}>
-  //       <Image
-  //         style={styles.iconUpdates}
-  //         source={require('./img/updates.png')}
-  //       />
-  //     </Pressable>
-  //     <Pressable
-  //       style={styles.rightMenuIcon}
-  //       onPress={() => navigation.navigate('Messages')}>
-  //       <Image
-  //         style={styles.iconMessages}
-  //         source={require('./img/messages.png')}
-  //       />
-  //     </Pressable>
-  //   </View>
-  // );
 
   return (
     <>
@@ -72,9 +19,10 @@ export default function Home({navigation, user, setUser}) {
         user={user}
         showMembers={showMembers}
         showActivities={showActivities}
-        setModalcontent={setModalcontent}
+        setModalcontent={setModalContent}
         darkmood={darkmood}
       />
+
       <View style={styles.darkmoodSwitch}>
         <Pressable onPress={() => setDarkMood(!darkmood)}>
           <Image
@@ -83,7 +31,11 @@ export default function Home({navigation, user, setUser}) {
           />
         </Pressable>
       </View>
-      {modal}
+
+      <ViewModal
+        modalContent={modalContent}
+        setModalcontent={setModalContent}
+      />
 
       <View style={styles.container}>
         <ViewMapLegend
@@ -93,13 +45,13 @@ export default function Home({navigation, user, setUser}) {
           setShowActivities={setShowActivities}
         />
         <View style={styles.bottomMenu}>
-          <Pressable onPress={() => navigation.navigate('Search')}>
+          <Pressable onPress={() => setModalContent(<Search user={user} />)}>
             <Image style={styles.icon} source={require('./img/search.png')} />
           </Pressable>
-          <Pressable onPress={() => navigation.navigate('Updates')}>
+          <Pressable onPress={() => setModalContent(<Updates user={user} />)}>
             <Image style={styles.icon} source={require('./img/updates.png')} />
           </Pressable>
-          <Pressable onPress={() => navigation.navigate('Messages')}>
+          <Pressable onPress={() => setModalContent(<Messages user={user} />)}>
             <Image style={styles.icon} source={require('./img/messages.png')} />
           </Pressable>
           <Pressable onPress={() => navigation.navigate('Activities')}>
@@ -161,39 +113,5 @@ const styles = StyleSheet.create({
     tintColor: 'yellow',
 
     borderRadius: 25,
-  },
-
-  // modal
-  centeredView: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  modalView: {
-    top: 25,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 10,
-    alignItems: 'center',
-    opacity: 0.9,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
   },
 });

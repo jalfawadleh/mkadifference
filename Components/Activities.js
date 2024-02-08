@@ -4,8 +4,9 @@ import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 
 import {Styles} from './Common/Styles';
+import {ViewActivity} from '.';
 
-export default function Activities({navigation}) {
+export default function Activities({navigation, SetModalContent}) {
   const focused = useIsFocused();
 
   const [activities, setActivities] = useState([]);
@@ -45,7 +46,12 @@ export default function Activities({navigation}) {
               <Button
                 title="View"
                 onPress={() => {
-                  navigation.navigate('ViewActivity', {id: item._id});
+                  SetModalContent(
+                    <ViewActivity
+                      id={item._id}
+                      SetModalContent={SetModalContent}
+                    />,
+                  );
                 }}
               />
               <Button
