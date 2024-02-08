@@ -9,6 +9,7 @@ export default function ViewModal({modalContent}) {
   useEffect(() => {
     setContent(modalContent);
   }, [modalContent]);
+
   return (
     <Modal
       animationType="slide"
@@ -18,7 +19,7 @@ export default function ViewModal({modalContent}) {
     >
       <SafeAreaView style={styles.centeredView}>
         <View style={styles.modalView}>
-          {content ? content : ''}
+          {content}
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => setContent('')}>
