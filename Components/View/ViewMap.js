@@ -1,29 +1,28 @@
-// import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Image, View, Pressable} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 
 import MapboxGL from '@rnmapbox/maps';
 
 import axios from 'axios';
-import {ViewActivity, ViewMember} from '.';
+
+import {ViewActivity, ViewMember} from '..';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',
 );
 MapboxGL.setTelemetryEnabled(false);
 
-export default function Map({
+export default function ViewMap({
   user,
   showMembers,
   showActivities,
   setModalcontent,
+  darkmood,
 }) {
   const focused = useIsFocused();
 
   // const [mapCenter, setMapCenter] = useState(user.location);
-
-  const [darkmood, setDarkMood] = useState(user.darkmood);
 
   const [membersPoints, setMembersPoints] = useState({
     type: 'FeatureCollection',
@@ -123,14 +122,6 @@ export default function Map({
           config={{lightPreset: darkmood ? 'night' : 'day'}}
         />
       </MapboxGL.MapView>
-      <View style={styles.darkmoodSwitch}>
-        <Pressable onPress={() => setDarkMood(!darkmood)}>
-          <Image
-            style={styles.iconDarkmood}
-            source={require('./img/dark.png')}
-          />
-        </Pressable>
-      </View>
     </>
   );
 }

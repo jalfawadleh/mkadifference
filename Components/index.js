@@ -10,6 +10,7 @@ export {default as Activities} from './Activities';
 
 export {default as ViewActivity} from './View/ViewActivity';
 export {default as ViewMember} from './View/ViewMember';
+export {default as ViewMap} from './View/ViewMap';
 
 export {default as ViewStackText} from './View/ViewStackText';
 export {default as ViewNameDesc} from './View/ViewNameDesc';
