@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
-  TextInput,
   Image,
   View,
   Pressable,
@@ -30,9 +29,6 @@ export default function Home({navigation, user, setUser}) {
 
   const [darkmood, setDarkMood] = useState(user.darkmood);
 
-  const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-
   const [modalContent, setModalcontent] = useState('');
 
   const [membersPoints, setMembersPoints] = useState({
@@ -54,16 +50,6 @@ export default function Home({navigation, user, setUser}) {
       animationDuration={0}
       pitch={0}
       bearing={0}
-    />
-  );
-
-  const styleImport = (
-    <MapboxGL.StyleImport
-      id="basemap"
-      existing
-      config={{
-        lightPreset: darkmood ? 'night' : 'day',
-      }}
     />
   );
 
@@ -128,69 +114,50 @@ export default function Home({navigation, user, setUser}) {
     </Modal>
   );
 
-  const topLeftMenu = (
-    <View style={styles.topLeftMenu}>
-      <Pressable onPress={() => setDarkMood(!darkmood)}>
-        <Image style={styles.iconDarkmood} source={require('./img/dark.png')} />
-      </Pressable>
-    </View>
-  );
+  // const topRightMenu = (
+  //   <View style={styles.topRightMenu}>
+  //     <Pressable
+  //       style={styles.rightMenuIcon}
+  //       onPress={() => navigation.navigate('Updates')}>
+  //       <Image
+  //         style={styles.iconUpdates}
+  //         source={require('./img/updates.png')}
+  //       />
+  //     </Pressable>
+  //     <Pressable
+  //       style={styles.rightMenuIcon}
+  //       onPress={() => navigation.navigate('Messages')}>
+  //       <Image
+  //         style={styles.iconMessages}
+  //         source={require('./img/messages.png')}
+  //       />
+  //     </Pressable>
+  //   </View>
+  // );
 
-  const topRightMenu = (
-    <View style={styles.topRightMenu}>
-      <Pressable
-        style={styles.rightMenuIcon}
-        onPress={() => navigation.navigate('Profile')}>
+  const bottomMenu = (
+    <View style={styles.bottomMenu}>
+      <Pressable onPress={() => navigation.navigate('Search')}>
+        <Image style={styles.icon} source={require('./img/search.png')} />
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Activities')}>
+        <Image style={styles.icon} source={require('./img/activities.png')} />
+      </Pressable>
+
+      <Pressable onPress={() => navigation.navigate('Updates')}>
+        <Image style={styles.icon} source={require('./img/updates.png')} />
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Messages')}>
+        <Image style={styles.icon} source={require('./img/messages.png')} />
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Activities')}>
         <Image
-          style={styles.iconProfile}
+          style={styles.profileIcon}
           source={{
             uri: `https://api.multiavatar.com/${user.username}.png`,
           }}
         />
       </Pressable>
-      <Pressable
-        style={styles.rightMenuIcon}
-        onPress={() => navigation.navigate('Updates')}>
-        <Image
-          style={styles.iconUpdates}
-          source={require('./img/updates.png')}
-        />
-      </Pressable>
-      <Pressable
-        style={styles.rightMenuIcon}
-        onPress={() => navigation.navigate('Messages')}>
-        <Image
-          style={styles.iconMessages}
-          source={require('./img/messages.png')}
-        />
-      </Pressable>
-    </View>
-  );
-
-  const bottomPanel = (
-    <View style={styles.inputPanel}>
-      <Image style={styles.searchIcon} source={require('./img/search.png')} />
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search"
-        placeholderTextColor={styles.placeholderTextColor}
-        onChangeText={setSearchText}
-        // onEndEditing={setSearch}
-        value={searchText}
-        autoCapitalize="none"
-      />
-      {searchText === '' ? (
-        <Pressable onPress={() => navigation.navigate('Activities')}>
-          <Image
-            style={styles.iconActivities}
-            source={require('./img/activities.png')}
-          />
-        </Pressable>
-      ) : (
-        <Pressable onPress={() => setSearchText('')}>
-          <Image style={styles.iconClose} source={require('./img/close.png')} />
-        </Pressable>
-      )}
     </View>
   );
 
@@ -224,50 +191,8 @@ export default function Home({navigation, user, setUser}) {
           <Text style={styles.legendTitle}>Communities</Text>
         </View>
       </Pressable>
-      <Pressable>
-        <View style={styles.legendElement}>
-          <View style={styles.legendUnions} />
-          <Text style={styles.legendTitle}>Unions</Text>
-        </View>
-      </Pressable>
     </View>
   );
-
-  const results = searchText !== '' && (
-    <View style={styles.searchResults}>
-      <ScrollView>
-        {searchResults.map(item => (
-          <Pressable
-            key={item._id}
-            onPress={() =>
-              setModalcontent(
-                item.type === 'member' ? (
-                  <ViewMember id={item._id} />
-                ) : (
-                  <ViewActivity id={item._id} />
-                ),
-              )
-            }>
-            <Text style={styles.resultsTitle}>{item.name}</Text>
-          </Pressable>
-        ))}
-      </ScrollView>
-    </View>
-  );
-
-  const getSearchResults = async () => {
-    const {data} = await axios.get('search/' + searchText);
-    setSearchResults(data);
-  };
-
-  useEffect(() => {
-    if (searchText.length > 3) {
-      getSearchResults();
-    } else {
-      setSearchResults([]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchText]);
 
   const getMapItems = async () => {
     const {data} = await axios.get('map/');
@@ -302,21 +227,26 @@ export default function Home({navigation, user, setUser}) {
         {showActivities && activities}
 
         {/* code to change to darkmood */}
-        {styleImport}
+        <MapboxGL.StyleImport
+          id="basemap"
+          existing
+          config={{lightPreset: darkmood ? 'night' : 'day'}}
+        />
       </MapboxGL.MapView>
-
-      {topLeftMenu}
-      {topRightMenu}
+      <View style={styles.darkmoodSwitch}>
+        <Pressable onPress={() => setDarkMood(!darkmood)}>
+          <Image
+            style={styles.iconDarkmood}
+            source={require('./img/dark.png')}
+          />
+        </Pressable>
+      </View>
       {modal}
 
       {!modalContent && (
-        <SafeAreaView
-          style={searchText ? styles.containerSearchShow : styles.container}>
-          <View style={styles.bottomPanel}>
-            {bottomPanel}
-            {legend}
-            {results}
-          </View>
+        <SafeAreaView style={styles.container}>
+          {legend}
+          {bottomMenu}
         </SafeAreaView>
       )}
     </>
@@ -327,106 +257,43 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 0,
+    width: '100%',
 
     borderTopEndRadius: 25,
     borderTopStartRadius: 25,
 
     backgroundColor: '#222222',
   },
-  containerSearchShow: {
-    top: 35,
-    flex: 1,
-    borderTopEndRadius: 25,
-    borderTopStartRadius: 25,
 
-    backgroundColor: '#222222',
-  },
-
-  bottomPanel: {
-    margin: 0,
-    paddingLeft: 5,
-    paddingRight: 5,
-  },
-  inputPanel: {
-    margin: 0,
-    padding: 0,
-
+  bottomMenu: {
+    marginBottom: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
   },
-  searchIcon: {
-    marginTop: 5,
-    marginLeft: 10,
-    padding: 0,
-
-    height: 30,
-    width: 30,
-
-    zIndex: 1,
-  },
-  searchInput: {
-    flex: 1,
-    marginLeft: -35,
-    paddingRight: 5,
-    paddingLeft: 35,
-
-    height: 40,
-
-    fontSize: 20,
-    fontWeight: 'bold',
-
-    color: 'white',
-    backgroundColor: '#111111',
-
-    borderColor: '#bbbbbb',
-    borderWidth: 2,
-    borderRadius: 15,
-  },
-  placeholderTextColor: '#aaaaaa',
-  iconActivities: {
+  icon: {
     height: 40,
     width: 40,
-    marginLeft: 5,
-    marginRight: 5,
-    tintColor: '#5555ff',
-  },
-  iconClose: {
-    height: 28,
-    width: 28,
-    marginTop: 6,
-    marginLeft: -35,
-    marginRight: 5,
     tintColor: '#dddddd',
-    backgroundColor: '#666666',
-    borderRadius: 35,
   },
-
-  searchResults: {
-    height: '100%',
-  },
-  resultsTitle: {
-    fontSize: 25,
-    color: 'white',
+  profileIcon: {
     height: 40,
+    width: 40,
   },
 
   legend: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    marginBottom: 15,
   },
   legendElement: {
     flexDirection: 'row',
     alignItems: 'center',
-    margin: 5,
-    paddingLeft: 5,
-    width: '100%',
 
     borderRadius: 25,
     backgroundColor: '#333333',
   },
   legendTitle: {
-    padding: 5,
+    marginLeft: 6,
     fontSize: 18,
     color: 'white',
     textAlign: 'center',
@@ -435,53 +302,45 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
 
-    borderRadius: 20,
+    borderRadius: 18,
 
-    backgroundColor: 'green',
+    backgroundColor: '#11dd11',
   },
   legendMembersInactive: {
     width: 18,
     height: 18,
 
-    borderRadius: 20,
-    borderColor: 'green',
-    borderWidth: 1,
+    borderRadius: 18,
+    borderColor: '#11dd11',
+    borderWidth: 2,
 
-    backgroundColor: '#cccccc',
+    backgroundColor: '#222222',
   },
   legendActivities: {
     width: 18,
     height: 18,
 
-    borderRadius: 20,
+    borderRadius: 18,
 
-    backgroundColor: 'red',
+    backgroundColor: '#ff1111',
   },
   legendActivitiesInactive: {
     width: 18,
     height: 18,
 
-    borderRadius: 20,
-    borderColor: 'red',
-    borderWidth: 1,
+    borderRadius: 18,
+    borderColor: '#ff1111',
+    borderWidth: 2,
 
-    backgroundColor: '#cccccc',
+    backgroundColor: '#222222',
   },
   legendCommunities: {
     width: 18,
     height: 18,
 
-    borderRadius: 20,
+    borderRadius: 18,
 
-    backgroundColor: 'orange',
-  },
-  legendUnions: {
-    width: 18,
-    height: 18,
-
-    borderRadius: 20,
-
-    backgroundColor: '#0000ff',
+    backgroundColor: '#11ffff',
   },
 
   map: {
@@ -493,56 +352,43 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   membersCircleLayer: {
-    circleRadius: 10,
-    circleColor: 'green',
-    circleStrokeWidth: 2,
-    circleStrokeColor: 'white',
+    circleRadius: 8,
+    circleColor: '#11bb11',
   },
   membersHeatmapLayer: {
-    heatmapRadius: 25,
+    heatmapRadius: 8,
     heatmapColor: [
       'interpolate',
       ['linear'],
       ['heatmap-density'],
       0,
-      'rgba(33,102,172,0)',
-      0.2,
-      'green',
-      0.6,
-      'rgb(44,219,44)',
+      'rgba(0,0,0,0)',
+      0.01,
+      '#11bb11',
       1,
-      'rgb(98,239,98)',
-      2,
-      'rgb(0,255,0)',
+      '#11bb11',
     ],
   },
   activitiesCircleLayer: {
-    circleRadius: 10,
-    circleColor: 'red',
-    circleStrokeWidth: 2,
-    circleStrokeColor: 'white',
+    circleRadius: 8,
+    circleColor: '#ff1111',
   },
   activitiesHeatmapLayer: {
-    heatmapRadius: 20,
-    heatmapOpacity: 0.85,
+    heatmapRadius: 8,
     heatmapColor: [
       'interpolate',
       ['linear'],
       ['heatmap-density'],
       0,
-      'rgba(33,102,172,0)',
-      0.2,
-      'red',
-      0.6,
-      'rgb(219,44,44)',
+      'rgba(0,0,0,0)',
+      0.01,
+      '#ff1111',
       1,
-      'rgb(239,98,98)',
-      2,
-      'rgb(255,0,0)',
+      '#ff1111',
     ],
   },
 
-  topLeftMenu: {
+  darkmoodSwitch: {
     position: 'absolute',
     padding: 5,
     left: 15,
@@ -551,17 +397,6 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: '#bbbb44',
     borderRadius: 50,
-  },
-  topRightMenu: {
-    position: 'absolute',
-    right: 15,
-    top: 35,
-    padding: 1,
-  },
-  rightMenuIcon: {
-    marginBottom: 10,
-    borderRadius: 40,
-    tintColor: 'black',
   },
   iconDarkmood: {
     height: 25,
@@ -572,21 +407,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 25,
   },
+
   iconProfile: {
     height: 40,
     width: 40,
   },
-  iconMessages: {
-    height: 40,
-    width: 40,
-    tintColor: '#5555ff',
-  },
-  iconUpdates: {
-    height: 40,
-    width: 40,
-    tintColor: '#5555ff',
-  },
-
   // modal
   centeredView: {
     flex: 1,

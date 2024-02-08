@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 
 import {Styles} from './Common/Styles';
-import {StackText, Hidden, DarkMood, Location} from '.';
+import {EditHidden, EditDarkmood, EditLocation, EditStackText} from '.';
 
 export default function Profile({navigation, user, setUser}) {
   const [member, setMember] = useState([{description: ''}]);
@@ -56,27 +56,27 @@ export default function Profile({navigation, user, setUser}) {
               style={Styles.textInput}
             />
           </View>
-          <StackText
+          <EditStackText
             type="languages"
             title="Languages"
             items={member.languages}
             setItem={setMember}
           />
-          <StackText
+          <EditStackText
             type="tags"
             title="Interests"
             items={member.tags}
             setItem={setMember}
           />
-          <StackText
+          <EditStackText
             type="help"
             title="Help offered or needed"
             items={member.help}
             setItem={setMember}
           />
-          <DarkMood element={member} setElement={setMember} />
-          <Hidden element={member} setElement={setMember} />
-          <Location loc={member.location} setElement={setMember} />
+          <EditDarkmood element={member} setElement={setMember} />
+          <EditHidden element={member} setElement={setMember} />
+          <EditLocation loc={member.location} setElement={setMember} />
         </ScrollView>
         <View style={Styles.rowButtons}>
           <Button title="Update" onPress={() => updateMember()} />

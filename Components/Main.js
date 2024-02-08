@@ -17,6 +17,8 @@ import {
   Updates,
   EditActivity,
   ViewActivity,
+  Search,
+  ViewMember,
 } from '.';
 
 const Stack = createNativeStackNavigator();
@@ -51,12 +53,7 @@ export default function Main() {
             <Stack.Screen name="Activities">
               {props => <Activities {...props} user={user} />}
             </Stack.Screen>
-            <Stack.Screen name="EditActivity">
-              {props => <EditActivity {...props} />}
-            </Stack.Screen>
-            <Stack.Screen name="ViewActivity">
-              {props => <ViewActivity {...props} />}
-            </Stack.Screen>
+
             <Stack.Screen name="Profile">
               {props => <Profile {...props} user={user} setUser={setUser} />}
             </Stack.Screen>
@@ -65,6 +62,18 @@ export default function Main() {
             </Stack.Screen>
             <Stack.Screen name="Updates">
               {props => <Updates {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="Search">
+              {props => <Search {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="EditActivity">
+              {props => <EditActivity {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="ViewActivity">
+              {props => <ViewActivity {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="ViewMember">
+              {props => <ViewMember {...props} />}
             </Stack.Screen>
           </Stack.Group>
         ) : (

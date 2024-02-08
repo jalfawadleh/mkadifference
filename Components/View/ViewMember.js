@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, ScrollView, Text} from 'react-native';
+import {SafeAreaView, ScrollView} from 'react-native';
 
 import {ViewStackText, ViewNameDesc} from '..';
 import {Styles} from '../Common/Styles';

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, SafeAreaView, Text, ScrollView, View} from 'react-native';
+import {SafeAreaView, ScrollView} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 
 import axios from 'axios';

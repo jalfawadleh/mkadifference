@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, Switch, Text, View} from 'react-native';
 
-import {Styles} from './Styles';
-export default function DarkMood({element = [], setElement}) {
+import {Styles} from '../Common/Styles';
+export default function EditDarkmood({element = [], setElement}) {
   return (
     <View style={Styles.box}>
       <Text style={styles.caption}>Dark Mood</Text>

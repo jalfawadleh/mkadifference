@@ -7,7 +7,7 @@ import {Text, View} from 'react-native';
 
 import MapboxGL from '@rnmapbox/maps';
 
-import {Styles} from './Styles';
+import {Styles} from '../Common/Styles';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiamFsZmF3YWRsZWgiLCJhIjoiY2xnb3NpNW80MHNudDN0bHVteDZjam16MCJ9.baLbNA0lmuBZCHnzv3kBkA',

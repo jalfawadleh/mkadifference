@@ -4,7 +4,7 @@ import {useIsFocused} from '@react-navigation/native';
 
 import axios from 'axios';
 
-import {Location, EditNameDesc, EditStackText, Hidden} from '..';
+import {EditLocation, EditNameDesc, EditStackText, EditHidden} from '..';
 import {Styles} from '../Common/Styles';
 
 export default function EditActivity({route, navigation}) {
@@ -78,8 +78,9 @@ export default function EditActivity({route, navigation}) {
           items={activity.help}
           setItem={setActivity}
         />
-        <Hidden element={activity} setElement={setActivity} />
-        <Location loc={activity.location} setElement={setActivity} />
+
+        <EditHidden element={activity} setElement={setActivity} />
+        <EditLocation loc={activity.location} setElement={setActivity} />
         {/* {activity.stages &&
         activity.stages.map(s => (
           <View style={Styles.rowInput} key={s._id}>
