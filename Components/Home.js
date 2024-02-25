@@ -48,13 +48,20 @@ export default function Home({navigation, user, setUser}) {
           <Pressable onPress={() => setModalContent(<Search user={user} />)}>
             <Image style={styles.icon} source={require('./img/search.png')} />
           </Pressable>
-          <Pressable onPress={() => setModalContent(<Updates user={user} />)}>
+          <Pressable onPress={() => navigation.navigate('Updates')}>
             <Image style={styles.icon} source={require('./img/updates.png')} />
           </Pressable>
-          <Pressable onPress={() => setModalContent(<Messages user={user} />)}>
+          <Pressable onPress={() => navigation.navigate('Messages')}>
             <Image style={styles.icon} source={require('./img/messages.png')} />
           </Pressable>
           <Pressable onPress={() => navigation.navigate('Activities')}>
+            <Image
+              style={styles.icon}
+              source={require('./img/activities.png')}
+            />
+          </Pressable>
+
+          <Pressable onPress={() => navigation.navigate('Profile')}>
             <Image
               style={styles.profileIcon}
               source={{

@@ -64,6 +64,10 @@ export default function Search({navigation}) {
   //   </View>
   // );
 
+  const viewSearchResults = () => {
+    return <Text>Hello</Text>;
+  };
+
   const getSearchResults = async () => {
     const {data} = await axios.get('search/' + searchText);
     setSearchResults(data);
@@ -79,35 +83,41 @@ export default function Search({navigation}) {
   }, [searchText]);
 
   return (
-    <SafeAreaView style={Styles.container}>
-      <ScrollView>
-        <View style={styles.inputPanel}>
-          <Image
-            style={styles.searchIcon}
-            source={require('./img/search.png')}
-          />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search"
-            placeholderTextColor={styles.placeholderTextColor}
-            onChangeText={setSearchText}
-            // onEndEditing={setSearch}
-            value={searchText}
-            autoCapitalize="none"
-          />
-          <Pressable onPress={() => setSearchText('')}>
-            <Image
-              style={styles.iconClose}
-              source={require('./img/close.png')}
-            />
-          </Pressable>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView style={styles.container}>
+      <View style={styles.inputPanel}>
+        <Image style={styles.searchIcon} source={require('./img/search.png')} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search"
+          placeholderTextColor={styles.placeholderTextColor}
+          onChangeText={setSearchText}
+          // onEndEditing={setSearch}
+          value={searchText}
+          autoCapitalize="none"
+        />
+        <Pressable onPress={() => setSearchText('')}>
+          <Image style={styles.iconClose} source={require('./img/close.png')} />
+        </Pressable>
+      </View>
+      <View style={styles.results}>
+        {searchResults.length > 0 ? (
+          searchResults.map(item => (
+            <View style={styles.result}>
+              <Text style={styles.resultName}>{item.name}</Text>
+            </View>
+          ))
+        ) : (
+          <Text style={styles.result}>Nothing found</Text>
+        )}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
   inputPanel: {
     margin: 0,
     padding: 0,
@@ -149,8 +159,21 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginLeft: -35,
     marginRight: 5,
-    tintColor: '#dddddd',
+    tintColor: '#ffffff',
     backgroundColor: '#666666',
     borderRadius: 35,
+  },
+
+  results: {
+    margin: 10,
+  },
+  result: {
+    margin: 5,
+    padding: 5,
+  },
+  resultName: {
+    width: '100%',
+    fontSize: 20,
+    color: 'white',
   },
 });

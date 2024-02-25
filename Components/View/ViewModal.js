@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Image, View, Pressable, Modal, Text} from 'react-native';
+import {StyleSheet, View, Pressable, Modal, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function ViewModal({modalContent}) {
@@ -20,10 +20,8 @@ export default function ViewModal({modalContent}) {
       <SafeAreaView style={styles.centeredView}>
         <View style={styles.modalView}>
           {content}
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setContent('')}>
-            <Text style={styles.textStyle}>Close</Text>
+          <Pressable style={styles.button} onPress={() => setContent('')}>
+            <Text style={styles.textStyle}>Hide</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -32,42 +30,32 @@ export default function ViewModal({modalContent}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-
-    borderTopEndRadius: 25,
-    borderTopStartRadius: 25,
-
-    backgroundColor: '#222222',
-  },
-
   // modal
   centeredView: {
     flex: 1,
     alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   modalView: {
+    width: '100%',
+    height: '80%',
     top: 25,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 10,
+    margin: 10,
+
     alignItems: 'center',
-    opacity: 0.9,
+
+    backgroundColor: '#222222',
+    opacity: 0.8,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 15,
+    margin: 5,
     padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
     backgroundColor: '#2196F3',
   },
   textStyle: {
+    fontSize: 18,
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
