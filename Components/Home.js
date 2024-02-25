@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Image, View, Pressable} from 'react-native';
 
-import {ViewMapLegend, ViewMap, ViewModal, Search, Messages, Updates} from '.';
+import {ViewMapLegend, ViewMap, ViewModal, Search} from '.';
 
 export default function Home({navigation, user, setUser}) {
   // const [mapCenter, setMapCenter] = useState(user.location);
@@ -45,7 +45,8 @@ export default function Home({navigation, user, setUser}) {
           setShowActivities={setShowActivities}
         />
         <View style={styles.bottomMenu}>
-          <Pressable onPress={() => setModalContent(<Search user={user} />)}>
+          <Pressable onPress={() => navigation.navigate('Search')}>
+            {/* <Pressable onPress={() => setModalContent(<Search user={user} />)}> */}
             <Image style={styles.icon} source={require('./img/search.png')} />
           </Pressable>
           <Pressable onPress={() => navigation.navigate('Updates')}>

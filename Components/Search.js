@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,8 +11,6 @@ import {
 // import {useIsFocused} from '@react-navigation/native';
 
 import axios from 'axios';
-
-import {Styles} from './Common/Styles';
 
 export default function Search({navigation}) {
   // const focused = useIsFocused();
@@ -64,10 +61,6 @@ export default function Search({navigation}) {
   //   </View>
   // );
 
-  const viewSearchResults = () => {
-    return <Text>Hello</Text>;
-  };
-
   const getSearchResults = async () => {
     const {data} = await axios.get('search/' + searchText);
     setSearchResults(data);
@@ -102,12 +95,24 @@ export default function Search({navigation}) {
       <View style={styles.results}>
         {searchResults.length > 0 ? (
           searchResults.map(item => (
-            <View style={styles.result}>
-              <Text style={styles.resultName}>{item.name}</Text>
+            <View style={styles.result} key={item._id}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate(
+                    item.type === 'activity' ? 'ViewActivity' : 'ViewMember',
+                    {id: item._id},
+                  )
+                }>
+                <Text style={styles.resultName}>
+                  {item.type === 'activity' ? item.name : item.username}
+                </Text>
+              </Pressable>
             </View>
           ))
         ) : (
-          <Text style={styles.result}>Nothing found</Text>
+          <View style={styles.result}>
+            <Text style={styles.resultName}>Nothing found</Text>
+          </View>
         )}
       </View>
     </ScrollView>
@@ -117,6 +122,8 @@ export default function Search({navigation}) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    padding: 10,
+    backgroundColor: '#111111',
   },
   inputPanel: {
     margin: 0,
@@ -165,7 +172,7 @@ const styles = StyleSheet.create({
   },
 
   results: {
-    margin: 10,
+    margin: 5,
   },
   result: {
     margin: 5,
@@ -174,6 +181,6 @@ const styles = StyleSheet.create({
   resultName: {
     width: '100%',
     fontSize: 20,
-    color: 'white',
+    color: '#dddddd',
   },
 });

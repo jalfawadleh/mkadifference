@@ -6,7 +6,7 @@ import {Styles} from '../Common/Styles';
 import axios from 'axios';
 import {useIsFocused} from '@react-navigation/native';
 
-export default function ViewMember({route = [], id}) {
+export default function ViewMember({route = [], id = ''}) {
   const focused = useIsFocused();
   const [error, setError] = useState('');
 
