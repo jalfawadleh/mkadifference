@@ -46,12 +46,7 @@ export default function Activities({navigation, SetModalContent}) {
               <Button
                 title="View"
                 onPress={() => {
-                  SetModalContent(
-                    <ViewActivity
-                      id={item._id}
-                      SetModalContent={SetModalContent}
-                    />,
-                  );
+                  navigation.navigate('ViewActivity', {id: item._id});
                 }}
               />
               <Button
